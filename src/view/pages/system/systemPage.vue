@@ -54,7 +54,7 @@
 <script>
 
     import { setToken, getToken } from '@/libs/util'
-    import { selectSystemPage } from '@/api/system'
+    import { selectSystemPage } from '@/api/system/system'
 
     export default {
 

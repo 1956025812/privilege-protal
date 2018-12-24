@@ -18,7 +18,7 @@
 <script>
 import LoginForm from '_c/login-form'
 import { mapActions } from 'vuex'
-
+import { setToken } from '@/libs/util'
 import { denglu } from '@/api/user'
 
 export default {
@@ -31,19 +31,19 @@ export default {
       'getUserInfo'
     ]),
     handleSubmit ({ userName, password }) {
-
       denglu(userName, password).then(res => {
-        alert(JSON.stringify(res));
-        if(res.code == 1) {
-          this.getUserInfo().then(res => {
-            this.$router.push({
-              name: this.$config.homeName
-            })
+        if (res.data.code == 1) {
+          // 将用户ID存储在本地
+          setToken(res.data.data.uid)
+
+          // 跳转
+          this.$router.push({
+            name: this.$config.homeName
           })
-        } else if(res.code == 0) {
-          alert(JSON.stringify(res.msg));
+        } else if (res.data.code == 0) {
+          alert(JSON.stringify(res.data.msg))
         }
-      });
+      })
     }
   }
 }

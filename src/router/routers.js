@@ -54,35 +54,25 @@ export default [
 
   {
     path: '/systemmanager',
-    name: '系统管理',
+    name: 'systemmanager',
     meta: {
       icon: 'logo-buffer',
-      title: '系统管理'
+      title: '系统管理',
+      showAlways: true 
     },
     component: Main,
     children: [
       {
-        path: 'sysuserpage',
-        name: ' 系统列表',
+        path: 'systempage',
+        name: ' systempage',
         meta: {
-          icon: '',
+          icon: 'md-add',
           title: '系统列表'
-        },
-        component: () => import('@/view/pages/system/systemPage.vue')
-      },
-      {
-        path: 'sysuserpage2',
-        name: '系统列表2',
-        meta: {
-          title: '系统列表2'
         },
         component: () => import('@/view/pages/system/systemPage.vue')
       }
     ]
   },
-
-
-
 
 
 

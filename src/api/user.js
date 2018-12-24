@@ -1,16 +1,18 @@
 import axios from '@/libs/api.request'
 
+/**
+ * 用户登录
+ */
 export const denglu = (username, password) => {
   return axios.request({
     url: '/user/denglu',
     method: 'get',
     params: {
-      username, 
+      username,
       password
     }
-  });
+  })
 }
-
 
 export const login = ({ userName, password }) => {
   const data = {

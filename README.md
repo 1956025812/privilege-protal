@@ -40,53 +40,18 @@ npm run build
 ```
 
 ## 简介
-&emsp;&emsp;iView admin是基于Vue.js，搭配使用[iView](https://www.iviewui.com) UI组件库形成的一套后台集成解决方案，由TalkingData前端可视化团队部分成员开发维护。iView admin遵守iView设计和开发约定，风格统一，设计考究，并且更多功能在不停开发中。
-如果您想查看iview-admin的更新动态，您可以到[更新日志](https://github.com/iview/iview-admin/releases)查看了解最新更新；如果您是新手，想快速入手iview-admin，您可以到[使用教程](https://github.com/iview/iview-admin/wiki)查看讲解；如果您想在线体验iview-admin，您可以到[在线访问](https://admin.iviewui.com/)体验。如果你只是想要一个清醒爽朗的界面，那你可以下载[简化版模板](https://github.com/iview/iview-admin/tree/template)来做开发。
+&emsp;&emsp;统一权限管理系统，采用iview-admin前台框架，后端采用springboot+mybatis+apollo。
 
 ## 功能
 
-- 登录/登出
-- 权限管理
-    - 列表过滤
-    - 权限切换
-- 多语言切换
-- 组件
-    - 富文本编辑器
-    - Markdown编辑器
-    - 城市级联
-    - 图片预览编辑
-    - 可拖拽列表
-    - 文件上传
-    - 数字渐变
-    - split-pane
-- 表单编辑
-    - 文章发布
-    - 工作流
-- 表格
-    - 可拖拽排序
-    - 可编辑表格
-        - 行内编辑
-        - 单元格编辑
-    - 可搜索表格
-    - 表格导出数据
-        - 导出为Csv文件
-        - 导出为Xls文件
-    - 表格转图片
-- 错误页面
-    - 403页面
-    - 404页面
-    - 500页面
-- 高级路由
-    - 动态路由
-    - 带参页面
-- 换肤
-- 收缩侧边栏
-- tag标签导航
-- 面包屑导航
-- 全屏/退出全屏
-- 锁屏
-- 消息中心
-- 个人中心
+- 系统管理
+    - 系统列表
+- 菜单管理
+    - 菜单列表
+- 角色管理
+    - 角色列表
+- 用户管理
+    - 用户列表            
 
 ## 文件结构
 ```shell

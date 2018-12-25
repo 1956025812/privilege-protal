@@ -13,7 +13,6 @@
                 </div>
                 <div class="div-supplieid" style="display: inline; margin-left:50px;">
                     <Button class="search-btn" @click="querySystemPage" type="primary" ><Icon type="search"/>查询</Button>
-                    <Button class="search-btn"  type="primary" style="margin-left:10px;"><Icon type="add"/>新增</Button>
                     <Button class="reset-btn" @click="reset" type="primary" style="margin-left:10px;" ><Icon type="search"/>重置</Button>
                 </div>
             </Row>
@@ -22,6 +21,18 @@
 
         <!-- 操作按钮 -->
         <div>
+            <Tooltip placement="top" content="新增">
+                <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-add" size='25'/></Button>
+            </Tooltip>
+            <Tooltip placement="top" content="修改">
+                <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-color-wand" size='25'/></Button>
+            </Tooltip>
+            <Tooltip placement="top" content="删除">
+                <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-close" size='25'/></Button>
+            </Tooltip>
+            <Tooltip placement="top" content="导入">
+                <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-arrow-round-forward" size='25' /></Button>
+            </Tooltip>
             <Tooltip placement="top" content="导出">
                 <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-download" size='25'/></Button>
             </Tooltip>
@@ -189,15 +200,12 @@
                         });
                     }
                 });
-
             }
-
         },
 
 
         // 初始化页面 页面加载的时候执行 
         created(){
-            
             // 初始化表格 
             let vm = this;  
             let currentPage = vm.currentPage;

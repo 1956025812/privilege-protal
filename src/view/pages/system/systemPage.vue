@@ -206,7 +206,7 @@
             let pageSize = vm.pageSize;   
             let systemName = '';   
             let systemKey = '';   
-            let loginUid = 0;
+            let loginUid = getToken();
 
             let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 

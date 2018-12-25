@@ -117,7 +117,7 @@
             querySystemPage() {
 
                 let vm = this;  
-                let currentPage = 1;
+                let currentPage = vm.currentPage;
                 let pageSize = vm.pageSize;   
                 let loginUid = getToken(); 
                 let systemName = vm.systemName; 
@@ -132,7 +132,6 @@
                         vm.systemTableData = res.data.data.items;  
                     }else if(res.data.code == 0) {
                         vm.$Notice.error({
-                            title: '请求系统分页列表失败',
                             desc: res.data.msg
                         });
                     }
@@ -160,18 +159,18 @@
                         vm.systemTableData = res.data.data.items;  
                     }else if(res.data.code == 0) {
                         vm.$Notice.error({
-                            title: '请求系统分页列表失败',
                             desc: res.data.msg
                         });
                     }
                 });
             },
 
+
             // 更换每页显示数据量
             changePageSize (size) {
 
                 let vm = this;  
-                let currentPage = 1;
+                let currentPage = vm.currentPage;
                 let pageSize = size;   
                 let loginUid = getToken(); 
                 let systemName = vm.systemName; 
@@ -186,7 +185,6 @@
                         vm.systemTableData = res.data.data.items;  
                     }else if(res.data.code == 0) {
                         vm.$Notice.error({
-                            title: '请求系统分页列表失败',
                             desc: res.data.msg
                         });
                     }
@@ -201,13 +199,12 @@
         created(){
             
             // 初始化表格 
-            let vm = this;
-            let currentPage = 1;
+            let vm = this;  
+            let currentPage = vm.currentPage;
             let pageSize = vm.pageSize;   
-            let systemName = '';   
-            let systemKey = '';   
-            let loginUid = getToken();
-
+            let loginUid = getToken(); 
+            let systemName = vm.systemName; 
+            let systemKey = vm.systemKey;
             let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
             selectSystemPage(params).then(res => {
@@ -218,13 +215,14 @@
                     vm.systemTableData = res.data.data.items;  
                 }else if(res.data.code == 0) {
                     vm.$Notice.error({
-                        title: '请求系统分页列表失败',
                         desc: res.data.msg
                     });
                 }
             });
-
         }
     }
  
+
+    
+
 </script>

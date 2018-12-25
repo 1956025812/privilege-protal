@@ -66,7 +66,7 @@
                 systemKey: '',
                 totalCount: 0,
                 currentPage: 1,
-                pageSize: 1,
+                pageSize: 10,
 
                 columns: [
                     {
@@ -112,13 +112,13 @@
 
                 let vm = this;  
                 let currentPage = 1;
-                let pageSize = 2;   
+                let pageSize = vm.pageSize;   
                 let loginUid = getToken(); 
                 let systemName = vm.systemName; 
                 let systemKey = vm.systemKey;
                 let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
-                selectSystemPage(currentPage, pageSize, systemName, systemKey).then(res => {
+                selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
                         vm.totalCount = res.data.data.totalCount; 
                         vm.currentPage = res.data.data.currentPage;
@@ -146,7 +146,7 @@
                 let systemKey = vm.systemKey;
                 let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
-                selectSystemPage(currentPage, pageSize, systemName, systemKey).then(res => {
+                selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
                         vm.totalCount = res.data.data.totalCount; 
                         vm.currentPage = res.data.data.currentPage;
@@ -170,11 +170,14 @@
             // 初始化表格 
             let vm = this;
             let currentPage = 1;
-            let pageSize = 2;   
+            let pageSize = vm.pageSize;   
             let systemName = '';   
             let systemKey = '';   
             let loginUid = 0;
-            selectSystemPage(currentPage, pageSize, systemName, systemKey).then(res => {
+
+            let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
+
+            selectSystemPage(params).then(res => {
                 if(res.data.code == 1) {
                     vm.totalCount = res.data.data.totalCount; 
                     vm.currentPage = res.data.data.currentPage;

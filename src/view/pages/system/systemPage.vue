@@ -42,7 +42,8 @@
         
         <!-- 分页 -->
         <div style="float: right;">
-            <Page :total="totalCount" :current="currentPage" :page-size="pageSize" @on-change="changePage" show-total show-elevator></Page>
+            <Page :total="totalCount" :current="currentPage" :page-size="pageSize" show-total show-elevator show-sizer 
+                @on-change="changePage" @on-page-size-change="changePageSize"></Page>
         </div>
 
     </div>
@@ -73,6 +74,11 @@
                         type: 'selection',
                         key: 'uid',
                         width: 50,
+                        align: 'center'
+                    },
+                    {
+                        type: 'index',
+                        width: 80,
                         align: 'center'
                     },
                     {
@@ -159,6 +165,33 @@
                         });
                     }
                 });
+            },
+
+            // 更换每页显示数据量
+            changePageSize (size) {
+
+                let vm = this;  
+                let currentPage = 1;
+                let pageSize = size;   
+                let loginUid = getToken(); 
+                let systemName = vm.systemName; 
+                let systemKey = vm.systemKey;
+                let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
+
+                selectSystemPage(params).then(res => {
+                    if(res.data.code == 1) {
+                        vm.totalCount = res.data.data.totalCount; 
+                        vm.currentPage = res.data.data.currentPage;
+                        vm.pageSize = res.data.data.pageSize; 
+                        vm.systemTableData = res.data.data.items;  
+                    }else if(res.data.code == 0) {
+                        vm.$Notice.error({
+                            title: '请求系统分页列表失败',
+                            desc: res.data.msg
+                        });
+                    }
+                });
+
             }
 
         },

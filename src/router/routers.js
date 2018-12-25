@@ -66,7 +66,7 @@ export default [
         path: 'systempage',
         name: ' systempage',
         meta: {
-          icon: 'md-add',
+          icon: 'md-apps',
           title: '系统列表'
         },
         component: () => import('@/view/pages/system/systemPage.vue')

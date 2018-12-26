@@ -12,7 +12,7 @@
                     系统标识：<Input style="width: 200px" v-model="systemKey"/>
                 </div>
                 <div class="div-supplieid" style="display: inline; margin-left:50px;">
-                    <Button class="search-btn" @click="querySystemPage" type="primary" ><Icon type="search"/>查询</Button>
+                    <Button class="search-btn" @click="querySystemPage(1,10)" type="primary" ><Icon type="search"/>查询</Button>
                     <Button class="reset-btn" @click="reset" type="primary" style="margin-left:10px;" ><Icon type="search"/>重置</Button>
                 </div>
             </Row>
@@ -122,11 +122,11 @@
             },
 
 
-            // 查询系统分页列表
-            querySystemPage() {
+             /**
+             * 查询分页函数
+             */
+            querySystemPage(currentPage, pageSize) {
 
-                let currentPage = this.currentPage;
-                let pageSize = this.pageSize;   
                 let loginUid = getToken(); 
                 let systemName = this.systemName; 
                 let systemKey = this.systemKey;
@@ -134,7 +134,7 @@
 
                 selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
-                        this.totalCount = res.data.data.totalCount; 
+                        this.totalCount = res.data.data.totalCount;   
                         this.currentPage = res.data.data.currentPage;
                         this.pageSize = res.data.data.pageSize; 
                         this.systemTableData = res.data.data.items;  
@@ -147,85 +147,25 @@
             },
 
 
-
             // 换页 index为当前页码
-            changePage (index) {
-                
-                let currentPage = index;
-                let pageSize = this.pageSize;   
-                let loginUid = getToken(); 
-                let systemName = this.systemName; 
-                let systemKey = this.systemKey;
-                let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
-
-                selectSystemPage(params).then(res => {
-                    if(res.data.code == 1) {
-                        this.totalCount = res.data.data.totalCount; 
-                        this.currentPage = res.data.data.currentPage;
-                        this.pageSize = res.data.data.pageSize; 
-                        this.systemTableData = res.data.data.items;  
-                    }else if(res.data.code == 0) {
-                        this.$Notice.error({
-                            desc: res.data.msg
-                        });
-                    }
-                });
+            changePage (currentPage) {
+                this.$options.methods.querySystemPage.bind(this)(currentPage, this.pageSize);
             },
 
 
             // 更换每页显示数据量
-            changePageSize (size) {
-
-                let currentPage = this.currentPage;
-                let pageSize = size;   
-                let loginUid = getToken(); 
-                let systemName = this.systemName; 
-                let systemKey = this.systemKey;
-                let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
-
-                selectSystemPage(params).then(res => {
-                    if(res.data.code == 1) {
-                        this.totalCount = res.data.data.totalCount; 
-                        this.currentPage = res.data.data.currentPage;
-                        this.pageSize = res.data.data.pageSize; 
-                        this.systemTableData = res.data.data.items;  
-                    }else if(res.data.code == 0) {
-                        this.$Notice.error({
-                            desc: res.data.msg
-                        });
-                    }
-                });
+            changePageSize (pageSize) {
+                this.$options.methods.querySystemPage.bind(this)(this.currentPage, pageSize);
             }
+
         },
 
 
         // 初始化页面 页面加载的时候执行 
         created(){
-
-            // 初始化表格 
-            let currentPage = this.currentPage;
-            let pageSize = this.pageSize;   
-            let loginUid = getToken(); 
-            let systemName = this.systemName; 
-            let systemKey = this.systemKey;
-            let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
-
-            selectSystemPage(params).then(res => {
-                if(res.data.code == 1) {
-                    this.totalCount = res.data.data.totalCount; 
-                    this.currentPage = res.data.data.currentPage;
-                    this.pageSize = res.data.data.pageSize; 
-                    this.systemTableData = res.data.data.items;  
-                }else if(res.data.code == 0) {
-                    this.$Notice.error({
-                        desc: res.data.msg
-                    });
-                }
-            });
+            this.$options.methods.querySystemPage.bind(this)(this.currentPage, this.pageSize);
         }
     }
  
-
-    
 
 </script>

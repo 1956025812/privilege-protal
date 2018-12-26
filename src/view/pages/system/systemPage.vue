@@ -117,32 +117,29 @@
 
             // 重置查询条件
             reset() {
-                // 必须再次单独声明下this,不能直接使用this
-                let vm = this;  
-                vm.systemName = '';
-                vm.systemKey = '';
+                this.systemName = '';
+                this.systemKey = '';
             },
 
 
             // 查询系统分页列表
             querySystemPage() {
 
-                let vm = this;  
-                let currentPage = vm.currentPage;
-                let pageSize = vm.pageSize;   
+                let currentPage = this.currentPage;
+                let pageSize = this.pageSize;   
                 let loginUid = getToken(); 
-                let systemName = vm.systemName; 
-                let systemKey = vm.systemKey;
+                let systemName = this.systemName; 
+                let systemKey = this.systemKey;
                 let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
                 selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
-                        vm.totalCount = res.data.data.totalCount; 
-                        vm.currentPage = res.data.data.currentPage;
-                        vm.pageSize = res.data.data.pageSize; 
-                        vm.systemTableData = res.data.data.items;  
+                        this.totalCount = res.data.data.totalCount; 
+                        this.currentPage = res.data.data.currentPage;
+                        this.pageSize = res.data.data.pageSize; 
+                        this.systemTableData = res.data.data.items;  
                     }else if(res.data.code == 0) {
-                        vm.$Notice.error({
+                        this.$Notice.error({
                             desc: res.data.msg
                         });
                     }
@@ -154,22 +151,21 @@
             // 换页 index为当前页码
             changePage (index) {
                 
-                let vm = this;  
                 let currentPage = index;
-                let pageSize = vm.pageSize;   
+                let pageSize = this.pageSize;   
                 let loginUid = getToken(); 
-                let systemName = vm.systemName; 
-                let systemKey = vm.systemKey;
+                let systemName = this.systemName; 
+                let systemKey = this.systemKey;
                 let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
                 selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
-                        vm.totalCount = res.data.data.totalCount; 
-                        vm.currentPage = res.data.data.currentPage;
-                        vm.pageSize = res.data.data.pageSize; 
-                        vm.systemTableData = res.data.data.items;  
+                        this.totalCount = res.data.data.totalCount; 
+                        this.currentPage = res.data.data.currentPage;
+                        this.pageSize = res.data.data.pageSize; 
+                        this.systemTableData = res.data.data.items;  
                     }else if(res.data.code == 0) {
-                        vm.$Notice.error({
+                        this.$Notice.error({
                             desc: res.data.msg
                         });
                     }
@@ -180,22 +176,21 @@
             // 更换每页显示数据量
             changePageSize (size) {
 
-                let vm = this;  
-                let currentPage = vm.currentPage;
+                let currentPage = this.currentPage;
                 let pageSize = size;   
                 let loginUid = getToken(); 
-                let systemName = vm.systemName; 
-                let systemKey = vm.systemKey;
+                let systemName = this.systemName; 
+                let systemKey = this.systemKey;
                 let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
                 selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
-                        vm.totalCount = res.data.data.totalCount; 
-                        vm.currentPage = res.data.data.currentPage;
-                        vm.pageSize = res.data.data.pageSize; 
-                        vm.systemTableData = res.data.data.items;  
+                        this.totalCount = res.data.data.totalCount; 
+                        this.currentPage = res.data.data.currentPage;
+                        this.pageSize = res.data.data.pageSize; 
+                        this.systemTableData = res.data.data.items;  
                     }else if(res.data.code == 0) {
-                        vm.$Notice.error({
+                        this.$Notice.error({
                             desc: res.data.msg
                         });
                     }
@@ -206,23 +201,23 @@
 
         // 初始化页面 页面加载的时候执行 
         created(){
+
             // 初始化表格 
-            let vm = this;  
-            let currentPage = vm.currentPage;
-            let pageSize = vm.pageSize;   
+            let currentPage = this.currentPage;
+            let pageSize = this.pageSize;   
             let loginUid = getToken(); 
-            let systemName = vm.systemName; 
-            let systemKey = vm.systemKey;
+            let systemName = this.systemName; 
+            let systemKey = this.systemKey;
             let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
             selectSystemPage(params).then(res => {
                 if(res.data.code == 1) {
-                    vm.totalCount = res.data.data.totalCount; 
-                    vm.currentPage = res.data.data.currentPage;
-                    vm.pageSize = res.data.data.pageSize; 
-                    vm.systemTableData = res.data.data.items;  
+                    this.totalCount = res.data.data.totalCount; 
+                    this.currentPage = res.data.data.currentPage;
+                    this.pageSize = res.data.data.pageSize; 
+                    this.systemTableData = res.data.data.items;  
                 }else if(res.data.code == 0) {
-                    vm.$Notice.error({
+                    this.$Notice.error({
                         desc: res.data.msg
                     });
                 }

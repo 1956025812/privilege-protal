@@ -6,10 +6,13 @@
         <Card :bordered="false" title="系统列表">
             <Row>
                 <div class="div-supplieid" style="display: inline;" >
-                    系统名称：<Input style="width: 200px" v-model="systemName"/>
+                    系统名称：<Input v-model="systemName" style="width: 200px" />
                 </div>
                 <div class="div-supplieid" style="display: inline;  margin-left:50px;" >
-                    系统标识：<Input style="width: 200px" v-model="systemKey"/>
+                    系统标识：<Input v-model="systemKey" style="width: 200px" />
+                </div>
+                 <div class="div-supplieid" style="display: inline;  margin-left:50px;" >
+                    创建时间：<DatePicker v-model="createTimeRange" type="datetimerange" style="width: 300px" format="yyyy-MM-dd HH:mm:ss"></DatePicker>
                 </div>
                 <div class="div-supplieid" style="display: inline; margin-left:50px;">
                     <Button class="search-btn" @click="querySystemPage(1,10)" type="primary" ><Icon type="search"/>查询</Button>
@@ -76,6 +79,7 @@
                 // 初始化变量
                 systemName: '',
                 systemKey: '',
+                createTimeRange: '',
                 totalCount: 0,
                 currentPage: 1,
                 pageSize: 10,
@@ -119,6 +123,7 @@
             reset() {
                 this.systemName = '';
                 this.systemKey = '';
+                this.createTimeRange = '';
             },
 
 
@@ -130,6 +135,10 @@
                 let loginUid = getToken(); 
                 let systemName = this.systemName; 
                 let systemKey = this.systemKey;
+
+                let createTimeRange = this.createTimeRange;
+                alert(createTimeRange);
+
                 let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
 
                 selectSystemPage(params).then(res => {
@@ -147,7 +156,7 @@
             },
 
 
-            // 换页 index为当前页码
+            // 换页
             changePage (currentPage) {
                 this.$options.methods.querySystemPage.bind(this)(currentPage, this.pageSize);
             },

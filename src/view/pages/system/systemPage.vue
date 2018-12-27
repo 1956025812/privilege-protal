@@ -117,7 +117,7 @@
 
         methods: {
 
-             /**
+            /**
              * 查询分页函数
              */
             querySystemPage(currentPage, pageSize) {
@@ -148,19 +148,25 @@
             },
 
 
-            // 换页
+            /**
+             * 换页
+             */
             changePage (currentPage) {
                 this.$options.methods.querySystemPage.bind(this)(currentPage, this.pageSize);
             },
 
 
-            // 更换每页显示数据量
+            /**
+             * 更换每页显示数据量
+             */
             changePageSize (pageSize) {
                 this.$options.methods.querySystemPage.bind(this)(this.currentPage, pageSize);
             },
 
 
-            // 重置查询条件
+            /**
+             * 重置查询条件
+             */
             reset() {
                 this.systemName = '';
                 this.systemKey = '';
@@ -171,7 +177,9 @@
         },
 
 
-        // 初始化页面 页面加载的时候执行 
+        /**
+         * 初始化页面 页面加载的时候执行 
+         */
         created(){
             this.$options.methods.querySystemPage.bind(this)(this.currentPage, this.pageSize);
         }

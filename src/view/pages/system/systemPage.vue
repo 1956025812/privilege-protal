@@ -12,7 +12,8 @@
                     系统标识：<Input v-model="systemKey" style="width: 200px" />
                 </div>
                  <div class="div-supplieid" style="display: inline;  margin-left:50px;" >
-                    创建时间：<DatePicker v-model="createTimeRange" type="datetimerange" style="width: 300px" format="yyyy-MM-dd HH:mm:ss"></DatePicker>
+                    创建时间：<DatePicker v-model="createTimeRange" type="datetimerange" style="width: 300px" format="yyyy-MM-dd HH:mm:ss"
+                               @on-change="createTimeRange=$event" ></DatePicker>
                 </div>
                 <div class="div-supplieid" style="display: inline; margin-left:50px;">
                     <Button class="search-btn" @click="querySystemPage(1,10)" type="primary" ><Icon type="search"/>查询</Button>
@@ -26,9 +27,6 @@
         <div>
             <Tooltip placement="top" content="新增">
                 <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-add" size='25'/></Button>
-            </Tooltip>
-            <Tooltip placement="top" content="修改">
-                <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-color-wand" size='25'/></Button>
             </Tooltip>
             <Tooltip placement="top" content="删除">
                 <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;"><Icon type="md-close" size='25'/></Button>
@@ -119,27 +117,21 @@
 
         methods: {
 
-            // 重置查询条件
-            reset() {
-                this.systemName = '';
-                this.systemKey = '';
-                this.createTimeRange = '';
-            },
-
-
              /**
              * 查询分页函数
              */
             querySystemPage(currentPage, pageSize) {
 
-                let loginUid = getToken(); 
-                let systemName = this.systemName; 
-                let systemKey = this.systemKey;
-
-                let createTimeRange = this.createTimeRange;
-                alert(createTimeRange);
-
-                let params = {currentPage:currentPage, pageSize:pageSize, loginUid:loginUid, systemName:systemName, systemKey:systemKey}; 
+                let params = new Object();
+                params.currentPage = currentPage;
+                params.pageSize = pageSize;
+                params.loginUid = getToken();
+                params.systemName = this.systemName;
+                params.systemKey = this.systemKey;
+                if(this.createTimeRange != null && this.createTimeRange != '') {
+                    params.startTime = this.createTimeRange.toString().split(",")[0];
+                    params.endTime = this.createTimeRange.toString().split(",")[1];  
+                }
 
                 selectSystemPage(params).then(res => {
                     if(res.data.code == 1) {
@@ -165,7 +157,16 @@
             // 更换每页显示数据量
             changePageSize (pageSize) {
                 this.$options.methods.querySystemPage.bind(this)(this.currentPage, pageSize);
-            }
+            },
+
+
+            // 重置查询条件
+            reset() {
+                this.systemName = '';
+                this.systemKey = '';
+                this.createTimeRange = '';
+                this.$options.methods.querySystemPage.bind(this)(1, 10);  
+            }, 
 
         },
 

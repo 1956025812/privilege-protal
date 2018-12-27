@@ -1,5 +1,5 @@
 <template>
-  <div id="sysuserPageDiv">
+  <div id="systemPageDiv">
     <!-- 查询条件 -->
     <Card :bordered="false" title="系统列表">
       <Row>
@@ -33,7 +33,11 @@
     <!-- 操作按钮 -->
     <div>
       <Tooltip placement="top" content="新增">
-        <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;">
+        <Button
+          class="export-btn"
+          style="border: none; appearance:none; margin-bottom: 5px;"
+          @click="openAddSystemModal"
+        >
           <Icon type="md-add" size="25"/>
         </Button>
       </Tooltip>
@@ -84,16 +88,22 @@
         @on-page-size-change="changePageSize"
       ></Page>
     </div>
+
+    <!-- 新增系统弹窗页面 -->
+    <system-add-modal-page style="display: block"></system-add-modal-page>
   </div>
 </template>
-
-
+  
 
 <script>
+import SystemAddModalPage from "@/view/pages/system/addSystemPage";
 import { setToken, getToken } from "@/libs/util";
 import { selectSystemPage } from "@/api/system/system";
 
 export default {
+  components: {
+    SystemAddModalPage
+  },
   data() {
     return {
       // 初始化变量
@@ -195,6 +205,13 @@ export default {
       this.systemKey = "";
       this.createTimeRange = "";
       this.$options.methods.querySystemPage.bind(this)(1, 10);
+    },
+
+    /**
+     * 打开新增系统弹窗
+     */
+    openAddSystemModal() {
+      alert(222);
     }
   },
 

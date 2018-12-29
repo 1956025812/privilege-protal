@@ -89,7 +89,7 @@
 <script>
 import SystemAddModalPage from "@/view/pages/system/addSystemPage";
 import { setToken, getToken } from "@/libs/util";
-import { selectSystemPage } from "@/api/system/system";
+import { selectSystemPageAPI } from "@/api/system/system";
 
 export default {
   components: {
@@ -154,7 +154,7 @@ export default {
         params.endTime = this.createTimeRange.toString().split(",")[1];
       }
 
-      selectSystemPage(params).then(res => {
+      selectSystemPageAPI(params).then(res => {
         if (res.data.code == 1) {
           this.totalCount = res.data.data.totalCount;
           this.currentPage = res.data.data.currentPage;

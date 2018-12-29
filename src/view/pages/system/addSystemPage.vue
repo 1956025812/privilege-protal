@@ -30,7 +30,7 @@
       <br>
       <Row>
         <div>系统描述：
-          <Input v-model="description" type="textarea" :autosize="true" style="width: 70%" />
+          <Input v-model="description" type="textarea" :autosize="true" style="width: 70%"/>
         </div>
       </Row>
     </Modal>
@@ -41,13 +41,14 @@
 
 <script>
 import { getToken } from "@/libs/util";
+import { saveSystemAPI } from "@/api/system/system";
 
 export default {
   name: "SystemAddModalPage",
   data() {
     return {
       systemAddModal: false,
-      systemName : "",
+      systemName: "",
       systemKey: "",
       description: ""
     };
@@ -55,11 +56,24 @@ export default {
 
   methods: {
     saveSystem() {
-      this.$Message.info("Clicked ok");
+      let params = new Object();
+      params.loginUid = getToken();
+      params.systemName = this.systemName;
+      params.systemKey = this.systemKey;
+      params.description = this.description;
+
+      saveSystemAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.$Message.info("res.data.msg");
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     },
-    cancel() {
-      this.$Message.info("Clicked cancel");
-    }
+
+    cancel() {}
   },
 
   created() {}

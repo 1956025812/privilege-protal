@@ -3,13 +3,13 @@
     <!-- 查询条件 -->
     <Card :bordered="false" title="系统列表">
       <Row>
-        <div class="div-supplieid" style="display: inline;">系统名称：
+        <div style="display: inline;">系统名称：
           <Input v-model="systemName" style="width: 200px"/>
         </div>
-        <div class="div-supplieid" style="display: inline;  margin-left:50px;">系统标识：
+        <div style="display: inline;  margin-left:50px;">系统标识：
           <Input v-model="systemKey" style="width: 200px"/>
         </div>
-        <div class="div-supplieid" style="display: inline;  margin-left:50px;">创建时间：
+        <div style="display: inline;  margin-left:50px;">创建时间：
           <DatePicker
             v-model="createTimeRange"
             type="datetimerange"
@@ -18,7 +18,7 @@
             @on-change="createTimeRange=$event"
           ></DatePicker>
         </div>
-        <div class="div-supplieid" style="display: inline; margin-left:50px;">
+        <div style="display: inline; margin-left:50px;">
           <Button class="search-btn" @click="querySystemPage(1,10)" type="primary">
             <Icon type="search"/>查询
           </Button>
@@ -33,13 +33,7 @@
     <!-- 操作按钮 -->
     <div>
       <Tooltip placement="top" content="新增">
-        <Button
-          class="export-btn"
-          style="border: none; appearance:none; margin-bottom: 5px;"
-          @click="openAddSystemModal"
-        >
-          <Icon type="md-add" size="25"/>
-        </Button>
+        <system-add-modal-page></system-add-modal-page>
       </Tooltip>
       <Tooltip placement="top" content="删除">
         <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;">
@@ -88,9 +82,6 @@
         @on-page-size-change="changePageSize"
       ></Page>
     </div>
-
-    <!-- 新增系统弹窗页面 -->
-    <system-add-modal-page style="display: block"></system-add-modal-page>
   </div>
 </template>
   

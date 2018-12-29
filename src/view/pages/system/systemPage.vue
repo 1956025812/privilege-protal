@@ -196,14 +196,8 @@ export default {
       this.systemKey = "";
       this.createTimeRange = "";
       this.$options.methods.querySystemPage.bind(this)(1, 10);
-    },
-
-    /**
-     * 打开新增系统弹窗
-     */
-    openAddSystemModal() {
-      alert(222);
     }
+
   },
 
   /**

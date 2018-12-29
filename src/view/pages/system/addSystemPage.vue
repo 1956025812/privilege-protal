@@ -64,7 +64,11 @@ export default {
 
       saveSystemAPI(params).then(res => {
         if (res.data.code == 1) {
-          this.$Message.info("res.data.msg");
+          this.$Notice.success({
+            desc: res.data.msg 
+          });
+          // 
+          alert("TODO 调用父方法 刷新列表页面");
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

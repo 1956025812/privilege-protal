@@ -15,10 +15,10 @@ export const selectSystemPageAPI = (params) => {
  * 新增系统
  */
 export const saveSystemAPI = (params) => {
-    alert(JSON.stringify(params));
     return axios.request({
         url: '/system/save',
         method: 'post',
-        params: JSON.stringify(params)
+        data: JSON.stringify(params),
+        headers: {'Content-Type': 'application/json'} 
     });
 }

@@ -69,7 +69,7 @@ export default [
           icon: 'md-apps',
           title: '系统列表'
         },
-        component: () => import('@/view/pages/system/systemPage.vue')
+        component: () => import('_p/system/systemPage.vue')
       }
     ]
   },

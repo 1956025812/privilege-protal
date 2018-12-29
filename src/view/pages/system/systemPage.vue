@@ -87,7 +87,7 @@
   
 
 <script>
-import SystemAddModalPage from "@/view/pages/system/addSystemPage";
+import SystemAddModalPage from "_p/system/addSystemPage";
 import { setToken, getToken } from "@/libs/util";
 import { selectSystemPageAPI } from "@/api/system/system";
 

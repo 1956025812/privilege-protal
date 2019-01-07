@@ -1,5 +1,5 @@
 <template>
-  <div id="systemAddModalDiv" ref="SystemAddModalPage">
+  <div id="systemAddModalDiv">
     <Button
       class="export-btn"
       style="border: none; appearance:none; margin-bottom: 5px;"

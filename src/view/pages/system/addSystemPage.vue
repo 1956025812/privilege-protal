@@ -48,9 +48,9 @@ export default {
   data() {
     return {
       systemAddModal: false,
-      systemName: "",
-      systemKey: "",
-      description: ""
+      systemName: '',  
+      systemKey: '',
+      description: '' 
     };
   },
 
@@ -65,10 +65,10 @@ export default {
       saveSystemAPI(params).then(res => {
         if (res.data.code == 1) {
           this.$Notice.success({
-            desc: res.data.msg 
+            desc: res.data.msg
           });
-          // 
-          alert("TODO 调用父方法 刷新列表页面");
+          // 通过自定义事件调用父窗口的重置按钮刷新分页列表
+          this.$emit("parentReset");
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg
@@ -77,7 +77,8 @@ export default {
       });
     },
 
-    cancel() {}
+    cancel() {
+    }
   },
 
   created() {}

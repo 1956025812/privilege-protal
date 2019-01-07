@@ -33,7 +33,7 @@
     <!-- 操作按钮 -->
     <div>
       <Tooltip placement="top" content="新增">
-        <system-add-modal-page></system-add-modal-page>
+        <system-add-modal-page @parentReset="reset"></system-add-modal-page>
       </Tooltip>
       <Tooltip placement="top" content="删除">
         <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;">
@@ -197,7 +197,6 @@ export default {
       this.createTimeRange = "";
       this.$options.methods.querySystemPage.bind(this)(1, 10);
     }
-
   },
 
   /**

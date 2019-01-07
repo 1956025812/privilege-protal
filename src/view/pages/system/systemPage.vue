@@ -119,19 +119,77 @@ export default {
         },
         {
           title: "系统名称",
-          key: "systemName"
+          key: "systemName",
+          align: "center"
         },
         {
           title: "系统标识",
-          key: "systemKey"
+          key: "systemKey",
+          align: "center"
         },
         {
           title: "创建人",
-          key: "createName"
+          key: "createName",
+          align: "center"
         },
         {
           title: "创建时间",
-          key: "createTime"
+          key: "createTime",
+          align: "center"
+        },
+        {
+          title: "操作",
+          key: "action",
+          align: "center",
+          render: (h, params) => {
+            return h("div", [
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small"
+                  },
+                  style: {
+                    marginRight: "5px"
+                  },
+                  on: {
+                    click: () => {}
+                  }
+                },
+                "详情"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small"
+                  },
+                  style: {
+                    marginRight: "5px"
+                  },
+                  on: {
+                    click: () => {}
+                  }
+                },
+                "修改"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small"
+                  },
+                  on: {
+                    click: () => {}
+                  }
+                },
+                "删除"
+              )
+            ]);
+          }
         }
       ],
       systemTableData: []

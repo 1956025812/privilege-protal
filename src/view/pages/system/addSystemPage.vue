@@ -44,7 +44,7 @@ import { getToken } from "@/libs/util";
 import { saveSystemAPI } from "@/api/system/system";
 
 export default {
-  name: "SystemAddModalPage",
+  name: "SystemAddModalPageComponent",
   data() {
     return {
       systemAddModal: false,

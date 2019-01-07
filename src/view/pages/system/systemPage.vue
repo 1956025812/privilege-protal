@@ -33,7 +33,7 @@
     <!-- 操作按钮 -->
     <div>
       <Tooltip placement="top" content="新增">
-        <system-add-modal-page @parentReset="reset"></system-add-modal-page>
+        <SystemAddModalPageComponent @parentReset="reset"></SystemAddModalPageComponent>
       </Tooltip>
       <Tooltip placement="top" content="删除">
         <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;">
@@ -87,13 +87,13 @@
   
 
 <script>
-import SystemAddModalPage from "_p/system/addSystemPage";
+import SystemAddModalPageComponent from "_p/system/addSystemPage";
 import { setToken, getToken } from "@/libs/util";
 import { selectSystemPageAPI } from "@/api/system/system";
 
 export default {
   components: {
-    SystemAddModalPage
+    SystemAddModalPageComponent
   },
   data() {
     return {

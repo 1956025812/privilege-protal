@@ -7,29 +7,36 @@
     >
       <Icon type="md-Detail" size="25"/>
     </Button>
-    <Modal
-      v-model="systemDetailModal"
-      title="系统详情"
-      footer-hide="false"
-    >
-      <Input v-model="hidden_sid" style="display:none" />
-      <Row>
-        <div>系统名称：
-          <Input v-model="systemName" style="width: 70%"/>
-        </div>
-      </Row>
-      <br>
-      <Row>
-        <div>系统标识：
-          <Input v-model="systemKey" style="width: 70%"/>
-        </div>
-      </Row>
-      <br>
-      <Row>
-        <div>系统描述：
-          <Input v-model="description" type="textarea" :autosize="true" style="width: 70%"/>
-        </div>
-      </Row>
+    <Modal v-model="systemDetailModal" title="系统详情" footer-hide="false">
+      <Input v-model="hidden_sid" style="display:none"/>
+      <Form label-position="right" :label-width="100">
+        <FormItem label="系统名称：">
+          <Input v-model="systemName" readonly/>
+        </FormItem>
+        <FormItem label="系统标识：">
+          <Input v-model="systemKey" readonly/>
+        </FormItem>
+        <FormItem label="创建人：">
+          <Input v-model="createName" readonly/>
+        </FormItem>
+        <FormItem label="创建时间：">
+          <Input v-model="createTime" readonly/>
+        </FormItem>
+        <FormItem label="修改人：">
+          <Input v-model="updateName" readonly/>
+        </FormItem>
+        <FormItem label="修改时间：">
+          <Input v-model="updateTime" readonly/>
+        </FormItem>
+        <FormItem label="系统描述：">
+          <Input
+            v-model="description"
+            type="textarea"
+            :autosize="{minRows: 2,maxRows: 5}"
+            readonly
+          />
+        </FormItem>
+      </Form>
     </Modal>
   </div>
 </template>
@@ -47,6 +54,10 @@ export default {
       systemDetailModal: false,
       systemName: "",
       systemKey: "",
+      createName: "",
+      createTime: "",
+      updateName: "",
+      updateTime: "",
       description: ""
     };
   },
@@ -60,19 +71,22 @@ export default {
       params.sid = sid;
 
       selectSystemDetailAPI(params).then(res => {
-        if(res.data.code == 1) {
-            this.hidden_sid = res.data.data.sid;
-            this.systemName = res.data.data.systemName;
-            this.systemKey = res.data.data.systemKey;
-            this.description = res.data.data.description;
-        } else if(res.data.code == 0) {
-            this.$Notice.error({
-              desc: res.data.msg
-            });
+        if (res.data.code == 1) {
+          this.hidden_sid = res.data.data.sid;
+          this.systemName = res.data.data.systemName;
+          this.systemKey = res.data.data.systemKey;
+          this.createName = res.data.data.createName;
+          this.createTime = res.data.data.createTime;
+          this.updateName = res.data.data.updateName;
+          this.updateTime = res.data.data.updateTime;
+          this.description = res.data.data.description;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
         }
       });
     }
-
   },
 
   created() {}

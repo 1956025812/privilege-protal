@@ -50,7 +50,7 @@ export default [
       }
     ]
   },
-  
+
 
   {
     path: '/systemmanager',
@@ -58,7 +58,7 @@ export default [
     meta: {
       icon: 'logo-buffer',
       title: '系统管理',
-      showAlways: true 
+      showAlways: true
     },
     component: Main,
     children: [
@@ -77,7 +77,7 @@ export default [
 
 
 
- 
+
   {
     path: '/i18n',
     name: 'i18n',

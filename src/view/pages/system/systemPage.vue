@@ -82,18 +82,23 @@
         @on-page-size-change="changePageSize"
       ></Page>
     </div>
+
+    <!-- 系统详情弹窗子组件 -->
+    <SystemDetailModalPageComponent ref="childComponentSdmpc" style="display:none"></SystemDetailModalPageComponent>
   </div>
 </template>
   
 
 <script>
 import SystemAddModalPageComponent from "_p/system/addSystemPage";
+import SystemDetailModalPageComponent from "_p/system/detailSystemPage";
 import { setToken, getToken } from "@/libs/util";
 import { selectSystemPageAPI } from "@/api/system/system";
 
 export default {
   components: {
-    SystemAddModalPageComponent
+    SystemAddModalPageComponent,
+    SystemDetailModalPageComponent
   },
   data() {
     return {
@@ -154,7 +159,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.$refs.childComponentSdmpc.openSystemDetailModal(
+                        params.row.sid
+                      );
+                    }
                   }
                 },
                 "详情"

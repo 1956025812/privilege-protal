@@ -19,6 +19,19 @@ export const saveSystemAPI = (params) => {
         url: '/system/save',
         method: 'post',
         data: JSON.stringify(params),
-        headers: {'Content-Type': 'application/json'} 
+        headers: { 'Content-Type': 'application/json' }
     });
 }
+
+
+/**
+ * 查询系统详情   
+ */
+export const selectSystemDetailAPI = (params) => {
+    return axios.request({
+        url: '/system/detail',
+        method: 'get',
+        params: params
+    });
+}
+

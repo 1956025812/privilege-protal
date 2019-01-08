@@ -3,7 +3,7 @@
     <Button
       class="export-btn"
       style="border: none; appearance:none; margin-bottom: 5px;"
-      @click="systemAddModal = true"
+      @click="openSystemAddModal"
     >
       <Icon type="md-add" size="25"/>
     </Button>
@@ -55,6 +55,15 @@ export default {
   },
 
   methods: {
+
+    openSystemAddModal() {
+      this.systemAddModal = true;
+      this.systemName = null;
+      this.systemKey = null;
+      this.description = null;
+      // alert("弹窗初始化操作可以在此处进行");
+    },
+
     saveSystem() {
       let params = new Object();
       params.loginUid = getToken();

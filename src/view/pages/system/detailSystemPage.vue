@@ -7,7 +7,7 @@
     >
       <Icon type="md-Detail" size="25"/>
     </Button>
-    <Modal v-model="systemDetailModal" title="系统详情" footer-hide="false">
+    <Modal v-model="systemDetailModal" title="系统详情" :footer-hide="true">
       <Input v-model="hidden_sid" style="display:none"/>
       <Form label-position="right" :label-width="100">
         <FormItem label="系统名称：">
@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       systemDetailModal: false,
+      hidden_sid: "",
       systemName: "",
       systemKey: "",
       createName: "",

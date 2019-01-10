@@ -48,14 +48,13 @@ export default {
   data() {
     return {
       systemAddModal: false,
-      systemName: '',  
-      systemKey: '',
-      description: '' 
+      systemName: "",
+      systemKey: "",
+      description: ""
     };
   },
 
   methods: {
-
     openSystemAddModal() {
       this.systemAddModal = true;
       this.systemName = null;
@@ -86,8 +85,7 @@ export default {
       });
     },
 
-    cancel() {
-    }
+    cancel() {}
   },
 
   created() {}

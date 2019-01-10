@@ -84,7 +84,9 @@
     </div>
 
     <!-- 系统详情弹窗子组件 -->
-    <SystemDetailModalPageComponent ref="childComponentSdmpc" style="display:none"></SystemDetailModalPageComponent>
+    <SystemDetailModalPageComponent ref="systemDetailModalRef" style="display:none"></SystemDetailModalPageComponent>
+    <!-- 修改系统详情弹窗子组件 -->
+    <SystemEditModalPageComponent ref="systemEditModalRef" style="display:none"></SystemEditModalPageComponent>
   </div>
 </template>
   
@@ -92,13 +94,15 @@
 <script>
 import SystemAddModalPageComponent from "_p/system/addSystemPage";
 import SystemDetailModalPageComponent from "_p/system/detailSystemPage";
+import SystemEditModalPageComponent from "_p/system/editSystemPage";
 import { setToken, getToken } from "@/libs/util";
 import { selectSystemPageAPI } from "@/api/system/system";
 
 export default {
   components: {
     SystemAddModalPageComponent,
-    SystemDetailModalPageComponent
+    SystemDetailModalPageComponent,
+    SystemEditModalPageComponent
   },
   data() {
     return {
@@ -161,7 +165,7 @@ export default {
                   on: {
                     click: () => {
                       // 在父组件中通过ref调用子组件的方法
-                      this.$refs.childComponentSdmpc.openSystemDetailModal(
+                      this.$refs.systemDetailModalRef.openSystemDetailModal(
                         params.row.sid
                       );
                     }
@@ -180,7 +184,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.$refs.systemEditModalRef.openSystemEditModal(
+                        params.row.sid
+                      );
+                    }
                   }
                 },
                 "修改"

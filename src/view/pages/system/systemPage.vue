@@ -50,7 +50,7 @@
           <Icon type="md-download" size="25"/>
         </Button>
       </Tooltip>
-      <Tooltip placement="top" content="刷新">
+      <!-- <Tooltip placement="top" content="刷新">
         <Button class="update-btn" style="border: none; margin-bottom: 5px;">
           <Icon type="md-sync" size="25"/>
         </Button>
@@ -59,7 +59,7 @@
         <Button class="colums-btn" style="border: none; margin-bottom: 5px;">
           <Icon type="ios-list-box" size="25"/>
         </Button>
-      </Tooltip>
+      </Tooltip> -->
     </div>
     <br>
 

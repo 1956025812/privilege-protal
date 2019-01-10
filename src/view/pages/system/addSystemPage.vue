@@ -12,7 +12,6 @@
       title="新增系统"
       ok-text="保存"
       @on-ok="saveSystem"
-      @on-cancel="cancel"
       :mask-closable="false"
       :closable="false"
     >
@@ -83,9 +82,7 @@ export default {
           });
         }
       });
-    },
-
-    cancel() {}
+    }
   },
 
   created() {}

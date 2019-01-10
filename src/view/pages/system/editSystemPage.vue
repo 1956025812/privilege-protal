@@ -7,14 +7,21 @@
     >
       <Icon type="md-Edit" size="25"/>
     </Button>
-    <Modal v-model="systemEditModal" title="修改系统详情" :footer-hide="false">
+    <Modal
+      v-model="systemEditModal"
+      title="修改系统详情"
+      ok-text="保存"
+      @on-ok="editSystem"
+      :mask-closable="false"
+      :closable="false"
+    >
       <Input v-model="hidden_sid" style="display:none"/>
       <Form label-position="right" :label-width="100">
         <FormItem label="系统名称：">
           <Input v-model="systemName"/>
         </FormItem>
         <FormItem label="系统标识：">
-          <Input v-model="systemKey" readonly/>
+          <Input v-model="systemKey" disabled/>
         </FormItem>
         <FormItem label="系统描述：">
           <Input v-model="description" type="textarea" :autosize="{minRows: 2,maxRows: 5}"/>
@@ -62,6 +69,16 @@ export default {
           });
         }
       });
+    },
+
+    editSystem() {
+      let params = new Object();
+      params.loginUid = getToken();
+      params.sid = this.hidden_sid;
+      params.systemName = this.systemName;
+      params.description = this.description;
+
+      alert(JSON.stringify(params));
     }
   },
 

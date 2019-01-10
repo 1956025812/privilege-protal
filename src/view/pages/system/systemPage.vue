@@ -59,7 +59,7 @@
         <Button class="colums-btn" style="border: none; margin-bottom: 5px;">
           <Icon type="ios-list-box" size="25"/>
         </Button>
-      </Tooltip> -->
+      </Tooltip>-->
     </div>
     <br>
 
@@ -86,7 +86,11 @@
     <!-- 系统详情弹窗子组件 -->
     <SystemDetailModalPageComponent ref="systemDetailModalRef" style="display:none"></SystemDetailModalPageComponent>
     <!-- 修改系统详情弹窗子组件 -->
-    <SystemEditModalPageComponent ref="systemEditModalRef" style="display:none"></SystemEditModalPageComponent>
+    <SystemEditModalPageComponent
+      ref="systemEditModalRef"
+      style="display:none"
+      @parentReset="reset"
+    ></SystemEditModalPageComponent>
   </div>
 </template>
   

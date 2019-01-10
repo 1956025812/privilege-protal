@@ -35,3 +35,18 @@ export const selectSystemDetailAPI = (params) => {
     });
 }
 
+
+
+/**
+ * 修改系统
+ */
+export const editSystemAPI = (params) => {
+    return axios.request({
+        url: '/system/update',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+

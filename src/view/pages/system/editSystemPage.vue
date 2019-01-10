@@ -35,7 +35,7 @@
 
 <script>
 import { getToken } from "@/libs/util";
-import { selectSystemDetailAPI } from "@/api/system/system";
+import { selectSystemDetailAPI, editSystemAPI } from "@/api/system/system";
 
 export default {
   name: "SystemEditModalPageComponent",
@@ -78,7 +78,19 @@ export default {
       params.systemName = this.systemName;
       params.description = this.description;
 
-      alert(JSON.stringify(params));
+      editSystemAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.$Notice.success({
+            desc: res.data.msg
+          });
+          // 通过自定义事件调用父窗口的重置按钮刷新分页列表
+          this.$emit("parentReset");
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     }
   },
 

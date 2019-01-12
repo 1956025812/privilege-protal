@@ -129,9 +129,17 @@ export default {
       columns: [
         {
           type: "selection",
-          key: "uid",
+          key: "sid",
           width: 50,
-          align: "center"
+          align:
+            "center" /* ,
+          render: (h, params) => {
+            return h("Checkbox", {
+              props: {
+                value: 1
+              }
+            });
+          } */
         },
         {
           type: "index",
@@ -257,6 +265,8 @@ export default {
           });
         }
       });
+
+      alert("TODO 处理复选框回显， 此时选中的行为：" + this.selectRowSids);
     },
 
     /**

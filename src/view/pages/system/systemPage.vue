@@ -100,7 +100,7 @@ import SystemAddModalPageComponent from "_p/system/addSystemPage";
 import SystemDetailModalPageComponent from "_p/system/detailSystemPage";
 import SystemEditModalPageComponent from "_p/system/editSystemPage";
 import { setToken, getToken } from "@/libs/util";
-import { selectSystemPageAPI } from "@/api/system/system";
+import { selectSystemPageAPI, delSystemAPI } from "@/api/system/system";
 
 export default {
   components: {
@@ -206,7 +206,9 @@ export default {
                     size: "small"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.openDelSystemSingleModal(params.row);
+                    }
                   }
                 },
                 "删除"
@@ -277,6 +279,32 @@ export default {
       this.systemKey = "";
       this.createTimeRange = "";
       this.$options.methods.querySystemPage.bind(this)(1, 10);
+    },
+
+    /**
+     * 删除单条系统
+     */
+    openDelSystemSingleModal(row) {
+      this.$Modal.confirm({
+        title: "删除系统",
+        content: "确认删除系统【" + row.systemName + "】么？",
+        onOk: () => {
+          let params = new Object();
+          params.sid = row.sid;
+          delSystemAPI(params).then(res => {
+            if (res.data.code == 1) {
+              this.$Notice.success({
+                desc: res.data.msg
+              });
+              this.reset();
+            } else if (res.data.code == 0) {
+              this.$Notice.error({
+                desc: res.data.msg
+              });
+            }
+          });
+        }
+      });
     }
   },
 

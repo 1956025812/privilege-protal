@@ -50,3 +50,19 @@ export const editSystemAPI = (params) => {
 }
 
 
+
+
+/**
+ * 删除系统
+ */
+export const delSystemAPI = (params) => {
+    return axios.request({
+        url: '/system/del',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+
+

@@ -1,7 +1,7 @@
 import axios from '@/libs/api.request'
 
 /**
- * 查询系统分页列表
+ * @description 查询系统分页列表
  */
 export const selectSystemPageAPI = (params) => {
     return axios.request({
@@ -12,7 +12,7 @@ export const selectSystemPageAPI = (params) => {
 }
 
 /**
- * 新增系统
+ * @description 新增系统
  */
 export const saveSystemAPI = (params) => {
     return axios.request({
@@ -25,7 +25,7 @@ export const saveSystemAPI = (params) => {
 
 
 /**
- * 查询系统详情   
+ * @description 查询系统详情   
  */
 export const selectSystemDetailAPI = (params) => {
     return axios.request({
@@ -38,7 +38,7 @@ export const selectSystemDetailAPI = (params) => {
 
 
 /**
- * 修改系统
+ * @description 修改系统
  */
 export const editSystemAPI = (params) => {
     return axios.request({
@@ -53,7 +53,7 @@ export const editSystemAPI = (params) => {
 
 
 /**
- * 删除系统
+ * @description 删除系统
  */
 export const delSystemAPI = (params) => {
     return axios.request({

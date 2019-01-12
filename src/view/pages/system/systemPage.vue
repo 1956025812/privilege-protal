@@ -65,7 +65,14 @@
 
     <!-- 表格 -->
     <div>
-      <Table id="id_table_system" border :columns="columns" :data="systemTableData"></Table>
+      <Table
+        id="id_table_system"
+        border
+        :columns="columns"
+        :data="systemTableData"
+        @on-select="selectRow"
+        @on-select-cancel="cancelSelectRow"
+      ></Table>
     </div>
     <br>
 
@@ -99,7 +106,7 @@
 import SystemAddModalPageComponent from "_p/system/addSystemPage";
 import SystemDetailModalPageComponent from "_p/system/detailSystemPage";
 import SystemEditModalPageComponent from "_p/system/editSystemPage";
-import { setToken, getToken } from "@/libs/util";
+import { setToken, getToken, removeArrayElement } from "@/libs/util";
 import { selectSystemPageAPI, delSystemAPI } from "@/api/system/system";
 
 export default {
@@ -117,6 +124,7 @@ export default {
       totalCount: 0,
       currentPage: 1,
       pageSize: 10,
+      selectRowSids: [],
 
       columns: [
         {
@@ -279,6 +287,22 @@ export default {
       this.systemKey = "";
       this.createTimeRange = "";
       this.$options.methods.querySystemPage.bind(this)(1, 10);
+    },
+
+    /**
+     * 选中复选框
+     */
+    selectRow(selection, row) {
+      if (this.selectRowSids.indexOf(row.sid) == -1) {
+        this.selectRowSids.push(row.sid);
+      }
+    },
+
+    /**
+     * 取消选中复选框
+     */
+    cancelSelectRow(selection, row) {
+      removeArrayElement(this.selectRowSids, row.sid);
     },
 
     /**

@@ -290,6 +290,22 @@ export default {
     },
 
     /**
+     * 选中复选框
+     */
+    selectRow(selection, row) {
+      if (this.selectRowSids.indexOf(row.sid) == -1) {
+        this.selectRowSids.push(row.sid);
+      }
+    },
+
+    /**
+     * 取消选中复选框
+     */
+    cancelSelectRow(selection, row) {
+      removeArrayElement(this.selectRowSids, row.sid);
+    },
+
+    /**
      * 查询按钮查询
      */
     query() {
@@ -306,22 +322,6 @@ export default {
       this.createTimeRange = "";
       this.selectRowSids = [];
       this.$options.methods.querySystemPage.bind(this)(1, 10);
-    },
-
-    /**
-     * 选中复选框
-     */
-    selectRow(selection, row) {
-      if (this.selectRowSids.indexOf(row.sid) == -1) {
-        this.selectRowSids.push(row.sid);
-      }
-    },
-
-    /**
-     * 取消选中复选框
-     */
-    cancelSelectRow(selection, row) {
-      removeArrayElement(this.selectRowSids, row.sid);
     },
 
     /**

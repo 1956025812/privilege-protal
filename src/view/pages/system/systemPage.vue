@@ -67,6 +67,7 @@
     <div>
       <Table
         id="id_table_system"
+        ref="systemTableRef"
         border
         :columns="columns"
         :data="systemTableData"
@@ -131,15 +132,7 @@ export default {
           type: "selection",
           key: "sid",
           width: 50,
-          align:
-            "center" /* ,
-          render: (h, params) => {
-            return h("Checkbox", {
-              props: {
-                value: 1
-              }
-            });
-          } */
+          align: "center"
         },
         {
           type: "index",
@@ -259,14 +252,21 @@ export default {
           this.currentPage = res.data.data.currentPage;
           this.pageSize = res.data.data.pageSize;
           this.systemTableData = res.data.data.items;
+
+          // 处理复选框回显
+          if (res.data.data.items.length > 0) {
+            res.data.data.items.forEach(eachSystem => {
+              if (this.selectRowSids.indexOf(eachSystem.sid) != -1) {
+                eachSystem._checked = true;
+              }
+            });
+          }
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg
           });
         }
       });
-
-      alert("TODO 处理复选框回显， 此时选中的行为：" + this.selectRowSids);
     },
 
     /**

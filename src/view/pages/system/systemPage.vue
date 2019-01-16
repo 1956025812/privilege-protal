@@ -289,15 +289,13 @@ export default {
       );
     },
 
-
     /**
      * 查询按钮查询
      */
     query() {
       this.selectRowSids = [];
-      this.$options.methods.querySystemPage.bind(this)( 1, this.pageSize);
+      this.$options.methods.querySystemPage.bind(this)(1, this.pageSize);
     },
-
 
     /**
      * 重置查询条件
@@ -306,7 +304,7 @@ export default {
       this.systemName = "";
       this.systemKey = "";
       this.createTimeRange = "";
-      this.selectRowSids = [];  
+      this.selectRowSids = [];
       this.$options.methods.querySystemPage.bind(this)(1, 10);
     },
 

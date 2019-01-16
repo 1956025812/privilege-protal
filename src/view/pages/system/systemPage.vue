@@ -19,7 +19,7 @@
           ></DatePicker>
         </div>
         <div style="display: inline; margin-left:50px;">
-          <Button class="search-btn" @click="querySystemPage(1,10)" type="primary">
+          <Button class="search-btn" @click="query()" type="primary">
             <Icon type="search"/>查询
           </Button>
           <Button class="reset-btn" @click="reset" type="primary" style="margin-left:10px;">
@@ -289,6 +289,16 @@ export default {
       );
     },
 
+
+    /**
+     * 查询按钮查询
+     */
+    query() {
+      this.selectRowSids = [];
+      this.$options.methods.querySystemPage.bind(this)( 1, this.pageSize);
+    },
+
+
     /**
      * 重置查询条件
      */
@@ -296,6 +306,7 @@ export default {
       this.systemName = "";
       this.systemKey = "";
       this.createTimeRange = "";
+      this.selectRowSids = [];  
       this.$options.methods.querySystemPage.bind(this)(1, 10);
     },
 

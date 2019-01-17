@@ -283,10 +283,7 @@ export default {
      * 更换每页显示数据量
      */
     changePageSize(pageSize) {
-      this.$options.methods.querySystemPage.bind(this)(
-        this.currentPage,
-        pageSize
-      );
+      this.$options.methods.querySystemPage.bind(this)(1, pageSize);
     },
 
     /**
@@ -310,7 +307,7 @@ export default {
      */
     query() {
       this.selectRowSids = [];
-      this.$options.methods.querySystemPage.bind(this)(1, this.pageSize);
+      this.$options.methods.querySystemPage.bind(this)(1, 10);
     },
 
     /**

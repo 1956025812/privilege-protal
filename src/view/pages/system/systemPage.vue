@@ -36,7 +36,11 @@
         <SystemAddModalPageComponent @parentReset="reset"></SystemAddModalPageComponent>
       </Tooltip>
       <Tooltip placement="top" content="删除">
-        <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;">
+        <Button
+          class="export-btn"
+          style="border: none; appearance:none; margin-bottom: 5px;"
+          @click="openDelSystemBatchModal()"
+        >
           <Icon type="md-close" size="25"/>
         </Button>
       </Tooltip>
@@ -331,6 +335,39 @@ export default {
         onOk: () => {
           let params = new Object();
           params.sid = row.sid;
+          delSystemAPI(params).then(res => {
+            if (res.data.code == 1) {
+              this.$Notice.success({
+                desc: res.data.msg
+              });
+              this.reset();
+            } else if (res.data.code == 0) {
+              this.$Notice.error({
+                desc: res.data.msg
+              });
+            }
+          });
+        }
+      });
+    },
+
+    /**
+     * 批量删除
+     */
+    openDelSystemBatchModal() {
+      if (this.selectRowSids.length == 0) {
+        this.$Notice.warning({
+          title: "请选中要删除的记录后再进行删除操作"
+        });
+        return;
+      }
+
+      this.$Modal.confirm({
+        title: "批量删除系统",
+        content: "确认要批量删除这些系统么？",
+        onOk: () => {
+          let params = new Object();
+          params.sids = this.selectRowSids;
           delSystemAPI(params).then(res => {
             if (res.data.code == 1) {
               this.$Notice.success({

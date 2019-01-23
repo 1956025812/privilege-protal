@@ -1,10 +1,10 @@
 <template>
     <div class="demo-split">
-        <Split v-model="split1">
+        <Split v-model="initSplitRatio" min="300px">     
             <div slot="left" class="demo-split-pane">
                 Left Pane
             </div>
-            <div slot="right" class="demo-split-pane">
+            <div slot="right" class="demo-split-pane"> 
                 Right Pane
             </div>
         </Split>
@@ -14,14 +14,14 @@
     export default {
         data () {
             return {
-                split1: 0.5
+                initSplitRatio: 0.2
             }
         },
     }
 </script>
 <style>
     .demo-split{
-        height: 200px;
+        height: 100%;
         border: 1px solid #dcdee2;
     }
     .demo-split-pane{

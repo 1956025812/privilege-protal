@@ -2,6 +2,8 @@ export default {
   home: '首页',
   systemmanager: '系统管理',
   systempage: '系统列表',
+  menumanager: '菜单管理',
+  menupage: '菜单列表',
 
 
 

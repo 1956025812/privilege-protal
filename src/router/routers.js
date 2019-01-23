@@ -64,12 +64,35 @@ export default [
     children: [
       {
         path: 'systempage',
-        name: ' systempage',
+        name: 'systempage',
         meta: {
           icon: 'md-apps',
           title: '系统列表'
         },
         component: () => import('_p/system/systemPage.vue')
+      }
+    ]
+  },
+
+
+  {
+    path: '/menumanager',
+    name: 'menumanager',
+    meta: {
+      icon: 'logo-buffer',
+      title: '菜单管理',
+      showAlways: true
+    },
+    component: Main,
+    children: [
+      {
+        path: 'menupage',
+        name: 'menupage',
+        meta: {
+          icon: 'md-apps',
+          title: '菜单列表' 
+        },
+        component: () => import('_p/menu/menuPage.vue')
       }
     ]
   },

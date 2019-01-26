@@ -61,13 +61,14 @@ export default {
   },
 
   created() {
-    alert("wwwww");
 
-    // 查询菜单列表
+    // 查询左侧菜单列表
     let params = new Object();
+    params.type = 1;
     selectSysMenuListAPI(params).then(res => {
       if (res.data.code == 1) {
-        alert(JSON.stringify(res.data.data));
+        let sysMenuVOList = res.data.data;
+        console.log(JSON.stringify(sysMenuVOList)); 
       } else if (res.data.code == 0) {
         this.$Notice.error({
           desc: res.data.msg

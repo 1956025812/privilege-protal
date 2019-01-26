@@ -4,13 +4,13 @@
       <div slot="left" class="demo-split-pane">
         <Tree :data="menuData"></Tree>
       </div>
-      <div slot="right" class="demo-split-pane">
-        
-      </div>
+      <div slot="right" class="demo-split-pane"></div>
     </Split>
   </div>
 </template>
 <script>
+import { selectSysMenuListAPI } from "@/api/menu/menu";
+
 export default {
   data() {
     return {
@@ -58,6 +58,22 @@ export default {
         }
       ]
     };
+  },
+
+  created() {
+    alert("wwwww");
+
+    // 查询菜单列表
+    let params = new Object();
+    selectSysMenuListAPI(params).then(res => {
+      if (res.data.code == 1) {
+        alert(JSON.stringify(res.data.data));
+      } else if (res.data.code == 0) {
+        this.$Notice.error({
+          desc: res.data.msg
+        });
+      }
+    });
   }
 };
 </script>

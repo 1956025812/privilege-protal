@@ -2,7 +2,7 @@
   <div class="demo-split">
     <Split v-model="initSplitRatio" min="300px">
       <div slot="left" class="demo-split-pane">
-        <Tree :data="menuData"></Tree>
+        <Tree :data="menuData" @on-select-change="clickTreeNode"></Tree>
       </div>
       <div slot="right" class="demo-split-pane"></div>
     </Split>
@@ -19,6 +19,12 @@ export default {
       split4: 0.5,
       menuData: []
     };
+  },
+
+  methods: {
+    clickTreeNode() {
+      alert("TODO 处理点击系统节点的时候展开菜单子节点");
+    }
   },
 
   created() {
@@ -38,9 +44,6 @@ export default {
             systemTreeNode.title = eachSysSystemVO.systemName;
             systemTreeNode.expand = false;
             treeData.push(systemTreeNode);
-
-            // TODO 处理点击系统节点的时候展开菜单子节点
-
             this.menuData = treeData;
           });
         }

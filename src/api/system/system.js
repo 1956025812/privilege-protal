@@ -66,3 +66,15 @@ export const delSystemAPI = (params) => {
 
 
 
+/**
+ * @description 查询系统列表
+ */
+export const selectSystemListAPI = (params) => {
+    return axios.request({
+        url: '/system/list',
+        method: 'get',
+        params: params
+    });
+}
+
+

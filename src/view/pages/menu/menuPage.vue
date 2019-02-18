@@ -10,65 +10,40 @@
 </template>
 <script>
 import { selectSysMenuListAPI } from "@/api/menu/menu";
+import { selectSystemListAPI } from "@/api/system/system";
 
 export default {
   data() {
     return {
       initSplitRatio: 0.2,
       split4: 0.5,
-      menuData: [
-        {
-          title: "商品系统",
-          expand: false,
-          children: [
-            {
-              title: "商品管理",
-              expand: false,
-              children: [
-                {
-                  title: "商品列表"
-                }
-              ]
-            },
-            {
-              title: "分类管理",
-              expand: false,
-              children: [
-                {
-                  title: "分类列表"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          title: "订单系统",
-          expand: false,
-          children: [
-            {
-              title: "订单管理",
-              expand: false,
-              children: [
-                {
-                  title: "订单列表"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      menuData: []
     };
   },
 
   created() {
-
     // 查询左侧菜单列表
     let params = new Object();
     params.type = 1;
-    selectSysMenuListAPI(params).then(res => {
+    selectSystemListAPI(params).then(res => {
       if (res.data.code == 1) {
-        let sysMenuVOList = res.data.data;
-        console.log(JSON.stringify(sysMenuVOList)); 
+        let sysSystemVOList = res.data.data;
+        console.log(JSON.stringify(sysSystemVOList));
+
+        // 拼接树状结构
+        let treeData = new Array();
+        if (null != sysSystemVOList && sysSystemVOList.length > 0) {
+          sysSystemVOList.forEach(eachSysSystemVO => {
+            let systemTreeNode = new Object();
+            systemTreeNode.title = eachSysSystemVO.systemName;
+            systemTreeNode.expand = false;
+            treeData.push(systemTreeNode);
+
+            // TODO 处理点击系统节点的时候展开菜单子节点
+
+            this.menuData = treeData;
+          });
+        }
       } else if (res.data.code == 0) {
         this.$Notice.error({
           desc: res.data.msg

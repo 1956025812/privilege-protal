@@ -2,7 +2,7 @@
   <div class="demo-split">
     <Split v-model="initSplitRatio" min="300px">
       <div slot="left" class="demo-split-pane">
-        <Tree :data="menuData" @on-select-change="clickTreeNode"></Tree>
+        <Tree :data="menuData" :load-data="queryMenu"></Tree>
       </div>
       <div slot="right" class="demo-split-pane"></div>
     </Split>
@@ -22,8 +22,8 @@ export default {
   },
 
   methods: {
-    clickTreeNode() {
-      alert("TODO 处理点击系统节点的时候展开菜单子节点");
+    queryMenu() {
+      alert("TODO 异步加载方式处理点击系统节点的时候展开菜单子节点");
     }
   },
 
@@ -34,7 +34,6 @@ export default {
     selectSystemListAPI(params).then(res => {
       if (res.data.code == 1) {
         let sysSystemVOList = res.data.data;
-        console.log(JSON.stringify(sysSystemVOList));
 
         // 拼接树状结构
         let treeData = new Array();
@@ -42,7 +41,8 @@ export default {
           sysSystemVOList.forEach(eachSysSystemVO => {
             let systemTreeNode = new Object();
             systemTreeNode.title = eachSysSystemVO.systemName;
-            systemTreeNode.expand = false;
+            systemTreeNode.loading = false;
+            systemTreeNode.children = [];
             treeData.push(systemTreeNode);
             this.menuData = treeData;
           });

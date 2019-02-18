@@ -2,7 +2,7 @@
   <div class="demo-split">
     <Split v-model="initSplitRatio" min="300px">
       <div slot="left" class="demo-split-pane">
-        <Tree :data="menuData" :load-data="queryMenu"></Tree>
+        <Tree :data="menuData" :load-data="queryMenu" @on-select-change="queryMenuDetail"></Tree>
       </div>
       <div slot="right" class="demo-split-pane"></div>
     </Split>
@@ -22,8 +22,15 @@ export default {
   },
 
   methods: {
+
+    // 查询菜单
     queryMenu() {
       alert("TODO 异步加载方式处理点击系统节点的时候展开菜单子节点");
+    },
+
+    // 查询菜单详情
+    queryMenuDetail() {
+      alert("TODO 点击菜单右侧展示详情");
     }
   },
 

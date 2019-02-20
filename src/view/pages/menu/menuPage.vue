@@ -2,7 +2,7 @@
   <div class="demo-split">
     <Split v-model="initSplitRatio" min="300px">
       <div slot="left" class="demo-split-pane">
-        <Tree :data="menuData" :load-data="queryMenu" @on-select-change="queryMenuDetail"></Tree>
+        <Tree :data="menuData" @on-select-change="queryMenuDetail"></Tree>
       </div>
       <div slot="right" class="demo-split-pane"></div>
     </Split>
@@ -22,12 +22,6 @@ export default {
   },
 
   methods: {
-
-    // 查询菜单
-    queryMenu() {
-      alert("TODO 异步加载方式处理点击系统节点的时候展开菜单子节点");
-    },
-
     // 查询菜单详情
     queryMenuDetail() {
       alert("TODO 点击菜单右侧展示详情");
@@ -35,10 +29,9 @@ export default {
   },
 
   created() {
-    // 查询左侧菜单列表
-    let params = new Object();
-    params.type = 1;
-    selectSystemListAPI(params).then(res => {
+    // 查询左侧系统列表
+    let systemParams = new Object();
+    selectSystemListAPI(systemParams).then(res => {
       if (res.data.code == 1) {
         let sysSystemVOList = res.data.data;
 
@@ -49,7 +42,28 @@ export default {
             let systemTreeNode = new Object();
             systemTreeNode.title = eachSysSystemVO.systemName;
             systemTreeNode.loading = false;
+
             systemTreeNode.children = [];
+
+            // 拼接菜单 
+            let menuParams = new Object();
+            menuParams.systemKey = eachSysSystemVO.systemKey;
+            selectSysMenuListAPI(menuParams).then(res => {
+              if (res.data.code == 1) {
+                let menuList = res.data.data;
+                alert(JSON.stringify(menuList));
+
+                // TODO 拼接菜单
+
+
+
+              } else if (res.data.code == 0) {
+                this.$Notice.error({
+                  desc: res.data.msg
+                });
+              }
+            });
+
             treeData.push(systemTreeNode);
             this.menuData = treeData;
           });

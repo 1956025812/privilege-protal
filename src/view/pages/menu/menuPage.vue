@@ -41,22 +41,25 @@ export default {
           sysSystemVOList.forEach(eachSysSystemVO => {
             let systemTreeNode = new Object();
             systemTreeNode.title = eachSysSystemVO.systemName;
-            systemTreeNode.loading = false;
-
             systemTreeNode.children = [];
 
-            // 拼接菜单 
+            // 拼接菜单
             let menuParams = new Object();
             menuParams.systemKey = eachSysSystemVO.systemKey;
             selectSysMenuListAPI(menuParams).then(res => {
               if (res.data.code == 1) {
-                let menuList = res.data.data;
-                alert(JSON.stringify(menuList));
+                let sysMenuVOList = res.data.data;
 
                 // TODO 拼接菜单
-
-
-
+                if (null != sysMenuVOList && sysMenuVOList.length > 0) {
+                  sysMenuVOList.forEach(eachSysMenuVO => {
+                    if (eachSysMenuVO.level == 1) {
+                      let firstLevelMenu = new Object();
+                      firstLevelMenu.title = eachSysMenuVO.menuName;
+                      systemTreeNode.children.push(firstLevelMenu);
+                    }
+                  });
+                }
               } else if (res.data.code == 0) {
                 this.$Notice.error({
                   desc: res.data.msg

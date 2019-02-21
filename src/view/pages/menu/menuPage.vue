@@ -24,7 +24,7 @@ export default {
   methods: {
     // 查询菜单详情
     queryMenuDetail(nodes, node) {
-      alert("TODO 点击菜单右侧展示详情");
+      alert("TODO 点击菜单右侧展示详情  目前获取选中节点获取不到信息TODO");
       alert(JSON.stringify(nodes));    
       alert(JSON.stringify(node));  
     }

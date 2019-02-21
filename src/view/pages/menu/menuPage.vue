@@ -56,6 +56,10 @@ export default {
                     if (eachFirstLevelSysMenuVO.level == 1 && eachFirstLevelSysMenuVO.type == 1) {
                       let firstLevelMenu = new Object();
                       firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
+                      firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid; 
+                      firstLevelMenu.render = function(h, {root, node, data}) {
+                        return h("span", data.title); 
+                      },
                       systemTreeNode.children.push(firstLevelMenu);
 
                       firstLevelMenu.children = [];
@@ -64,6 +68,10 @@ export default {
                           if(eachSecondLevelSysMenuVO.parentMid == eachFirstLevelSysMenuVO.mid && eachSecondLevelSysMenuVO.type == 1) {
                             let secondLevelMenu = new Object();
                             secondLevelMenu.title = eachSecondLevelSysMenuVO.menuName;
+                            secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid; 
+                            secondLevelMenu.render = function(h, {root, node, data}) {
+                              return h("span", data.title);
+                            },
                             firstLevelMenu.children.push(secondLevelMenu);
                           }
                       });

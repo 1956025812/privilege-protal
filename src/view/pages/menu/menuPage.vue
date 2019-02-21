@@ -50,13 +50,23 @@ export default {
               if (res.data.code == 1) {
                 let sysMenuVOList = res.data.data;
 
-                // TODO 拼接菜单
+                // TODO 拼接菜单  暂时只做俩级  待用递归完善多级
                 if (null != sysMenuVOList && sysMenuVOList.length > 0) {
-                  sysMenuVOList.forEach(eachSysMenuVO => {
-                    if (eachSysMenuVO.level == 1) {
+                  sysMenuVOList.forEach(eachFirstLevelSysMenuVO => {
+                    if (eachFirstLevelSysMenuVO.level == 1 && eachFirstLevelSysMenuVO.type == 1) {
                       let firstLevelMenu = new Object();
-                      firstLevelMenu.title = eachSysMenuVO.menuName;
+                      firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
                       systemTreeNode.children.push(firstLevelMenu);
+
+                      firstLevelMenu.children = [];
+                      sysMenuVOList.forEach(eachSecondLevelSysMenuVO => {
+                          
+                          if(eachSecondLevelSysMenuVO.parentMid == eachFirstLevelSysMenuVO.mid && eachSecondLevelSysMenuVO.type == 1) {
+                            let secondLevelMenu = new Object();
+                            secondLevelMenu.title = eachSecondLevelSysMenuVO.menuName;
+                            firstLevelMenu.children.push(secondLevelMenu);
+                          }
+                      });
                     }
                   });
                 }

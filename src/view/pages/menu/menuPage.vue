@@ -58,6 +58,7 @@ export default {
                       firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
                       firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid; 
                       firstLevelMenu.render = function(h, {root, node, data}) {
+                        console.log(JSON.stringify(data));
                         return h("span", data.title); 
                       },
                       systemTreeNode.children.push(firstLevelMenu);
@@ -70,6 +71,7 @@ export default {
                             secondLevelMenu.title = eachSecondLevelSysMenuVO.menuName;
                             secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid; 
                             secondLevelMenu.render = function(h, {root, node, data}) {
+                              console.log(JSON.stringify(data));
                               return h("span", data.title);
                             },
                             firstLevelMenu.children.push(secondLevelMenu);

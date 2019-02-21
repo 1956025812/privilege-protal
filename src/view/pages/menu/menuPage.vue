@@ -23,8 +23,10 @@ export default {
 
   methods: {
     // 查询菜单详情
-    queryMenuDetail() {
+    queryMenuDetail(nodes, node) {
       alert("TODO 点击菜单右侧展示详情");
+      alert(JSON.stringify(nodes));    
+      alert(JSON.stringify(node));  
     }
   },
 

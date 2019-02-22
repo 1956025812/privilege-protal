@@ -27,6 +27,7 @@ export default {
       alert("TODO 点击菜单右侧展示详情  目前获取选中节点获取不到信息TODO");
       alert(JSON.stringify(nodes));    
       alert(JSON.stringify(node));  
+      nodes[0].selected = !nodes[0].selected;
     }
   },
 
@@ -43,6 +44,7 @@ export default {
           sysSystemVOList.forEach(eachSysSystemVO => {
             let systemTreeNode = new Object();
             systemTreeNode.title = eachSysSystemVO.systemName;
+            systemTreeNode.sid = eachSysSystemVO.systemKey;
             systemTreeNode.children = [];
 
             // 拼接菜单

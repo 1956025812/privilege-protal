@@ -24,7 +24,11 @@ export default {
   methods: {
     // 查询菜单详情
     queryMenuDetail(nodes, node) {
-      alert(JSON.stringify(node));
+      if (node.type == "system") {
+        alert("系统信息" + JSON.stringify(node));
+      } else if (node.type == "menu") {
+        alert("菜单信息" + JSON.stringify(node));
+      }
     }
   },
 
@@ -41,6 +45,7 @@ export default {
           sysSystemVOList.forEach(eachSysSystemVO => {
             let systemTreeNode = new Object();
             systemTreeNode.title = eachSysSystemVO.systemName;
+            systemTreeNode.type = "system";
             systemTreeNode.sid = eachSysSystemVO.systemKey;
             systemTreeNode.children = [];
 
@@ -61,6 +66,7 @@ export default {
                       let firstLevelMenu = new Object();
                       firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
                       firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid;
+                      firstLevelMenu.type = "menu";
                       systemTreeNode.children.push(firstLevelMenu);
 
                       firstLevelMenu.children = [];
@@ -74,6 +80,7 @@ export default {
                           secondLevelMenu.title =
                             eachSecondLevelSysMenuVO.menuName;
                           secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid;
+                          secondLevelMenu.type = "menu";
                           firstLevelMenu.children.push(secondLevelMenu);
                         }
                       });

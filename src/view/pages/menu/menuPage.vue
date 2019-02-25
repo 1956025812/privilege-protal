@@ -4,7 +4,22 @@
       <div slot="left" class="demo-split-pane">
         <Tree :data="menuData" @on-select-change="queryMenuDetail"></Tree>
       </div>
-      <div slot="right" class="demo-split-pane"></div>
+      <div slot="right" class="demo-split-pane">
+        <!-- 0 刚开始未点击左侧节点的时候显示为空 -->
+        <div v-if="rightContent=='0'">请点击左侧树节点显示详细信息</div>
+
+        <!-- 右侧上半部分 -->
+        <div v-if="rightContent!='0'">
+          <!-- 1 左侧点击系统时右侧上半部分显示系统信息 -->
+          <div v-if="rightContent=='1'">左侧点击系统时右侧上半部分显示系统信息</div>
+
+          <!-- 2 左侧点击菜单时右侧上半部分显示菜单列表信息 -->
+          <div v-if="rightContent=='2'">左侧点击菜单时右侧上半部分显示菜单列表信息</div>
+        </div>
+
+        <!-- 右侧下半部分 -->
+        <div v-if="rightContent!='0'"></div>
+      </div>
     </Split>
   </div>
 </template>
@@ -16,8 +31,8 @@ export default {
   data() {
     return {
       initSplitRatio: 0.2,
-      split4: 0.5,
-      menuData: []
+      menuData: [],
+      rightContent: 0
     };
   },
 
@@ -26,8 +41,10 @@ export default {
     queryMenuDetail(nodes, node) {
       if (node.type == "system") {
         alert("系统信息" + JSON.stringify(node));
+        this.rightContent = 1;
       } else if (node.type == "menu") {
         alert("菜单信息" + JSON.stringify(node));
+        this.rightContent = 2;
       }
     }
   },

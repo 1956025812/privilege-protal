@@ -4,9 +4,7 @@
       <div slot="left" class="demo-split-pane">
         <Tree :data="menuData" @on-select-change="queryMenuDetail"></Tree>
       </div>
-      <div slot="right" class="demo-split-pane">
-        <Tree :data="data1" @on-select-change="sss"></Tree>
-      </div>
+      <div slot="right" class="demo-split-pane"></div>
     </Split>
   </div>
 </template>
@@ -19,60 +17,14 @@ export default {
     return {
       initSplitRatio: 0.2,
       split4: 0.5,
-      menuData: [],
-       data1: [
-        {
-          title: "parent 1",
-          mid: "sssss",
-          expand: true,
-          children: [
-            {
-              title: "parent 1-1",
-              mid: "wwwww",
-              expand: true,
-              children: [
-                {
-                  title: "leaf 1-1-1",
-                  mid: "1111"
-                },
-                {
-                  title: "leaf 1-1-2",
-                  mid: "1111"
-                }
-              ]
-            },
-            {
-              title: "parent 1-2",
-              mid: "1111",
-              expand: true,
-              children: [
-                {
-                  title: "leaf 1-2-1",
-                  mid: "1111"
-                },
-                {
-                  title: "leaf 1-2-1",
-                  mid: "1111"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      menuData: []
     };
   },
 
   methods: {
     // 查询菜单详情
     queryMenuDetail(nodes, node) {
-      alert("TODO 点击菜单右侧展示详情  目前获取选中节点获取不到信息TODO");
-      alert(JSON.stringify(nodes));    
-      alert(JSON.stringify(node));  
-      nodes[0].selected = !nodes[0].selected;
-    },
-
-    sss(nodes, node) {
-      alert(JSON.stringify(node)); 
+      alert(JSON.stringify(node));
     }
   },
 
@@ -102,29 +54,28 @@ export default {
                 // TODO 拼接菜单  暂时只做俩级  待用递归完善多级
                 if (null != sysMenuVOList && sysMenuVOList.length > 0) {
                   sysMenuVOList.forEach(eachFirstLevelSysMenuVO => {
-                    if (eachFirstLevelSysMenuVO.level == 1 && eachFirstLevelSysMenuVO.type == 1) {
+                    if (
+                      eachFirstLevelSysMenuVO.level == 1 &&
+                      eachFirstLevelSysMenuVO.type == 1
+                    ) {
                       let firstLevelMenu = new Object();
                       firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
-                      firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid; 
-                      firstLevelMenu.render = function(h, {root, node, data}) {
-                        console.log(JSON.stringify(data));
-                        return h("span", data.title); 
-                      },
+                      firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid;
                       systemTreeNode.children.push(firstLevelMenu);
 
                       firstLevelMenu.children = [];
                       sysMenuVOList.forEach(eachSecondLevelSysMenuVO => {
-                          
-                          if(eachSecondLevelSysMenuVO.parentMid == eachFirstLevelSysMenuVO.mid && eachSecondLevelSysMenuVO.type == 1) {
-                            let secondLevelMenu = new Object();
-                            secondLevelMenu.title = eachSecondLevelSysMenuVO.menuName;
-                            secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid; 
-                            secondLevelMenu.render = function(h, {root, node, data}) {
-                              console.log(JSON.stringify(data));
-                              return h("span", data.title);
-                            },
-                            firstLevelMenu.children.push(secondLevelMenu);
-                          }
+                        if (
+                          eachSecondLevelSysMenuVO.parentMid ==
+                            eachFirstLevelSysMenuVO.mid &&
+                          eachSecondLevelSysMenuVO.type == 1
+                        ) {
+                          let secondLevelMenu = new Object();
+                          secondLevelMenu.title =
+                            eachSecondLevelSysMenuVO.menuName;
+                          secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid;
+                          firstLevelMenu.children.push(secondLevelMenu);
+                        }
                       });
                     }
                   });

@@ -11,10 +11,114 @@
         <!-- 右侧上半部分 -->
         <div v-if="rightContent!='0'">
           <!-- 1 左侧点击系统时右侧上半部分显示系统信息 -->
-          <div v-if="rightContent=='1'">左侧点击系统时右侧上半部分显示系统信息</div>
+          <div v-if="rightContent=='1'">
+            <Card :bordered="false" title="系统信息">
+              <Form :label-width="80">
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="系统名称">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="系统标识">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="创建人">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="创建时间">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="修改人">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="修改时间">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <FormItem label="描述">
+                    <Input type="textarea" :autosize="true" style="width: 100%" readonly/>
+                  </FormItem>
+                </Row>
+              </Form>
+            </Card>
+          </div>
 
           <!-- 2 左侧点击菜单时右侧上半部分显示菜单列表信息 -->
-          <div v-if="rightContent=='2'">左侧点击菜单时右侧上半部分显示菜单列表信息</div>
+          <div v-if="rightContent=='2'">
+            <Card :bordered="false" title="菜单信息">
+              <Form :label-width="80">
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="菜单名称">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="系统链接">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="所属系统">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="上级菜单">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="创建人">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="创建时间">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="修改人">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="修改时间">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <FormItem label="描述">
+                    <Input type="textarea" :autosize="true" style="width: 100%" readonly/>
+                  </FormItem>
+                </Row>
+              </Form>
+            </Card>
+          </div>
         </div>
 
         <!-- 右侧下半部分 -->

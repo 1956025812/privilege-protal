@@ -17,6 +17,16 @@ const BASE_URL = process.env.NODE_ENV === 'production'
   : '/'
 
 module.exports = {
+
+  // 升级组件的时候添加
+  css: {
+    loaderOptions: { // 向 CSS 相关的 loader 传递选项
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
+
   // Project deployment base
   // By default we assume your app will be deployed at the root of a domain,
   // e.g. https://www.my-app.com/

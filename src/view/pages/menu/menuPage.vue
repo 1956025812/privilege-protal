@@ -4,7 +4,9 @@
       <div slot="left" class="demo-split-pane">
         <Tree :data="menuData" @on-select-change="queryMenuDetail"></Tree>
       </div>
-      <div slot="right" class="demo-split-pane"></div>
+      <div slot="right" class="demo-split-pane">
+        <Tree :data="data1" @on-select-change="sss"></Tree>
+      </div>
     </Split>
   </div>
 </template>
@@ -17,7 +19,46 @@ export default {
     return {
       initSplitRatio: 0.2,
       split4: 0.5,
-      menuData: []
+      menuData: [],
+       data1: [
+        {
+          title: "parent 1",
+          mid: "sssss",
+          expand: true,
+          children: [
+            {
+              title: "parent 1-1",
+              mid: "wwwww",
+              expand: true,
+              children: [
+                {
+                  title: "leaf 1-1-1",
+                  mid: "1111"
+                },
+                {
+                  title: "leaf 1-1-2",
+                  mid: "1111"
+                }
+              ]
+            },
+            {
+              title: "parent 1-2",
+              mid: "1111",
+              expand: true,
+              children: [
+                {
+                  title: "leaf 1-2-1",
+                  mid: "1111"
+                },
+                {
+                  title: "leaf 1-2-1",
+                  mid: "1111"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     };
   },
 
@@ -28,6 +69,10 @@ export default {
       alert(JSON.stringify(nodes));    
       alert(JSON.stringify(node));  
       nodes[0].selected = !nodes[0].selected;
+    },
+
+    sss(nodes, node) {
+      alert(JSON.stringify(node)); 
     }
   },
 

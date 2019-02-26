@@ -17,42 +17,42 @@
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="系统名称">
-                      <Input readonly/>
+                      <Input readonly v-model="systemName"/>
                     </FormItem>
                   </Col>
                   <Col span="10" style="float: right">
                     <FormItem label="系统标识">
-                      <Input readonly/>
+                      <Input readonly v-model="systemKey"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="创建人">
-                      <Input readonly/>
+                      <Input readonly v-model="systemCreateName"/>
                     </FormItem>
                   </Col>
                   <Col span="10" style="float: right">
                     <FormItem label="创建时间">
-                      <Input readonly/>
+                      <Input readonly v-model="systemCreateTime"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="修改人">
-                      <Input readonly/>
+                      <Input readonly v-model="systemUpdateName"/>
                     </FormItem>
                   </Col>
                   <Col span="10" style="float: right">
                     <FormItem label="修改时间">
-                      <Input readonly/>
+                      <Input readonly v-model="systemUpdateTime"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <FormItem label="描述">
-                    <Input type="textarea" :autosize="true" style="width: 100%" readonly/>
+                    <Input type="textarea" :autosize="true" style="width: 100%" readonly v-model="systemDescription"/>
                   </FormItem>
                 </Row>
               </Form>
@@ -128,15 +128,24 @@
   </div>
 </template>
 <script>
+import { getToken } from "@/libs/util";
 import { selectSysMenuListAPI } from "@/api/menu/menu";
 import { selectSystemListAPI } from "@/api/system/system";
+import { selectSystemDetailAPI } from "@/api/system/system";
 
 export default {
   data() {
     return {
       initSplitRatio: 0.2,
       menuData: [],
-      rightContent: 0
+      rightContent: 0,
+      systemName: "",
+      systemKey: "",
+      systemCreateName: "",
+      systemCreateTime: "",
+      systemUpdateName: "",
+      systemUpdateTime: "",
+      systemDescription: ""
     };
   },
 
@@ -144,8 +153,26 @@ export default {
     // 查询菜单详情
     queryMenuDetail(nodes, node) {
       if (node.type == "system") {
-        alert("系统信息" + JSON.stringify(node));
         this.rightContent = 1;
+
+        let params = new Object();
+        params.loginUid = getToken();
+        params.systemKey = node.systemKey;
+        selectSystemDetailAPI(params).then(res => {
+          if (res.data.code == 1) {
+            this.systemName = res.data.data.systemName;
+            this.systemKey = res.data.data.systemKey;
+            this.systemCreateName = res.data.data.createName;
+            this.systemCreateTime = res.data.data.createTime;
+            this.systemUpdateName = res.data.data.updateName;
+            this.systemUpdateTime = res.data.data.updateTime;
+            this.systemDescription = res.data.data.description;  
+          } else if (res.data.code == 0) {
+            this.$Notice.error({
+              desc: res.data.msg
+            });
+          }
+        });
       } else if (node.type == "menu") {
         alert("菜单信息" + JSON.stringify(node));
         this.rightContent = 2;
@@ -167,7 +194,7 @@ export default {
             let systemTreeNode = new Object();
             systemTreeNode.title = eachSysSystemVO.systemName;
             systemTreeNode.type = "system";
-            systemTreeNode.sid = eachSysSystemVO.systemKey;
+            systemTreeNode.systemKey = eachSysSystemVO.systemKey;
             systemTreeNode.children = [];
 
             // 拼接菜单

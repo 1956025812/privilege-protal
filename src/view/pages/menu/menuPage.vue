@@ -10,7 +10,7 @@
 
         <!-- 右侧上半部分 -->
         <div v-if="rightContent!='0'">
-          <!-- 1 左侧点击系统时右侧上半部分显示系统信息 -->
+          <!-- 1 左侧点击系统节点时右侧上半部分显示系统信息 -->
           <div v-if="rightContent=='1'">
             <Card :bordered="false" title="系统信息">
               <Form :label-width="80">
@@ -60,7 +60,7 @@
           </div>
 
           <!-- 2 左侧点击菜单时右侧上半部分显示菜单列表信息 -->
-          <div v-if="rightContent=='2'">
+          <div v-if="rightContent=='2' || rightContent == '3'"> 
             <Card :bordered="false" title="菜单信息">
               <Form :label-width="80">
                 <Row>
@@ -81,7 +81,12 @@
                       <Input readonly/>
                     </FormItem>
                   </Col>
-                  <Col span="10" style="float: right">
+                  <Col span="10" style="float: right" v-show="rightContent == '2'">
+                    <FormItem label="所属系统">
+                      <Input readonly/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right" v-show="rightContent == '3'">
                     <FormItem label="上级菜单">
                       <Input readonly/>
                     </FormItem>
@@ -138,6 +143,7 @@ export default {
     return {
       initSplitRatio: 0.2,
       menuData: [],
+      // 0: 初始化；   1: 左侧点击系统节点;   2: 左侧点击一级菜单节点； 3：左侧点击非一级的菜单节点
       rightContent: 0,
       systemName: "",
       systemKey: "",
@@ -174,8 +180,11 @@ export default {
           }
         });
       } else if (node.type == "menu") {
-        alert("菜单信息" + JSON.stringify(node));
-        this.rightContent = 2;
+        if(node.level == 1) {
+            this.rightContent = 2;
+        } else if(node.level != 1) {
+            this.rightContent = 3;
+        }
       }
     }
   },
@@ -215,6 +224,7 @@ export default {
                       firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
                       firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid;
                       firstLevelMenu.type = "menu";
+                      firstLevelMenu.level = eachFirstLevelSysMenuVO.level;
                       systemTreeNode.children.push(firstLevelMenu);
 
                       firstLevelMenu.children = [];
@@ -229,6 +239,7 @@ export default {
                             eachSecondLevelSysMenuVO.menuName;
                           secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid;
                           secondLevelMenu.type = "menu";
+                          secondLevelMenu.level = eachSecondLevelSysMenuVO.level;
                           firstLevelMenu.children.push(secondLevelMenu);
                         }
                       });

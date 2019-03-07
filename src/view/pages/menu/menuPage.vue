@@ -2,6 +2,7 @@
   <div class="demo-split">
     <Split v-model="initSplitRatio" min="300px">
       <div slot="left" class="demo-split-pane">
+        <!-- 左侧系统菜单树 -->
         <Tree :data="menuData" @on-select-change="queryMenuDetail"></Tree>
       </div>
       <div slot="right" class="demo-split-pane">
@@ -52,7 +53,13 @@
                 </Row>
                 <Row>
                   <FormItem label="描述">
-                    <Input type="textarea" :autosize="true" style="width: 100%" readonly v-model="systemDescription"/>
+                    <Input
+                      type="textarea"
+                      :autosize="true"
+                      style="width: 100%"
+                      readonly
+                      v-model="systemDescription"
+                    />
                   </FormItem>
                 </Row>
               </Form>
@@ -60,66 +67,82 @@
           </div>
 
           <!-- 2 左侧点击菜单时右侧上半部分显示菜单列表信息 -->
-          <div v-if="rightContent=='2' || rightContent == '3'"> 
+          <div v-if="rightContent=='2' || rightContent == '3'">
             <Card :bordered="false" title="菜单信息">
               <Form :label-width="80">
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="菜单名称">
-                      <Input readonly/>
+                      <Input readonly v-model="menuName"/>
                     </FormItem>
                   </Col>
-                  <Col span="10" style="float: right">
-                    <FormItem label="系统链接">
-                      <Input readonly/>
+                  <Col span="10" style="float: right" v-show="rightContent == 3">
+                    <FormItem label="菜单链接">
+                      <Input readonly v-model="menuUrl"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="所属系统">
-                      <Input readonly/>
+                      <Input readonly v-model="belongSystemName"/>
                     </FormItem>
                   </Col>
-                  <Col span="10" style="float: right" v-show="rightContent == '2'">
-                    <FormItem label="所属系统">
-                      <Input readonly/>
-                    </FormItem>
-                  </Col>
-                  <Col span="10" style="float: right" v-show="rightContent == '3'">
+                  <Col span="10" style="float: right" v-show="rightContent == 3">
                     <FormItem label="上级菜单">
-                      <Input readonly/>
+                      <Input readonly v-model="parentMenuName"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="创建人">
-                      <Input readonly/>
+                      <Input readonly v-model="menuDetailCreateName"/>
                     </FormItem>
                   </Col>
                   <Col span="10" style="float: right">
                     <FormItem label="创建时间">
-                      <Input readonly/>
+                      <Input readonly v-model="menuDetailCreateTime"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
                   <Col span="10" style="float: left">
                     <FormItem label="修改人">
-                      <Input readonly/>
+                      <Input readonly v-model="menuDetailUpdateName"/>
                     </FormItem>
                   </Col>
                   <Col span="10" style="float: right">
                     <FormItem label="修改时间">
-                      <Input readonly/>
+                      <Input readonly v-model="menuDetailUpdateTime"/>
                     </FormItem>
                   </Col>
                 </Row>
                 <Row>
-                  <FormItem label="描述">
-                    <Input type="textarea" :autosize="true" style="width: 100%" readonly/>
-                  </FormItem>
+                  <Col span="10" style="float: left">
+                    <FormItem label="排序">
+                      <Input readonly v-model="menuDetailSort"/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right" v-show="rightContent == 1">
+                    <FormItem label="描述">
+                      <Input type="textarea" :autosize="true" readonly v-model="systemDescription"/>
+                    </FormItem>
+                  </Col>
+                  <Col
+                    span="10"
+                    style="float: right"
+                    v-show="rightContent == 2 || rightContent == 3"
+                  >
+                    <FormItem label="描述">
+                      <Input
+                        type="textarea"
+                        :autosize="true"
+                        readonly
+                        v-model="menuDetailDescription"
+                      />
+                    </FormItem>
+                  </Col>
                 </Row>
               </Form>
             </Card>
@@ -134,7 +157,7 @@
 </template>
 <script>
 import { getToken } from "@/libs/util";
-import { selectSysMenuListAPI } from "@/api/menu/menu";
+import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
 import { selectSystemListAPI } from "@/api/system/system";
 import { selectSystemDetailAPI } from "@/api/system/system";
 
@@ -151,16 +174,27 @@ export default {
       systemCreateTime: "",
       systemUpdateName: "",
       systemUpdateTime: "",
-      systemDescription: ""
+      systemDescription: "",
+      menuName: "",
+      menuUrl: "",
+      belongSystemName: "",
+      parentMenuName: "",
+      menuDetailSort: "",
+      menuDetailCreateName: "",
+      menuDetailCreateTime: "",
+      menuDetailUpdateName: "",
+      menuDetailUpdateTime: "",
+      menuDetailDescription: ""
     };
   },
 
   methods: {
-    // 查询菜单详情
+    // 查询系统菜单详情
     queryMenuDetail(nodes, node) {
       if (node.type == "system") {
         this.rightContent = 1;
 
+        // 查询系统详情
         let params = new Object();
         params.loginUid = getToken();
         params.systemKey = node.systemKey;
@@ -172,7 +206,7 @@ export default {
             this.systemCreateTime = res.data.data.createTime;
             this.systemUpdateName = res.data.data.updateName;
             this.systemUpdateTime = res.data.data.updateTime;
-            this.systemDescription = res.data.data.description;  
+            this.systemDescription = res.data.data.description;
           } else if (res.data.code == 0) {
             this.$Notice.error({
               desc: res.data.msg
@@ -180,11 +214,35 @@ export default {
           }
         });
       } else if (node.type == "menu") {
-        if(node.level == 1) {
-            this.rightContent = 2;
-        } else if(node.level != 1) {
-            this.rightContent = 3;
+        if (node.level == 1) {
+          this.rightContent = 2;
+        } else if (node.level != 1) {
+          this.rightContent = 3;
         }
+        // 查询菜单详情
+        let params = new Object();
+        params.loginUid = getToken();
+        params.mid = node.mid;
+        selectSysMenuDetailAPI(params).then(res => {
+          if (res.data.code == 1) {
+            this.menuName = res.data.data.menuName;
+            this.menuUrl = res.data.data.url;
+            this.belongSystemName = res.data.data.systemName;
+            if (res.data.data.level != 1) {
+              this.parentMenuName = res.data.data.parentMenuName;
+            }
+            this.menuDetailSort = res.data.data.sort;
+            this.menuDetailCreateName = res.data.data.createName;
+            this.menuDetailCreateTime = res.data.data.createTime;
+            this.menuDetailUpdateName = res.data.data.updateName;
+            this.menuDetailUpdateTime = res.data.data.updateTime;
+            this.menuDetailDescription = res.data.data.description;
+          } else if (res.data.code == 0) {
+            this.$Notice.error({
+              desc: res.data.msg
+            });
+          }
+        });
       }
     }
   },
@@ -239,7 +297,8 @@ export default {
                             eachSecondLevelSysMenuVO.menuName;
                           secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid;
                           secondLevelMenu.type = "menu";
-                          secondLevelMenu.level = eachSecondLevelSysMenuVO.level;
+                          secondLevelMenu.level =
+                            eachSecondLevelSysMenuVO.level;
                           firstLevelMenu.children.push(secondLevelMenu);
                         }
                       });

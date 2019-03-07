@@ -10,3 +10,15 @@ export const selectSysMenuListAPI = (params) => {
         params: params
     });
 }
+
+
+/**
+ * @description 查询菜单详情
+ */
+export const selectSysMenuDetailAPI = (params) => {
+    return axios.request({
+        url: '/menu/detail',
+        method: 'get',
+        params: params
+    });
+}

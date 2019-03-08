@@ -146,7 +146,7 @@
                 </Row>
                 <Row>
                   <FormItem>
-                    <Button type="primary">修改</Button>
+                    <Button type="primary" @click="editMenu(selectedMid)">修改</Button>
                     <Button style="margin-left: 8px">删除</Button>
                   </FormItem>
                 </Row>
@@ -159,6 +159,9 @@
         <div v-if="rightContent!='0'"></div>
       </div>
     </Split>
+
+    <!-- 修改菜单弹窗子组件 -->
+    <MenuEditModalPageComponent ref="menuEditModalRef" style="display:none"></MenuEditModalPageComponent>
   </div>
 </template>
 <script>
@@ -167,7 +170,12 @@ import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
 import { selectSystemListAPI } from "@/api/system/system";
 import { selectSystemDetailAPI } from "@/api/system/system";
 
+import MenuEditModalPageComponent from "_p/menu/editMenuPage";
+
 export default {
+  components: {
+    MenuEditModalPageComponent
+  },
   data() {
     return {
       initSplitRatio: 0.2,
@@ -181,6 +189,7 @@ export default {
       systemUpdateName: "",
       systemUpdateTime: "",
       systemDescription: "",
+      selectedMid: "",
       menuName: "",
       menuUrl: "",
       belongSystemName: "",
@@ -222,6 +231,7 @@ export default {
       } else if (node.type == "menu") {
         if (node.level == 1) {
           this.rightContent = 2;
+          this.parentMenuName = null;
         } else if (node.level != 1) {
           this.rightContent = 3;
         }
@@ -231,6 +241,7 @@ export default {
         params.mid = node.mid;
         selectSysMenuDetailAPI(params).then(res => {
           if (res.data.code == 1) {
+            this.selectedMid = res.data.data.mid;
             this.menuName = res.data.data.menuName;
             this.menuUrl = res.data.data.url;
             this.belongSystemName = res.data.data.systemName;
@@ -250,6 +261,11 @@ export default {
           }
         });
       }
+    },
+
+    // 修改菜单
+    editMenu(selectedMid) {
+      this.$refs.menuEditModalRef.openMenuEditModal(selectedMid);
     }
   },
 

@@ -1,0 +1,95 @@
+<template>
+  <div id="menuEditModalDiv">
+    <Button
+      class="export-btn"
+      style="border: none; appearance:none; margin-bottom: 5px;"
+      @click="openMenuEditModal"
+    >
+      <Icon type="md-Edit" size="25"/>
+    </Button>
+    <Modal
+      v-model="menuEditModal"
+      title="修改菜单"
+      ok-text="保存"
+      @on-ok="editMenu"
+      :mask-closable="false"
+      :closable="false"
+    >
+      <Input v-model="hidden_mid" style="display:none"/>
+      <Form label-position="right" :label-width="100">
+        <FormItem label="菜单名称：">
+          <Input v-model="menuName"/>
+        </FormItem>
+        <FormItem label="菜单链接：">
+          <Input v-model="menuUrl"/>
+        </FormItem>
+        <FormItem label="排序：">
+          <Input v-model="sort"/>
+        </FormItem>
+        <FormItem label="菜单描述：">
+          <Input v-model="description" type="textarea" :autosize="{minRows: 2,maxRows: 5}"/>
+        </FormItem>
+      </Form>
+    </Modal>
+  </div>
+</template>
+
+
+
+<script>
+import { getToken } from "@/libs/util";
+import { selectSysMenuDetailAPI } from "@/api/menu/menu";
+
+export default {
+  name: "MenuEditModalPageComponent",
+  data() {
+    return {
+      menuEditModal: false,
+      hidden_mid: "",
+      menuName: "",
+      menuUrl: "",
+      sort: "",
+      description: ""
+    };
+  },
+
+  methods: {
+    openMenuEditModal(mid) {
+      this.menuEditModal = true;
+
+      let params = new Object();
+      params.loginUid = getToken();
+      params.mid = mid;
+      selectSysMenuDetailAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.menuName = res.data.data.menuName;
+          this.menuUrl = res.data.data.url;
+          this.sort = res.data.data.sort;
+          this.description = res.data.data.description;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
+    },
+
+    editMenu() {
+      alert("修改菜单");
+    }
+  },
+
+  created() {}
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+

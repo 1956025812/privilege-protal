@@ -38,7 +38,7 @@
 
 <script>
 import { getToken } from "@/libs/util";
-import { selectSysMenuDetailAPI } from "@/api/menu/menu";
+import { selectSysMenuDetailAPI, editMenuAPI } from "@/api/menu/menu";
 
 export default {
   name: "MenuEditModalPageComponent",
@@ -79,10 +79,20 @@ export default {
       let params = new Object();
       params.mid = this.hidden_mid;
       params.menuName = this.menuName;
+      params.url = this.menuUrl;
       params.sort = this.sort;
       params.description = this.description;
 
-      alert(JSON.stringify(params));
+      editMenuAPI(params).then(res => {
+        if (res.data.code == 1) {
+          alert(JSON.stringify(res));
+          // 回调修改页面TODO
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     }
   },
 

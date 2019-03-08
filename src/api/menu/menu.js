@@ -22,3 +22,17 @@ export const selectSysMenuDetailAPI = (params) => {
         params: params
     });
 }
+
+
+
+/**
+ * @description 修改菜单
+ */
+export const editMenuAPI = (params) => {
+    return axios.request({
+        url: '/menu/update',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}

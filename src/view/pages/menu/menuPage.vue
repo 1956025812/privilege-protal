@@ -76,7 +76,7 @@
                       <Input readonly v-model="menuName"/>
                     </FormItem>
                   </Col>
-                  <Col span="10" style="float: right" v-show="rightContent == 3">
+                  <Col span="10" style="float: right">
                     <FormItem label="菜单链接">
                       <Input readonly v-model="menuUrl"/>
                     </FormItem>
@@ -88,7 +88,7 @@
                       <Input readonly v-model="belongSystemName"/>
                     </FormItem>
                   </Col>
-                  <Col span="10" style="float: right" v-show="rightContent == 3">
+                  <Col span="10" style="float: right">
                     <FormItem label="上级菜单">
                       <Input readonly v-model="parentMenuName"/>
                     </FormItem>
@@ -143,6 +143,12 @@
                       />
                     </FormItem>
                   </Col>
+                </Row>
+                <Row>
+                  <FormItem>
+                    <Button type="primary">修改</Button>
+                    <Button style="margin-left: 8px">删除</Button>
+                  </FormItem>
                 </Row>
               </Form>
             </Card>

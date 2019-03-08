@@ -56,6 +56,7 @@ export default {
   methods: {
     openMenuEditModal(mid) {
       this.menuEditModal = true;
+      this.hidden_mid = mid;
 
       let params = new Object();
       params.loginUid = getToken();
@@ -75,7 +76,13 @@ export default {
     },
 
     editMenu() {
-      alert("修改菜单");
+      let params = new Object();
+      params.mid = this.hidden_mid;
+      params.menuName = this.menuName;
+      params.sort = this.sort;
+      params.description = this.description;
+
+      alert(JSON.stringify(params));
     }
   },
 

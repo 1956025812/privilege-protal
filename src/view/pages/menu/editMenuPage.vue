@@ -85,7 +85,9 @@ export default {
 
       editMenuAPI(params).then(res => {
         if (res.data.code == 1) {
-          alert(JSON.stringify(res));
+          this.$Notice.success({
+            desc: res.data.msg
+          });
           // 回调修改页面TODO
         } else if (res.data.code == 0) {
           this.$Notice.error({

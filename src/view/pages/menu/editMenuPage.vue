@@ -77,6 +77,7 @@ export default {
 
     editMenu() {
       let params = new Object();
+      params.loginUid = getToken();
       params.mid = this.hidden_mid;
       params.menuName = this.menuName;
       params.url = this.menuUrl;
@@ -88,7 +89,11 @@ export default {
           this.$Notice.success({
             desc: res.data.msg
           });
-          // 回调修改页面TODO
+          // 回调修改菜单信息
+          this.$parent.menuName = this.menuName;
+          this.$parent.menuUrl = this.menuUrl;
+          this.$parent.menuDetailSort = this.sort;
+          this.$parent.menuDetailDescription = this.description;
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

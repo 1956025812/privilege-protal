@@ -94,6 +94,7 @@ export default {
           this.$parent.menuUrl = this.menuUrl;
           this.$parent.menuDetailSort = this.sort;
           this.$parent.menuDetailDescription = this.description;
+          // 回调修改左侧的选中的树节点的信息 TODO
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

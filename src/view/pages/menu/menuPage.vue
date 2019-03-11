@@ -156,7 +156,15 @@
         </div>
 
         <!-- 右侧下半部分 -->
-        <div v-if="rightContent!='0'"></div>
+        <div v-if="rightContent!='0'">
+          <div v-show="rightContent == '1'">
+            <OneLevelMenuTableComponent></OneLevelMenuTableComponent>
+          </div>
+
+          <div v-show="rightContent != '1'">
+            <OneDownLevelMenuTableComponent></OneDownLevelMenuTableComponent>
+          </div>
+        </div>
       </div>
     </Split>
 
@@ -171,10 +179,14 @@ import { selectSystemListAPI } from "@/api/system/system";
 import { selectSystemDetailAPI } from "@/api/system/system";
 
 import MenuEditModalPageComponent from "_p/menu/editMenuPage";
+import OneLevelMenuTableComponent from "_p/menu/oneLevelMenuTable";
+import OneDownLevelMenuTableComponent from "_p/menu/oneDownLevelMenuTable";
 
 export default {
   components: {
-    MenuEditModalPageComponent
+    MenuEditModalPageComponent,
+    OneLevelMenuTableComponent,
+    OneDownLevelMenuTableComponent
   },
   data() {
     return {

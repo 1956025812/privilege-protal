@@ -155,13 +155,14 @@
           </div>
         </div>
 
+        <br>
+
         <!-- 右侧下半部分 -->
         <div v-if="rightContent!='0'">
-          <div v-show="rightContent == '1'">
+          <div v-if="rightContent == '1'">
             <OneLevelMenuTableComponent></OneLevelMenuTableComponent>
           </div>
-          <br>
-          <div v-show="rightContent != '1'">
+          <div v-if="rightContent != '1'">
             <OneDownLevelMenuTableComponent></OneDownLevelMenuTableComponent>
           </div>
         </div>

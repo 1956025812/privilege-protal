@@ -1,5 +1,10 @@
 <template>
-  <div id="oneDownLevelMenuTableDiv">二级及以下级菜单或按钮列表</div>
+  <div id="oneDownLevelMenuTableDiv">
+    <Card>
+      <p slot="title">菜单或按钮列表</p>
+      <Button slot="extra" type="primary">新增</Button>   
+    </Card>
+  </div>
 </template>
 
 

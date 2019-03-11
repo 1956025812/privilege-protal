@@ -160,7 +160,7 @@
           <div v-show="rightContent == '1'">
             <OneLevelMenuTableComponent></OneLevelMenuTableComponent>
           </div>
-
+          <br/>
           <div v-show="rightContent != '1'">
             <OneDownLevelMenuTableComponent></OneDownLevelMenuTableComponent>
           </div>

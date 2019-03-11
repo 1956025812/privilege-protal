@@ -1,5 +1,10 @@
 <template>
-  <div id="oneLevelMenuTableDiv">系统的一级菜单列表</div>
+  <div id="oneLevelMenuTableDiv">
+    <Card>
+      <p slot="title">菜单列表</p>
+      <Button slot="extra" type="primary">新增</Button>   
+    </Card>
+  </div>
 </template>
 
 

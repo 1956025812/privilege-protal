@@ -158,14 +158,16 @@
         <br>
 
         <!-- 右侧下半部分 -->
-        <div v-if="rightContent!='0'">
-          <div v-if="rightContent == '1'">
-            <OneLevelMenuTableComponent></OneLevelMenuTableComponent>
-          </div>
-          <div v-if="rightContent != '1'">
-            <OneDownLevelMenuTableComponent></OneDownLevelMenuTableComponent>
-          </div>
-        </div>
+        <!-- 一级菜单列表 -->
+        <OneLevelMenuTableComponent
+          ref="oneLevelMenuTableComponentRef"
+          v-show="rightContent == '1'"
+        ></OneLevelMenuTableComponent>
+        <!-- 非一级菜单或按钮列表 -->
+        <OneDownLevelMenuTableComponent
+          ref="oneDownLevelMenuTableComponentRef"
+          v-show="rightContent == '2' || rightContent == '3'"
+        ></OneDownLevelMenuTableComponent>
       </div>
     </Split>
 

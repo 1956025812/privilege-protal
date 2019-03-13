@@ -321,6 +321,11 @@ export default {
             });
           }
         });
+
+        // 查询选中系统节点的一级菜单列表
+        this.$refs.oneLevelMenuTableComponentRef.queryOneLevelMenuList(
+          node.systemKey
+        );
       } else if (node.type == "menu") {
         if (node.level == 1) {
           this.rightContent = 2;
@@ -353,6 +358,11 @@ export default {
             });
           }
         });
+
+        // 查询选中菜单节点的子菜单或按钮列表
+        this.$refs.oneDownLevelMenuTableComponentRef.queryOneDownLevelMenuList(
+          node.mid
+        );
       }
     },
 

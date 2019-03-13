@@ -123,10 +123,10 @@ export default {
 
   methods: {
     // 查询子菜单列表或按钮列表
-    queryOneDownLevelMenuList() {
+    queryOneDownLevelMenuList(parentMid) {
       let params = new Object();
       params.loginUid = getToken();
-      params.parentMid = "4EAE2D7F29A846B18B6D04D0CB9F9BW3";
+      params.parentMid = parentMid;
       selectSysMenuListAPI(params).then(res => {
         if (res.data.code == 1) {
           this.oneDownLevelMenuTableData = res.data.data;
@@ -139,10 +139,7 @@ export default {
     }
   },
 
-  created() {
-    // 初始化子菜单列表或按钮列表
-    this.$options.methods.queryOneDownLevelMenuList.bind(this)();
-  }
+  created() {}
 };
 </script>
 

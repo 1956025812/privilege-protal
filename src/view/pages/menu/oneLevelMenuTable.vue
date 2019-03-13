@@ -118,11 +118,11 @@ export default {
 
   methods: {
     // 查询一级菜单列表
-    queryOneLevelMenuList() {
+    queryOneLevelMenuList(systemKey) {
       let params = new Object();
       params.loginUid = getToken();
       params.type = 1;
-      params.systemKey = "system_goods";
+      params.systemKey = systemKey;
       params.level = 1;
       selectSysMenuListAPI(params).then(res => {
         if (res.data.code == 1) {
@@ -136,10 +136,7 @@ export default {
     }
   },
 
-  created() {
-    // 初始化一级菜单列表
-    this.$options.methods.queryOneLevelMenuList.bind(this)();
-  }
+  created() {}
 };
 </script>
 

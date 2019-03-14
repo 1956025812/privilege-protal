@@ -14,6 +14,9 @@
         ></Table>
       </div>
     </Card>
+
+    <!-- 菜单详情弹窗组件 -->
+    <MenuDetailModalPageComponent ref="menuDetailModalRef" style="display:none"></MenuDetailModalPageComponent>
   </div>
 </template>
 
@@ -22,9 +25,13 @@
 <script>
 import { getToken } from "@/libs/util";
 import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
+import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
 
 export default {
   name: "OneDownLevelMenuTableComponent",
+  components: {
+    MenuDetailModalPageComponent
+  },
   data() {
     return {
       columns: [
@@ -79,7 +86,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.$refs.menuDetailModalRef.openMenuDetailModal(
+                        params.row.mid
+                      );
+                    }
                   }
                 },
                 "详情"

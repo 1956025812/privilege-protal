@@ -96,30 +96,6 @@
                 </Row>
                 <Row>
                   <Col span="10" style="float: left">
-                    <FormItem label="创建人">
-                      <Input readonly v-model="menuDetailCreateName"/>
-                    </FormItem>
-                  </Col>
-                  <Col span="10" style="float: right">
-                    <FormItem label="创建时间">
-                      <Input readonly v-model="menuDetailCreateTime"/>
-                    </FormItem>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span="10" style="float: left">
-                    <FormItem label="修改人">
-                      <Input readonly v-model="menuDetailUpdateName"/>
-                    </FormItem>
-                  </Col>
-                  <Col span="10" style="float: right">
-                    <FormItem label="修改时间">
-                      <Input readonly v-model="menuDetailUpdateTime"/>
-                    </FormItem>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col span="10" style="float: left">
                     <FormItem label="排序">
                       <Input readonly v-model="menuDetailSort"/>
                     </FormItem>
@@ -141,6 +117,30 @@
                         readonly
                         v-model="menuDetailDescription"
                       />
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="创建人">
+                      <Input readonly v-model="menuDetailCreateName"/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="创建时间">
+                      <Input readonly v-model="menuDetailCreateTime"/>
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span="10" style="float: left">
+                    <FormItem label="修改人">
+                      <Input readonly v-model="menuDetailUpdateName"/>
+                    </FormItem>
+                  </Col>
+                  <Col span="10" style="float: right">
+                    <FormItem label="修改时间">
+                      <Input readonly v-model="menuDetailUpdateTime"/>
                     </FormItem>
                   </Col>
                 </Row>

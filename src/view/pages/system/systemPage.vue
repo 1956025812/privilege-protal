@@ -50,7 +50,11 @@
         </Button>
       </Tooltip>
       <Tooltip placement="top" content="导出">
-        <Button class="export-btn" style="border: none; appearance:none; margin-bottom: 5px;">
+        <Button
+          class="export-btn"
+          style="border: none; appearance:none; margin-bottom: 5px;"
+          @click="exportSystem()"
+        >
           <Icon type="md-download" size="25"/>
         </Button>
       </Tooltip>
@@ -324,6 +328,7 @@ export default {
         content: "确认删除系统【" + row.systemName + "】么？",
         onOk: () => {
           let params = new Object();
+          params.loginUid = getToken;
           params.sid = row.sid;
           delSystemAPI(params).then(res => {
             if (res.data.code == 1) {
@@ -357,6 +362,7 @@ export default {
         content: "确认要批量删除这些系统么？",
         onOk: () => {
           let params = new Object();
+          params.loginUid = getToken;
           params.sids = this.selectRowSids;
           delSystemAPI(params).then(res => {
             if (res.data.code == 1) {
@@ -372,6 +378,28 @@ export default {
           });
         }
       });
+    },
+
+    /**
+     * 导出系统列表EXCEL TODO 这个链接怎么改成动态的 或者用 js中写
+     */
+    exportSystem() {
+      let paramsStr = "";
+      paramsStr += "loginUid=" + getToken();
+      if (null != this.systemName && "" != this.systemName.trim()) {
+        paramsStr += "&systemName=" + this.systemName;
+      }
+      if (null != this.systemKey && "" != this.systemKey.trim()) {
+        paramsStr += "&systemKey=" + this.systemKey;
+      }
+      if (this.createTimeRange != null && this.createTimeRange != "") {
+        paramsStr +=
+          "&startTime=" + this.createTimeRange.toString().split(",")[0];
+        paramsStr +=
+          "&endTime=" + this.createTimeRange.toString().split(",")[1];
+      }
+
+      window.location.href = "http://localhost:8001/system/export?" + paramsStr;
     }
   },
 

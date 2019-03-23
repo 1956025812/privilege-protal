@@ -12,6 +12,8 @@
 
     <!-- 菜单详情弹窗组件 -->
     <MenuDetailModalPageComponent ref="menuDetailModalRef" style="display:none"></MenuDetailModalPageComponent>
+    <!-- 修改菜单弹窗子组件 -->
+    <MenuEditModalPageComponent ref="menuEditModalRef" style="display:none"></MenuEditModalPageComponent>
   </div>
 </template>
 
@@ -21,11 +23,13 @@
 import { getToken } from "@/libs/util";
 import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
 import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
+import MenuEditModalPageComponent from "_p/menu/editMenuPage";
 
 export default {
   name: "OneLevelMenuTableComponent",
   components: {
-    MenuDetailModalPageComponent
+    MenuDetailModalPageComponent,
+    MenuEditModalPageComponent
   },
   data() {
     return {
@@ -102,7 +106,9 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.$refs.menuEditModalRef.openMenuEditModal(params.row.mid);
+                    }
                   }
                 },
                 "修改"

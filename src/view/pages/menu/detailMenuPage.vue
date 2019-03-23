@@ -13,6 +13,9 @@
         <FormItem label="菜单名称：">
           <Input v-model="menuName" readonly/>
         </FormItem>
+        <FormItem label="菜单类型：">
+          <Input v-model="menuTypeName" readonly/>
+        </FormItem>
         <FormItem label="菜单链接：">
           <Input v-model="menuUrl" readonly/>
         </FormItem>
@@ -63,6 +66,7 @@ export default {
       menuDetailModal: false,
       hidden_mid: "",
       menuName: "",
+      menuTypeName: "",
       menuUrl: "",
       systemName: "",
       parentMenuName: "",
@@ -87,6 +91,7 @@ export default {
         if (res.data.code == 1) {
           this.hidden_mid = res.data.data.mid;
           this.menuName = res.data.data.menuName;
+          this.menuTypeName = res.data.data.menuTypeName;
           this.menuUrl = res.data.data.url;
           this.systemName = res.data.data.systemName;
           this.parentMenuName = res.data.data.parentMenuName;

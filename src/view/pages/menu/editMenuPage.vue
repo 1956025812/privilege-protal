@@ -20,6 +20,9 @@
         <FormItem label="菜单名称：">
           <Input v-model="menuName"/>
         </FormItem>
+        <FormItem label="菜单类型：">
+          <Input v-model="menuTypeName" disabled/>
+        </FormItem>
         <FormItem label="菜单链接：">
           <Input v-model="menuUrl"/>
         </FormItem>
@@ -47,6 +50,7 @@ export default {
       menuEditModal: false,
       hidden_mid: "",
       menuName: "",
+      menuTypeName: "",
       menuUrl: "",
       sort: "",
       description: ""
@@ -64,6 +68,7 @@ export default {
       selectSysMenuDetailAPI(params).then(res => {
         if (res.data.code == 1) {
           this.menuName = res.data.data.menuName;
+          this.menuTypeName = res.data.data.menuTypeName;
           this.menuUrl = res.data.data.url;
           this.sort = res.data.data.sort;
           this.description = res.data.data.description;

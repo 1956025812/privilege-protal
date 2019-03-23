@@ -51,17 +51,8 @@ export default {
         },
         {
           title: "类型",
-          key: "type",
-          align: "center",
-          render: (h, params) => {
-            let typeName = null;
-            if (params.row.type == 1) {
-              typeName = "菜单";
-            } else if (params.row.type == 2) {
-              typeName = "按钮";
-            }
-            return h("div", typeName);
-          }
+          key: "menuTypeName",
+          align: "center"
         },
         {
           title: "菜单链接",

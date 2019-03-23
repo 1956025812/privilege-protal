@@ -100,23 +100,9 @@
                       <Input readonly v-model="menuDetailSort"/>
                     </FormItem>
                   </Col>
-                  <Col span="10" style="float: right" v-show="rightContent == 1">
-                    <FormItem label="描述">
-                      <Input type="textarea" :autosize="true" readonly v-model="systemDescription"/>
-                    </FormItem>
-                  </Col>
-                  <Col
-                    span="10"
-                    style="float: right"
-                    v-show="rightContent == 2 || rightContent == 3"
-                  >
-                    <FormItem label="描述">
-                      <Input
-                        type="textarea"
-                        :autosize="true"
-                        readonly
-                        v-model="menuDetailDescription"
-                      />
+                  <Col span="10" style="float: right">
+                    <FormItem label="类型">
+                      <Input readonly v-model="menuTypeName"/>
                     </FormItem>
                   </Col>
                 </Row>
@@ -143,6 +129,17 @@
                       <Input readonly v-model="menuDetailUpdateTime"/>
                     </FormItem>
                   </Col>
+                </Row>
+                <Row>
+                  <FormItem label="描述">
+                    <Input
+                      type="textarea"
+                      :autosize="true"
+                      style="width: 100%"
+                      readonly
+                      v-model="menuDetailDescription"
+                    />
+                  </FormItem>
                 </Row>
                 <Row>
                   <FormItem>
@@ -205,6 +202,7 @@ export default {
       systemUpdateTime: "",
       systemDescription: "",
       selectedMid: "",
+      menuTypeName: "",
       menuName: "",
       menuUrl: "",
       belongSystemName: "",
@@ -346,6 +344,7 @@ export default {
             if (res.data.data.level != 1) {
               this.parentMenuName = res.data.data.parentMenuName;
             }
+            this.menuTypeName = res.data.data.menuTypeName;
             this.menuDetailSort = res.data.data.sort;
             this.menuDetailCreateName = res.data.data.createName;
             this.menuDetailCreateTime = res.data.data.createTime;

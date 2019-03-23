@@ -112,7 +112,9 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.$refs.menuEditModalRef.openMenuEditModal(params.row.mid);
+                      this.$refs.menuEditModalRef.openMenuEditModal(
+                        params.row.mid
+                      );
                     }
                   }
                 },

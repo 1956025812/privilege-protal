@@ -143,7 +143,7 @@
                 </Row>
                 <Row>
                   <FormItem>
-                    <Button type="primary" @click="editMenu(selectedMid)">修改</Button>
+                    <Button type="primary" @click="oenpEditMenuModal(selectedMid)">修改</Button>
                     <Button style="margin-left: 8px">删除</Button>
                   </FormItem>
                 </Row>
@@ -233,6 +233,7 @@ export default {
               systemTreeNode.title = eachSysSystemVO.systemName;
               systemTreeNode.type = "system";
               systemTreeNode.systemKey = eachSysSystemVO.systemKey;
+              systemTreeNode.systemName = eachSysSystemVO.systemName;
               systemTreeNode.children = [];
 
               // 拼接菜单
@@ -252,6 +253,10 @@ export default {
                         let firstLevelMenu = new Object();
                         firstLevelMenu.title = eachFirstLevelSysMenuVO.menuName;
                         firstLevelMenu.mid = eachFirstLevelSysMenuVO.mid;
+                        firstLevelMenu.systemKey =
+                          eachFirstLevelSysMenuVO.systemKey;
+                        firstLevelMenu.systemName =
+                          eachFirstLevelSysMenuVO.systemName;
                         firstLevelMenu.type = "menu";
                         firstLevelMenu.level = eachFirstLevelSysMenuVO.level;
                         systemTreeNode.children.push(firstLevelMenu);
@@ -266,7 +271,13 @@ export default {
                             let secondLevelMenu = new Object();
                             secondLevelMenu.title =
                               eachSecondLevelSysMenuVO.menuName;
+                            secondLevelMenu.systemKey =
+                              eachSecondLevelSysMenuVO.systemKey;
+                            secondLevelMenu.systemName =
+                              eachSecondLevelSysMenuVO.systemName;
                             secondLevelMenu.mid = eachSecondLevelSysMenuVO.mid;
+                            secondLevelMenu.systemKey =
+                              eachSecondLevelSysMenuVO.systemKey;
                             secondLevelMenu.type = "menu";
                             secondLevelMenu.level =
                               eachSecondLevelSysMenuVO.level;
@@ -322,7 +333,8 @@ export default {
 
         // 查询选中系统节点的一级菜单列表
         this.$refs.oneLevelMenuTableComponentRef.queryOneLevelMenuList(
-          node.systemKey
+          node.systemKey,
+          node.systemName
         );
       } else if (node.type == "menu") {
         if (node.level == 1) {
@@ -358,15 +370,19 @@ export default {
           }
         });
 
-        // 查询选中菜单节点的子菜单或按钮列表
+        // 查询选中菜单节点的子菜单或按钮列表  TODO 获取父级菜单名称
+        alert(JSON.stringify(node));
         this.$refs.oneDownLevelMenuTableComponentRef.queryOneDownLevelMenuList(
-          node.mid
+          node.systemKey,
+          node.systemName,
+          node.mid,
+          node.title
         );
       }
     },
 
     // 修改菜单
-    editMenu(selectedMid) {
+    oenpEditMenuModal(selectedMid) {
       this.$refs.menuEditModalRef.openMenuEditModal(selectedMid);
     }
   },

@@ -2,7 +2,11 @@
   <div id="oneDownLevelMenuTableDiv">
     <Card>
       <p slot="title">子菜单或按钮列表</p>
-      <Button slot="extra" type="primary">新增</Button>
+      <Button
+        slot="extra"
+        type="primary"
+        @click="openAddMenuModal(systemKey, systemName, parentMid, parentMenuName)"
+      >新增</Button>
 
       <!-- 子菜单列表或按钮列表 -->
       <div>
@@ -17,6 +21,8 @@
 
     <!-- 菜单详情弹窗组件 -->
     <MenuDetailModalPageComponent ref="menuDetailModalRef" style="display:none"></MenuDetailModalPageComponent>
+    <!-- 新增菜单弹窗子组件 -->
+    <MenuAddModalPageComponent ref="menuAddModalRef" style="display:none"></MenuAddModalPageComponent>
     <!-- 修改菜单弹窗子组件 -->
     <MenuEditModalPageComponent ref="menuEditModalRef" style="display:none"></MenuEditModalPageComponent>
   </div>
@@ -28,12 +34,14 @@
 import { getToken } from "@/libs/util";
 import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
 import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
+import MenuAddModalPageComponent from "_p/menu/addMenuPage";
 import MenuEditModalPageComponent from "_p/menu/editMenuPage";
 
 export default {
   name: "OneDownLevelMenuTableComponent",
   components: {
     MenuDetailModalPageComponent,
+    MenuAddModalPageComponent,
     MenuEditModalPageComponent
   },
   data() {
@@ -128,13 +136,26 @@ export default {
           }
         }
       ],
-      oneDownLevelMenuTableData: []
+      oneDownLevelMenuTableData: [],
+      systemKey: "",
+      parentMenuName: ""
     };
   },
 
   methods: {
     // 查询子菜单列表或按钮列表
-    queryOneDownLevelMenuList(parentMid) {
+    queryOneDownLevelMenuList(
+      systemKey,
+      systemName,
+      parentMid,
+      parentMenuName
+    ) {
+      // 向新增菜单方法传参
+      this.systemKey = systemKey;
+      this.systemName = systemName;
+      this.parentMid = parentMid;
+      this.parentMenuName = parentMenuName;
+
       let params = new Object();
       params.loginUid = getToken();
       params.parentMid = parentMid;
@@ -147,6 +168,17 @@ export default {
           });
         }
       });
+    },
+
+    // 开启新增菜单弹窗
+    openAddMenuModal(systemKey, systemName, parentMid, parentMenuName) {
+      this.$refs.menuAddModalRef.openMenuAddModal(
+        systemKey,
+        systemName,
+        "oneDownLevel",
+        parentMid,
+        parentMenuName
+      );
     }
   },
 

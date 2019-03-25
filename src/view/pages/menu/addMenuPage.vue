@@ -96,6 +96,7 @@ export default {
     // 新增菜单
     saveMenu() {
       let params = new Object();
+      params.loginUid = getToken();
       params.systemKey = this.systemKey;
       params.menuName = this.menuName;
       params.type = this.menuType;

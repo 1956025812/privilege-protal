@@ -11,6 +11,7 @@
       v-model="menuAddModal"
       title="新增菜单"
       ok-text="保存"
+      @on-ok="saveMenu"
       :mask-closable="false"
       :closable="false"
     >
@@ -18,7 +19,7 @@
         <FormItem label="系统名称：">
           <Input v-model="systemName" disabled/>
         </FormItem>
-        <FormItem label="上级菜单名称：" v-show="menuLevel == 'oneDownLevel'">
+        <FormItem label="上级菜单名称：" v-show="parentMenuLevel > 0">
           <Input v-model="parentMenuName" disabled/>
         </FormItem>
         <FormItem label="菜单名称：">
@@ -48,6 +49,7 @@
 
 <script>
 import { getToken } from "@/libs/util";
+import { saveMenuAPI } from "@/api/menu/menu";
 
 export default {
   name: "MenuAddModalPageComponent",
@@ -55,10 +57,10 @@ export default {
     return {
       menuAddModal: false,
       systemKey: "",
-      menuLevel: "",
-      parentMid: "",
       systemName: "",
+      parentMid: "",
       parentMenuName: "",
+      parentMenuLevel: "",
       menuName: "",
       menuType: "",
       menuUrl: "",
@@ -72,23 +74,52 @@ export default {
      * @description 打开新增菜单弹窗
      * @augments systemKey 系统标识
      * @augments systemName 系统名称
-     * @augments menuLevel 菜单级别 oneLevel 一级菜单   oneDownLevel 二级及以下级
      * @augments parentMid 父菜单ID 当menuLevel值为oneDownLevel的时候需要传递该参数
-     * @augments parentMenuName 父菜单名称 当menuLevel值为oneDownLevel的时候需要传递该参数
+     * @augments parentMenuName 父菜单名称 当menuLevel值大于0的时候需要传递该参数
+     * @augments parentMenuLevel 父菜单级别 1,2,3,4 一级二级三级四级以此类推
      */
     openMenuAddModal(
       systemKey,
       systemName,
-      menuLevel,
       parentMid,
-      parentMenuName
+      parentMenuName,
+      parentMenuLevel
     ) {
       this.menuAddModal = true;
       this.systemKey = systemKey;
       this.systemName = systemName;
-      this.menuLevel = menuLevel;
       this.parentMid = parentMid;
       this.parentMenuName = parentMenuName;
+      this.parentMenuLevel = parentMenuLevel;
+    },
+
+    // 新增菜单
+    saveMenu() {
+      let params = new Object();
+      params.systemKey = this.systemKey;
+      params.menuName = this.menuName;
+      params.type = this.menuType;
+      if (this.parentMenuLevel > 0) {
+        params.parentMid = this.parentMid;
+      }
+      params.url = this.menuUrl;
+      params.sort = this.sort;
+      params.systemKey = this.systemKey;
+      params.description = this.description;
+      params.level = parseInt(this.parentMenuLevel) + 1;
+
+      saveMenuAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.$Notice.success({
+            desc: res.data.msg
+          });
+          // 刷新页面 TODO
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     }
   },
 

@@ -5,7 +5,7 @@
       <Button
         slot="extra"
         type="primary"
-        @click="openAddMenuModal(systemKey, systemName, parentMid, parentMenuName)"
+        @click="openAddMenuModal(systemKey, systemName, parentMid, parentMenuName, parentMenuLevel)"
       >新增</Button>
 
       <!-- 子菜单列表或按钮列表 -->
@@ -138,7 +138,8 @@ export default {
       ],
       oneDownLevelMenuTableData: [],
       systemKey: "",
-      parentMenuName: ""
+      parentMenuName: "",
+      parentMenuLevel: ""
     };
   },
 
@@ -148,13 +149,15 @@ export default {
       systemKey,
       systemName,
       parentMid,
-      parentMenuName
+      parentMenuName,
+      parentMenuLevel
     ) {
       // 向新增菜单方法传参
       this.systemKey = systemKey;
       this.systemName = systemName;
       this.parentMid = parentMid;
       this.parentMenuName = parentMenuName;
+      this.parentMenuLevel = parentMenuLevel;
 
       let params = new Object();
       params.loginUid = getToken();
@@ -171,13 +174,19 @@ export default {
     },
 
     // 开启新增菜单弹窗
-    openAddMenuModal(systemKey, systemName, parentMid, parentMenuName) {
+    openAddMenuModal(
+      systemKey,
+      systemName,
+      parentMid,
+      parentMenuName,
+      parentMenuLevel
+    ) {
       this.$refs.menuAddModalRef.openMenuAddModal(
         systemKey,
         systemName,
-        "oneDownLevel",
         parentMid,
-        parentMenuName
+        parentMenuName,
+        parentMenuLevel
       );
     }
   },

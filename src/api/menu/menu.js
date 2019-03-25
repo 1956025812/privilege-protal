@@ -24,6 +24,18 @@ export const selectSysMenuDetailAPI = (params) => {
 }
 
 
+/**
+ * @description 新增菜单
+ */
+export const saveMenuAPI = (params) => {
+    return axios.request({
+        url: '/menu/save',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
 
 /**
  * @description 修改菜单

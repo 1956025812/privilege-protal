@@ -370,13 +370,13 @@ export default {
           }
         });
 
-        // 查询选中菜单节点的子菜单或按钮列表  TODO 获取父级菜单名称
-        alert(JSON.stringify(node));
+        // 查询选中菜单节点的子菜单或按钮列表
         this.$refs.oneDownLevelMenuTableComponentRef.queryOneDownLevelMenuList(
           node.systemKey,
           node.systemName,
           node.mid,
-          node.title
+          node.title,
+          node.level
         );
       }
     },

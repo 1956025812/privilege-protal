@@ -160,9 +160,9 @@ export default {
       this.$refs.menuAddModalRef.openMenuAddModal(
         systemKey,
         systemName,
-        "oneLevel",
         null,
-        null
+        null,
+        "0" // 系统节点的parentMenuLevel是0
       );
     }
   },

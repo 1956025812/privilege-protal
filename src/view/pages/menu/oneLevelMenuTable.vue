@@ -23,7 +23,11 @@
 
 <script>
 import { getToken } from "@/libs/util";
-import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
+import {
+  selectSysMenuListAPI,
+  selectSysMenuDetailAPI,
+  delMenuAPI
+} from "@/api/menu/menu";
 import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
 import MenuAddModalPageComponent from "_p/menu/addMenuPage";
 import MenuEditModalPageComponent from "_p/menu/editMenuPage";
@@ -118,7 +122,9 @@ export default {
                     size: "small"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.openDelMenuSingleModal(params.row);
+                    }
                   }
                 },
                 "删除"
@@ -164,6 +170,31 @@ export default {
         null,
         "0" // 系统节点的parentMenuLevel是0
       );
+    },
+
+    // 删除单条菜单
+    openDelMenuSingleModal(row) {
+      this.$Modal.confirm({
+        title: "删除菜单",
+        content: "确认要批量删除菜单[" + row.menuName + "]么？",
+        onOk: () => {
+          let params = new Object();
+          params.loginUid = getToken();
+          params.mid = row.mid;
+          delMenuAPI(params).then(res => {
+            if (res.data.code == 1) {
+              this.$Notice.success({
+                desc: res.data.msg
+              });
+              // TODO 刷新列表
+            } else if (res.data.code == 0) {
+              this.$Notice.error({
+                desc: res.data.msg
+              });
+            }
+          });
+        }
+      });
     }
   },
 

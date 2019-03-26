@@ -48,3 +48,16 @@ export const editMenuAPI = (params) => {
         headers: { 'Content-Type': 'application/json' }
     });
 }
+
+
+/**
+ * @description 删除菜单
+ */
+export const delMenuAPI = (params) => {
+    return axios.request({
+        url: '/menu/del',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}

@@ -114,7 +114,9 @@ export default {
           this.$Notice.success({
             desc: res.data.msg
           });
-          // 刷新页面 TODO
+          // 刷新左侧树列表 TODO
+
+          // 刷新子菜单列表
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

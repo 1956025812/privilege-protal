@@ -144,7 +144,11 @@
                 <Row>
                   <FormItem>
                     <Button type="primary" @click="oenpEditMenuModal(selectedMid)">修改</Button>
-                    <Button style="margin-left: 8px">删除</Button>
+                    <Button
+                      type="primary"
+                      style="margin-left: 8px"
+                      @click="openDelMenuSingleModal(selectedMid, selectedMenuName)"
+                    >删除</Button>
                   </FormItem>
                 </Row>
               </Form>
@@ -174,7 +178,11 @@
 </template>
 <script>
 import { getToken } from "@/libs/util";
-import { selectSysMenuListAPI, selectSysMenuDetailAPI } from "@/api/menu/menu";
+import {
+  selectSysMenuListAPI,
+  selectSysMenuDetailAPI,
+  delMenuAPI
+} from "@/api/menu/menu";
 import { selectSystemListAPI } from "@/api/system/system";
 import { selectSystemDetailAPI } from "@/api/system/system";
 
@@ -202,6 +210,7 @@ export default {
       systemUpdateTime: "",
       systemDescription: "",
       selectedMid: "",
+      selectedMenuName: "",
       menuTypeName: "",
       menuName: "",
       menuUrl: "",
@@ -350,6 +359,7 @@ export default {
         selectSysMenuDetailAPI(params).then(res => {
           if (res.data.code == 1) {
             this.selectedMid = res.data.data.mid;
+            this.selectedMenuName = res.data.data.menuName;
             this.menuName = res.data.data.menuName;
             this.menuUrl = res.data.data.url;
             this.belongSystemName = res.data.data.systemName;
@@ -384,6 +394,31 @@ export default {
     // 修改菜单
     oenpEditMenuModal(selectedMid) {
       this.$refs.menuEditModalRef.openMenuEditModal(selectedMid);
+    },
+
+    // 删除单条菜单
+    openDelMenuSingleModal(mid, menuName) {
+      this.$Modal.confirm({
+        title: "删除菜单",
+        content: "确认要批量删除菜单[" + menuName + "]么？",
+        onOk: () => {
+          let params = new Object();
+          params.loginUid = getToken();
+          params.mid = mid;
+          delMenuAPI(params).then(res => {
+            if (res.data.code == 1) {
+              this.$Notice.success({
+                desc: res.data.msg
+              });
+              // TODO  刷新列表
+            } else if (res.data.code == 0) {
+              this.$Notice.error({
+                desc: res.data.msg
+              });
+            }
+          });
+        }
+      });
     }
   },
 

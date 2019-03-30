@@ -321,24 +321,7 @@ export default {
         this.rightContent = 1;
 
         // 查询系统详情
-        let params = new Object();
-        params.loginUid = getToken();
-        params.systemKey = node.systemKey;
-        selectSystemDetailAPI(params).then(res => {
-          if (res.data.code == 1) {
-            this.systemName = res.data.data.systemName;
-            this.systemKey = res.data.data.systemKey;
-            this.systemCreateName = res.data.data.createName;
-            this.systemCreateTime = res.data.data.createTime;
-            this.systemUpdateName = res.data.data.updateName;
-            this.systemUpdateTime = res.data.data.updateTime;
-            this.systemDescription = res.data.data.description;
-          } else if (res.data.code == 0) {
-            this.$Notice.error({
-              desc: res.data.msg
-            });
-          }
-        });
+        this.$options.methods.selectSystemDetail.bind(this)(node.systemKey);
 
         // 查询选中系统节点的一级菜单列表
         this.$refs.oneLevelMenuTableComponentRef.queryOneLevelMenuList(
@@ -353,32 +336,7 @@ export default {
           this.rightContent = 3;
         }
         // 查询菜单详情
-        let params = new Object();
-        params.loginUid = getToken();
-        params.mid = node.mid;
-        selectSysMenuDetailAPI(params).then(res => {
-          if (res.data.code == 1) {
-            this.selectedMid = res.data.data.mid;
-            this.selectedMenuName = res.data.data.menuName;
-            this.menuName = res.data.data.menuName;
-            this.menuUrl = res.data.data.url;
-            this.belongSystemName = res.data.data.systemName;
-            if (res.data.data.level != 1) {
-              this.parentMenuName = res.data.data.parentMenuName;
-            }
-            this.menuTypeName = res.data.data.menuTypeName;
-            this.menuDetailSort = res.data.data.sort;
-            this.menuDetailCreateName = res.data.data.createName;
-            this.menuDetailCreateTime = res.data.data.createTime;
-            this.menuDetailUpdateName = res.data.data.updateName;
-            this.menuDetailUpdateTime = res.data.data.updateTime;
-            this.menuDetailDescription = res.data.data.description;
-          } else if (res.data.code == 0) {
-            this.$Notice.error({
-              desc: res.data.msg
-            });
-          }
-        });
+        this.$options.methods.selectSysMenuDetail.bind(this)(node.mid);
 
         // 查询选中菜单节点的子菜单或按钮列表
         this.$refs.oneDownLevelMenuTableComponentRef.queryOneDownLevelMenuList(
@@ -416,6 +374,58 @@ export default {
                 desc: res.data.msg
               });
             }
+          });
+        }
+      });
+    },
+
+    // 查询系统详情
+    selectSystemDetail(systemKey) {
+      let params = new Object();
+      params.loginUid = getToken();
+      params.systemKey = systemKey;
+      selectSystemDetailAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.systemName = res.data.data.systemName;
+          this.systemKey = res.data.data.systemKey;
+          this.systemCreateName = res.data.data.createName;
+          this.systemCreateTime = res.data.data.createTime;
+          this.systemUpdateName = res.data.data.updateName;
+          this.systemUpdateTime = res.data.data.updateTime;
+          this.systemDescription = res.data.data.description;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
+    },
+
+    // 查询菜单详情
+    selectSysMenuDetail(mid) {
+      let params = new Object();
+      params.loginUid = getToken();
+      params.mid = mid;
+      selectSysMenuDetailAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.selectedMid = res.data.data.mid;
+          this.selectedMenuName = res.data.data.menuName;
+          this.menuName = res.data.data.menuName;
+          this.menuUrl = res.data.data.url;
+          this.belongSystemName = res.data.data.systemName;
+          if (res.data.data.level != 1) {
+            this.parentMenuName = res.data.data.parentMenuName;
+          }
+          this.menuTypeName = res.data.data.menuTypeName;
+          this.menuDetailSort = res.data.data.sort;
+          this.menuDetailCreateName = res.data.data.createName;
+          this.menuDetailCreateTime = res.data.data.createTime;
+          this.menuDetailUpdateName = res.data.data.updateName;
+          this.menuDetailUpdateTime = res.data.data.updateTime;
+          this.menuDetailDescription = res.data.data.description;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
           });
         }
       });

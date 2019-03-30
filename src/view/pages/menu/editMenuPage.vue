@@ -94,12 +94,12 @@ export default {
           this.$Notice.success({
             desc: res.data.msg
           });
-          // 回调修改菜单信息
-          this.$parent.menuName = this.menuName;
-          this.$parent.menuUrl = this.menuUrl;
-          this.$parent.menuDetailSort = this.sort;
-          this.$parent.menuDetailDescription = this.description;
-          // 回调修改左侧的选中的树节点的信息 TODO
+
+          // 回调查询菜单信息进行修改回显
+          this.$parent.selectSysMenuDetail(this.hidden_mid);
+
+          // 回调修改左侧的选中的树节点的信息
+          this.$parent.initSysSystemAndMenuTreeData();
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

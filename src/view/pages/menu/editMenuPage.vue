@@ -96,7 +96,8 @@ export default {
           });
 
           // 回调查询菜单信息进行修改回显
-          this.$parent.selectSysMenuDetail(this.hidden_mid);
+          // this.$parent.selectSysMenuDetail(this.hidden_mid);
+          alert("修改回调刷新页面");
 
           // 回调修改左侧的选中的树节点的信息
           this.$parent.initSysSystemAndMenuTreeData();

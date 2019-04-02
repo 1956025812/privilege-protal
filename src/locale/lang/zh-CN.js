@@ -4,6 +4,8 @@ export default {
   systempage: '系统列表',
   menumanager: '菜单管理',
   menupage: '菜单列表',
+  rolemanager: '角色管理',
+  rolepage: '角色列表',
 
 
 

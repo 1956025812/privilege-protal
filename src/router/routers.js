@@ -98,6 +98,27 @@ export default [
   },
 
 
+  {
+    path: '/rolemanager',
+    name: 'rolemanager',
+    meta: {
+      icon: 'logo-buffer',
+      title: '角色管理',
+      showAlways: true
+    },
+    component: Main,
+    children: [
+      {
+        path: 'rolepage',
+        name: 'rolepage',
+        meta: {
+          icon: 'md-apps',
+          title: '角色列表' 
+        },
+        component: () => import('_p/role/rolePage.vue')
+      }
+    ]
+  },
 
 
 

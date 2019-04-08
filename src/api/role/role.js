@@ -10,3 +10,13 @@ export const selectRolePageAPI = (params) => {
         params: params
     });
 }
+
+
+export const selectRoleListAPI = (params) => {
+    return axios.request({
+        url: '/role/list',
+        method: 'get',
+        params: params
+    });
+}
+

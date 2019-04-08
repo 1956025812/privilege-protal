@@ -4,8 +4,33 @@
     <Card :bordered="false" title="角色列表">
       <Row>
         <div style="display: inline;">
+          上级角色：
+          <Select
+            v-model="parentRid"
+            filterable
+            clearable
+            remote
+            :remote-method="selectRoleList"
+            :loading="false"
+            style="width: 200px"
+          >
+            <Option
+              v-for="(eachRole, index) in roleList"
+              :value="eachRole.rid"
+              :key="index"
+            >{{eachRole.roleName}}</Option>
+          </Select>
+        </div>
+        <div style="display: inline; margin-left:50px;">
           角色名称：
           <Input v-model="roleName" style="width: 200px"/>
+        </div>
+        <div style="display: inline;  margin-left:50px;">
+          状态：
+          <Select v-model="roleState" placeholder="全部" clearable style="width: 120px">
+            <Option value="1">启用</Option>
+            <Option value="2">禁用</Option>
+          </Select>
         </div>
         <div style="display: inline;  margin-left:50px;">
           创建时间：
@@ -66,17 +91,20 @@
 
 <script>
 import { getToken, removeArrayElement } from "@/libs/util";
-import { selectRolePageAPI } from "@/api/role/role";
+import { selectRolePageAPI, selectRoleListAPI } from "@/api/role/role";
 
 export default {
   data() {
     return {
       roleName: "",
+      roleState: "",
+      parentRid: "",
       createTimeRange: "",
       totalCount: 0,
       currentPage: 1,
       pageSize: 10,
       selectRowSids: [],
+      roleList: [],
 
       columns: [
         {
@@ -189,6 +217,8 @@ export default {
       params.pageSize = pageSize;
       params.loginUid = getToken();
       params.roleName = this.roleName;
+      params.parentRid = this.parentRid;
+      params.state = this.roleState;
       if (this.createTimeRange != null && this.createTimeRange != "") {
         params.startTime = this.createTimeRange.toString().split(",")[0];
         params.endTime = this.createTimeRange.toString().split(",")[1];
@@ -254,9 +284,30 @@ export default {
      */
     reset() {
       this.roleName = "";
+      this.roleState = "";
+      this.parentRid = "";
       this.createTimeRange = "";
       this.selectRowSids = [];
       this.$options.methods.queryRolePage.bind(this)(1, 10);
+    },
+
+    /**
+     * 查询所有的角色列表
+     */
+    selectRoleList(roleName) {
+      let params = new Object();
+      params.loginUid = getToken();
+      params.roleName = roleName;
+
+      selectRoleListAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.roleList = res.data.data;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     }
   },
 

@@ -3,7 +3,17 @@
     <!-- 查询条件 -->
     <Card :bordered="false" title="角色列表">
       <Row>
-        <div style="display: inline;">
+        <div style="display: inline; margin-left:50px;">
+          所属系统：
+          <Select v-model="systemKey" style="width:200px">
+            <Option
+              v-for="eachSystem in systemList"
+              :value="eachSystem.systemKey"
+              :key="eachSystem.systemKey"
+            >{{ eachSystem.systemName }}</Option>
+          </Select>
+        </div>
+        <div style="display: inline; margin-left:50px;">
           上级角色：
           <Select
             v-model="parentRid"
@@ -25,6 +35,7 @@
           角色名称：
           <Input v-model="roleName" style="width: 200px"/>
         </div>
+
         <div style="display: inline;  margin-left:50px;">
           状态：
           <Select v-model="roleState" placeholder="全部" clearable style="width: 120px">
@@ -32,6 +43,9 @@
             <Option value="2">禁用</Option>
           </Select>
         </div>
+      </Row>
+      <br>
+      <Row>
         <div style="display: inline;  margin-left:50px;">
           创建时间：
           <DatePicker
@@ -92,10 +106,12 @@
 <script>
 import { getToken, removeArrayElement } from "@/libs/util";
 import { selectRolePageAPI, selectRoleListAPI } from "@/api/role/role";
+import { selectSystemListAPI } from "@/api/system/system";
 
 export default {
   data() {
     return {
+      systemKey: "",
       roleName: "",
       roleState: "",
       parentRid: "",
@@ -104,6 +120,7 @@ export default {
       currentPage: 1,
       pageSize: 10,
       selectRowSids: [],
+      systemList: [],
       roleList: [],
 
       columns: [
@@ -216,8 +233,9 @@ export default {
       params.currentPage = currentPage;
       params.pageSize = pageSize;
       params.loginUid = getToken();
-      params.roleName = this.roleName;
+      params.systemKey = this.systemKey;
       params.parentRid = this.parentRid;
+      params.roleName = this.roleName;
       params.state = this.roleState;
       if (this.createTimeRange != null && this.createTimeRange != "") {
         params.startTime = this.createTimeRange.toString().split(",")[0];
@@ -283,12 +301,30 @@ export default {
      * 重置查询条件
      */
     reset() {
+      this.systemKey = "";
+      this.parentRid = "";
       this.roleName = "";
       this.roleState = "";
-      this.parentRid = "";
       this.createTimeRange = "";
       this.selectRowSids = [];
       this.$options.methods.queryRolePage.bind(this)(1, 10);
+    },
+
+    /**
+     * 查询系统列表
+     */
+    selectSystemList() {
+      let params = new Object();
+      params.loginUid = getToken();
+      selectSystemListAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.systemList = res.data.data;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     },
 
     /**
@@ -315,6 +351,10 @@ export default {
    * 初始化页面 页面加载的时候执行
    */
   created() {
+    // 加载系统列表
+    this.$options.methods.selectSystemList.bind(this)();
+
+    // 加载第一页数据
     this.$options.methods.queryRolePage.bind(this)(
       this.currentPage,
       this.pageSize

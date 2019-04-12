@@ -355,7 +355,7 @@ export default {
       this.$router.push({
         name: "roledetailpage",
         params: {
-          uid: row.rid
+          rid: row.rid
         }
       });
     }

@@ -119,9 +119,8 @@ export default [
       },
       {
         name: 'roledetailpage',
-        path: '/toroledetailpage/:rid',
+        path: '/roledetailpage/:rid',
         meta: {
-          icon: 'md-apps',
           title: '角色详情',
           hideInMenu: true,
           notCache: true

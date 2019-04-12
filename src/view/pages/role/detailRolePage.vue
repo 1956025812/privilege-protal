@@ -2,6 +2,7 @@
   <div>
     <div>
       <Card :bordered="false" title="角色信息">
+        <Button slot="extra" type="primary" @click="backToRolePage">返回</Button>
         <Form :label-width="80">
           <Row>
             <Col span="10" style="float: left">
@@ -89,8 +90,11 @@ export default {
   },
 
   methods: {
+    /**
+     * 查询角色详情
+     */
     selectRoleDetail() {
-      var rid = this.$route.params.rid; 
+      var rid = this.$route.params.rid;
       let params = new Object();
       params.loginUid = getToken();
       params.rid = rid;
@@ -109,6 +113,15 @@ export default {
             desc: res.data.msg
           });
         }
+      });
+    },
+
+    /**
+     * 返回角色列表页面
+     */
+    backToRolePage() {
+      this.$router.push({
+        name: "rolepage"
       });
     }
   },

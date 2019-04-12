@@ -6,6 +6,7 @@ export default {
   menupage: '菜单列表',
   rolemanager: '角色管理',
   rolepage: '角色列表',
+  roledetailpage: '角色详情',
 
 
 

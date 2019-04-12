@@ -38,8 +38,8 @@ export default [
     },
     children: [
       {
-        path: '/home',
         name: 'home',
+        path: '/home',
         meta: {
           hideInMenu: true,
           title: '首页',
@@ -53,8 +53,8 @@ export default [
 
 
   {
-    path: '/systemmanager',
     name: 'systemmanager',
+    path: '/systemmanager',
     meta: {
       icon: 'logo-buffer',
       title: '系统管理',
@@ -63,8 +63,8 @@ export default [
     component: Main,
     children: [
       {
-        path: 'systempage',
         name: 'systempage',
+        path: '/systempage',
         meta: {
           icon: 'md-apps',
           title: '系统列表'
@@ -76,8 +76,8 @@ export default [
 
 
   {
-    path: '/menumanager',
     name: 'menumanager',
+    path: '/menumanager',
     meta: {
       icon: 'logo-buffer',
       title: '菜单管理',
@@ -86,11 +86,11 @@ export default [
     component: Main,
     children: [
       {
-        path: 'menupage',
         name: 'menupage',
+        path: '/menupage',
         meta: {
           icon: 'md-apps',
-          title: '菜单列表' 
+          title: '菜单列表'
         },
         component: () => import('_p/menu/menuPage.vue')
       }
@@ -99,8 +99,8 @@ export default [
 
 
   {
-    path: '/rolemanager',
     name: 'rolemanager',
+    path: '/rolemanager',
     meta: {
       icon: 'logo-buffer',
       title: '角色管理',
@@ -109,13 +109,24 @@ export default [
     component: Main,
     children: [
       {
-        path: 'rolepage',
         name: 'rolepage',
+        path: '/rolepage',
         meta: {
           icon: 'md-apps',
-          title: '角色列表' 
+          title: '角色列表'
         },
         component: () => import('_p/role/rolePage.vue')
+      },
+      {
+        name: 'roledetailpage',
+        path: '/toroledetailpage/:rid',
+        meta: {
+          icon: 'md-apps',
+          title: '角色详情',
+          hideInMenu: true,
+          notCache: true
+        },
+        component: () => import('_p/role/detailRolePage.vue')
       }
     ]
   },
@@ -123,16 +134,16 @@ export default [
 
 
   {
-    path: '/i18n',
     name: 'i18n',
+    path: '/i18n',
     meta: {
       hideInMenu: true
     },
     component: Main,
     children: [
       {
-        path: 'i18n_page',
         name: 'i18n_page',
+        path: 'i18n_page',
         meta: {
           icon: 'md-planet',
           title: 'i18n - {{ i18n_page }}'
@@ -142,16 +153,16 @@ export default [
     ]
   },
   {
-    path: '/argu',
     name: 'argu',
+    path: '/argu',
     meta: {
       hideInMenu: true
     },
     component: Main,
     children: [
       {
-        path: 'params/:id',
         name: 'params',
+        path: 'params/:id',
         meta: {
           icon: 'md-flower',
           title: route => `{{ params }}-${route.params.id}`,
@@ -161,8 +172,8 @@ export default [
         component: () => import('@/view/argu-page/params.vue')
       },
       {
-        path: 'query',
         name: 'query',
+        path: 'query',
         meta: {
           icon: 'md-flower',
           title: route => `{{ query }}-${route.query.id}`,
@@ -173,24 +184,24 @@ export default [
     ]
   },
   {
-    path: '/401',
     name: 'error_401',
+    path: '/401',
     meta: {
       hideInMenu: true
     },
     component: () => import('@/view/error-page/401.vue')
   },
   {
-    path: '/500',
     name: 'error_500',
+    path: '/500',
     meta: {
       hideInMenu: true
     },
     component: () => import('@/view/error-page/500.vue')
   },
   {
-    path: '*',
     name: 'error_404',
+    path: '*',
     meta: {
       hideInMenu: true
     },

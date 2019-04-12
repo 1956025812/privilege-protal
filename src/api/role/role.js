@@ -12,6 +12,9 @@ export const selectRolePageAPI = (params) => {
 }
 
 
+/**
+ * @description 查询角色列表 
+ */
 export const selectRoleListAPI = (params) => {
     return axios.request({
         url: '/role/list',
@@ -19,4 +22,17 @@ export const selectRoleListAPI = (params) => {
         params: params
     });
 }
+
+
+/**
+* @description 查询角色详情
+*/
+export const selectRoleDetailAPI = (params) => {
+    return axios.request({
+        url: '/role/detail',
+        method: 'get',
+        params: params
+    });
+}
+
 

@@ -182,7 +182,9 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.toRoleDetailPage(params.row);
+                    }
                   }
                 },
                 "详情"
@@ -342,6 +344,18 @@ export default {
           this.$Notice.error({
             desc: res.data.msg
           });
+        }
+      });
+    },
+
+    /**
+     * 跳转到角色详情页面
+     */
+    toRoleDetailPage(row) {
+      this.$router.push({
+        name: "roledetailpage",
+        params: {
+          uid: row.rid
         }
       });
     }

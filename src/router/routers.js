@@ -116,16 +116,6 @@ export default [
           title: '角色列表'
         },
         component: () => import('_p/role/rolePage.vue')
-      },
-      {
-        name: 'roledetailpage',
-        path: '/roledetailpage/:rid',
-        meta: {
-          title: '角色详情',
-          hideInMenu: true,
-          notCache: true
-        },
-        component: () => import('_p/role/detailRolePage.vue')
       }
     ]
   },

@@ -12,7 +12,7 @@
       <div slot="right" class="demo-split-pane">
         <!-- 右上：系统或角色详情组件 -->
         <div>
-          <DetailSystemOrRolePageComponent></DetailSystemOrRolePageComponent>
+          <DetailSystemOrRolePageComponent ref="DetailSystemOrRolePageComponentRef"></DetailSystemOrRolePageComponent>
         </div>
 
         <br>
@@ -44,7 +44,12 @@ export default {
   methods: {
     // 角色树列表子组件点击传递过来的选中节点
     transmitClickedTreeNode(node) {
-      alert(JSON.stringify(node));
+      // 查询右上侧系统或角色详情
+      this.$refs.DetailSystemOrRolePageComponentRef.selectSystemOrRoleDetail(
+        node
+      );
+
+      // 查询右下侧子角色列表 
     }
   }
 };

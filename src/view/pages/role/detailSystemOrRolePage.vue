@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div>
-      <Card :bordered="false" title="角色信息">
+    <div v-if="showDetail == 'system'">
+      <Card :bordered="false" title="系统详情"></Card>
+    </div>
+    <div v-if="showDetail == 'role'">
+      <Card :bordered="false" title="角色详情">
         <Form :label-width="80">
           <Row>
             <Col span="10" style="float: left">
@@ -71,9 +74,9 @@ import { selectRoleDetailAPI } from "@/api/role/role";
 
 export default {
   name: "DetailSystemOrRolePageComponent",
-  props: {},
   data() {
     return {
+      showDetail: "",
       roleName: "",
       systemName: "",
       parentRoleName: "",
@@ -89,9 +92,8 @@ export default {
     /**
      * 查询系统或角色详情
      */
-    selectSystemOrRoleDetail() {
-      // 获取父组件的数据 TODO
-      alert(this.$parent.name);
+    selectSystemOrRoleDetail(node) {
+      this.showDetail = node.type;
 
       /* var rid = this.$route.params.rid;
       let params = new Object();
@@ -116,8 +118,6 @@ export default {
     }
   },
 
-  created() {
-    this.$options.methods.selectSystemOrRoleDetail.bind(this)();
-  }
+  created() {}
 };
 </script>

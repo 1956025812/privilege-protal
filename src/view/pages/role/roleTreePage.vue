@@ -1,5 +1,5 @@
 <template>
-  <Tree :data="systemTreeData" :load-data="loadChildrenRoleNodes"></Tree>
+  <Tree :data="systemTreeData" :load-data="loadChildrenRoleNodes" @on-select-change="clickTreeNode"></Tree>
 </template>
 <script>
 import { getToken } from "@/libs/util";
@@ -88,6 +88,14 @@ export default {
           });
         }
       });
+    },
+
+    /**
+     * 点击角色树节点
+     */
+    clickTreeNode(nodes, node) {
+      // 通过自定义的方法传递选中的节点数据到父组件中
+      this.$emit("transmitClickedTreeNode", node);
     }
   },
 

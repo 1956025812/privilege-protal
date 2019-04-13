@@ -61,10 +61,6 @@
         </Form>
       </Card>
     </div>
-    <br>
-    <div>
-      <Card :bordered="false" title="菜单列表信息"></Card>
-    </div>
   </div>
 </template>
 
@@ -75,7 +71,10 @@ import { getToken } from "@/libs/util";
 import { selectRoleDetailAPI } from "@/api/role/role";
 
 export default {
-  name: "RoleDetailModalPageComponent",
+  name: "DetailSystemOrRolePageComponent",
+  props: {
+    clickedTreeNode: Object
+  },
   data() {
     return {
       roleName: "",
@@ -127,7 +126,7 @@ export default {
   },
 
   created() {
-    this.$options.methods.selectRoleDetail.bind(this)();
+    // this.$options.methods.selectRoleDetail.bind(this)();
   }
 };
 </script>

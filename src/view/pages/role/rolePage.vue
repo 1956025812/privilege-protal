@@ -3,12 +3,17 @@
     <Split v-model="leftRightSplit" min="280px">
       <div slot="left" class="demo-split-pane">
         <!-- 左：角色树列表组件 -->
-        <RoleTreePageComponent></RoleTreePageComponent>
+        <RoleTreePageComponent
+          ref="RoleTreePageComponentRef"
+          v-on:transmitClickedTreeNode="transmitClickedTreeNode"
+        ></RoleTreePageComponent>
       </div>
 
       <div slot="right" class="demo-split-pane">
-        <!-- 右上：角色详情组件 -->
-        <div></div>
+        <!-- 右上：系统或角色详情组件 -->
+        <div>
+          <DetailSystemOrRolePageComponent></DetailSystemOrRolePageComponent>
+        </div>
 
         <br>
 
@@ -23,15 +28,24 @@
 
 <script>
 import RoleTreePageComponent from "_p/role/roleTreePage";
+import DetailSystemOrRolePageComponent from "_p/role/detailSystemOrRolePage";
 
 export default {
   components: {
-    RoleTreePageComponent
+    RoleTreePageComponent,
+    DetailSystemOrRolePageComponent
   },
   data() {
     return {
       leftRightSplit: 0.2
     };
+  },
+
+  methods: {
+    // 角色树列表子组件点击传递过来的选中节点
+    transmitClickedTreeNode(node) {
+      alert(JSON.stringify(node));
+    }
   }
 };
 </script>

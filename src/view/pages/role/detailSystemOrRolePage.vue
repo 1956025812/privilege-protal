@@ -112,7 +112,7 @@
           </Row>
           <Row>
             <FormItem>
-              <Button type="primary">菜单信息</Button>
+              <Button type="primary">菜单权限</Button>
               <Button type="primary" style="margin-left: 8px">修改</Button>
               <Button type="primary" style="margin-left: 8px">删除</Button>
             </FormItem>

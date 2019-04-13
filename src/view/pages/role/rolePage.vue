@@ -18,7 +18,9 @@
         <br>
 
         <!-- 右下: 子角色列表组件  -->
-        <div></div>
+        <div>
+          <ChildrenRoleListTableComponent ref="ChildrenRoleListTableComponentRef"></ChildrenRoleListTableComponent>
+        </div>
       </div>
     </Split>
   </div>
@@ -29,11 +31,13 @@
 <script>
 import RoleTreePageComponent from "_p/role/roleTreePage";
 import DetailSystemOrRolePageComponent from "_p/role/detailSystemOrRolePage";
+import ChildrenRoleListTableComponent from "_p/role/childrenRoleListTable";
 
 export default {
   components: {
     RoleTreePageComponent,
-    DetailSystemOrRolePageComponent
+    DetailSystemOrRolePageComponent,
+    ChildrenRoleListTableComponent
   },
   data() {
     return {
@@ -50,6 +54,7 @@ export default {
       );
 
       // 查询右下侧子角色列表
+      this.$refs.ChildrenRoleListTableComponentRef.selectChildrenRoleList(node);
     }
   }
 };

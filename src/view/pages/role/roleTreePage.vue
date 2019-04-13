@@ -1,5 +1,5 @@
 <template>
-  <Tree :data="systemTreeData" @on-select-change="clickTreeNode"></Tree>
+  <Tree :data="systemTreeData" :load-data="loadChildrenRoleNodes"></Tree>
 </template>
 <script>
 import { getToken } from "@/libs/util";
@@ -29,10 +29,12 @@ export default {
             sysSystemVOList.forEach(eachSysSystemVO => {
               let systemTreeNode = new Object();
               systemTreeNode.type = "system";
-              systemTreeNode.expand = "false";
+              systemTreeNode.loading = false;
+              systemTreeNode.expand = false;
               systemTreeNode.title = eachSysSystemVO.systemName;
               systemTreeNode.systemKey = eachSysSystemVO.systemKey;
               systemTreeNode.systemName = eachSysSystemVO.systemName;
+              systemTreeNode.children = [];
               this.systemTreeData.push(systemTreeNode);
             });
           }
@@ -45,48 +47,47 @@ export default {
     },
 
     /**
-     * 点击树节点
+     * 异步加载子角色节点
      */
-    clickTreeNode(nodes, node) {
+    loadChildrenRoleNodes(item, callback) {
       let params = new Object();
       params.loginUid = getToken();
-      if (node.type == "system") {
-        params.systemKey = node.systemKey;
+      if (item.type == "system") {
+        params.systemKey = item.systemKey;
         params.level = 1;
-
-        alert("调用角色详情组件查询点击节点的系统详情");
-      } else if (node.type == "role") {
-        alert("调用角色详情组件查询点击节点的角色详情");
+      } else if (item.type == "role") {
+        params.systemKey = item.systemKey;
+        params.parentRid = item.rid;
+        params.level = parseInt(item.level) + 1;
       }
 
-      // 查询角色列表并进行拼接
       selectRoleListAPI(params).then(res => {
         if (res.data.code == 1) {
+          const childrenRoleNodes = [];
           let roleList = res.data.data;
-          alert("拼接下一级字列表");
-          // 清空下级子角色列表并拼接
-          node.children = [];
           if (roleList.length > 0) {
             roleList.forEach(eachRole => {
               let roleTreeNode = new Object();
               roleTreeNode.type = "role";
-              roleTreeNode.expand = "false";
+              roleTreeNode.loading = false;
+              roleTreeNode.expand = false;
               roleTreeNode.rid = eachRole.rid;
+              roleTreeNode.level = eachRole.level;
               roleTreeNode.title = eachRole.roleName;
               roleTreeNode.systemKey = eachRole.systemKey;
-              alert(JSON.stringify(node));
-              node.children.push(roleTreeNode);
-              alert(JSON.stringify(node));
+              roleTreeNode.children = [];
+              childrenRoleNodes.push(roleTreeNode);
             });
+          } else {
+            this.$Notice.info({ title: "已经是最后一级，没有子角色了" });
           }
+          callback(childrenRoleNodes);
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg
           });
         }
       });
-
-      alert("拼接下级角色列表并进行拼接");
     }
   },
 

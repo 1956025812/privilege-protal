@@ -11,6 +11,9 @@
         </div>
       </Card>
     </div>
+
+    <!-- 角色详情弹窗 -->
+    <RoleDetailModalPageComponent ref="RoleDetailModalPageComponentRef" style="display: none"></RoleDetailModalPageComponent>
   </div>
 </template>
 
@@ -19,10 +22,13 @@
 <script>
 import { getToken } from "@/libs/util";
 import { selectRolePageAPI } from "@/api/role/role";
+import RoleDetailModalPageComponent from "_p/role/detailRolePage";
 
 export default {
   name: "ChildrenRoleListTableComponent",
-  components: {},
+  components: {
+    RoleDetailModalPageComponent
+  },
   data() {
     return {
       show: false,
@@ -49,7 +55,7 @@ export default {
         },
         {
           title: "状态",
-          key: "stateName",
+          key: "roleStateName",
           align: "center"
         },
         {
@@ -70,7 +76,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.$refs.RoleDetailModalPageComponentRef.openRoleDetailModal(
+                        params.row.rid
+                      );
+                    }
                   }
                 },
                 "详情"

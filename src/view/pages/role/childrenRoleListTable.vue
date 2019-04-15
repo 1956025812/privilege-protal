@@ -18,6 +18,7 @@
 
 <script>
 import { getToken } from "@/libs/util";
+import { selectRolePageAPI } from "@/api/role/role";
 
 export default {
   name: "ChildrenRoleListTableComponent",
@@ -55,6 +56,7 @@ export default {
           title: "操作",
           key: "action",
           align: "center",
+          width: 300,
           render: (h, params) => {
             return h("div", [
               h(
@@ -132,6 +134,24 @@ export default {
      */
     selectChildrenRoleList(node) {
       this.show = true;
+
+      let params = new Object();
+      params.loginUid = getToken();
+      params.currentPage = 1;
+      params.pageSize = 20;
+      params.systemKey = node.systemKey;
+      if (node.type == "role") {
+        params.parentRid = node.rid;
+      }
+      selectRolePageAPI(params).then(res => {
+        if (res.data.code == 1) {
+          this.childrenRoleListTableData = res.data.data.items;
+        } else if (res.data.code == 0) {
+          this.$Notice.error({
+            desc: res.data.msg
+          });
+        }
+      });
     }
   },
 

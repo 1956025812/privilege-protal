@@ -12,8 +12,11 @@
       </Card>
     </div>
 
-    <!-- 角色详情弹窗 -->
+    <!-- 角色详情弹窗组件 -->
     <RoleDetailModalPageComponent ref="RoleDetailModalPageComponentRef" style="display: none"></RoleDetailModalPageComponent>
+    <!-- 修改角色详情弹窗组件 -->
+    <RoleEditModalPageComponent ref="RoleEditModalPageComponentRef" style="display: none"></RoleEditModalPageComponent>
+
   </div>
 </template>
 
@@ -23,11 +26,13 @@
 import { getToken } from "@/libs/util";
 import { selectRolePageAPI } from "@/api/role/role";
 import RoleDetailModalPageComponent from "_p/role/detailRolePage";
+import RoleEditModalPageComponent from "_p/role/editRolePage";
 
 export default {
   name: "ChildrenRoleListTableComponent",
   components: {
-    RoleDetailModalPageComponent
+    RoleDetailModalPageComponent,
+    RoleEditModalPageComponent
   },
   data() {
     return {
@@ -97,7 +102,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                       // 在父组件中通过ref调用子组件的方法 
+                      this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(
+                        params.row.rid
+                      );
+                    }
                   }
                 },
                 "修改"

@@ -36,3 +36,16 @@ export const selectRoleDetailAPI = (params) => {
 }
 
 
+
+/**
+ * @description 修改角色
+ */
+export const editRoleAPI = (params) => {
+    return axios.request({
+        url: '/role/update',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+

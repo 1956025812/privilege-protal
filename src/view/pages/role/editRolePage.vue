@@ -11,11 +11,10 @@
       v-model="roleEditModal"
       title="修改角色详情"
       ok-text="保存"
-      @on-ok="editrole"
+      @on-ok="editRole(rid)"
       :mask-closable="false"
       :closable="false"
     >
-      <Input v-model="hidden_sid" style="display:none"/>
       <Form label-position="right" :label-width="100">
         <FormItem label="角色名称：">
           <Input v-model="roleName"/>
@@ -39,6 +38,7 @@ export default {
   data() {
     return {
       roleEditModal: false,
+      rid: "",
       roleName: "",
       description: ""
     };
@@ -47,6 +47,7 @@ export default {
   methods: {
     openRoleEditModal(rid) {
       this.roleEditModal = true;
+      this.rid = rid;
 
       let params = new Object();
       params.loginUid = getToken();
@@ -64,10 +65,10 @@ export default {
       });
     },
 
-    editRole() {
+    editRole(rid) {
       let params = new Object();
       params.loginUid = getToken();
-      params.sid = this.hidden_sid;
+      params.rid = this.rid;
       params.roleName = this.roleName;
       params.description = this.description;
 
@@ -76,8 +77,7 @@ export default {
           this.$Notice.success({
             desc: res.data.msg
           });
-          // 通过自定义事件调用父窗口的重置按钮刷新分页列表
-          this.$emit("parentReset");
+          // 回显列表和详情 TODO
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

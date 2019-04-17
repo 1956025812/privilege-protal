@@ -16,7 +16,6 @@
     <RoleDetailModalPageComponent ref="RoleDetailModalPageComponentRef" style="display: none"></RoleDetailModalPageComponent>
     <!-- 修改角色详情弹窗组件 -->
     <RoleEditModalPageComponent ref="RoleEditModalPageComponentRef" style="display: none"></RoleEditModalPageComponent>
-
   </div>
 </template>
 
@@ -103,7 +102,7 @@ export default {
                   },
                   on: {
                     click: () => {
-                       // 在父组件中通过ref调用子组件的方法 
+                      // 在父组件中通过ref调用子组件的方法
                       this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(
                         params.row.rid
                       );

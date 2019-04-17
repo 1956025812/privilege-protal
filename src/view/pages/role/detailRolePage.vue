@@ -62,6 +62,7 @@ export default {
       parentRoleName: "",
       roleStateName: "",
       createTime: "",
+      createName: "",
       updateName: "",
       updateTime: "",
       description: ""

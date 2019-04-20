@@ -104,7 +104,7 @@ export default {
                     click: () => {
                       // 在父组件中通过ref调用子组件的方法
                       this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(
-                        params.row.rid
+                        params.row
                       );
                     }
                   }
@@ -160,7 +160,9 @@ export default {
       params.currentPage = 1;
       params.pageSize = 20;
       params.systemKey = node.systemKey;
-      if (node.type == "role") {
+      if (node.type == "system") {
+        params.level = 1;
+      } else if (node.type == "role") {
         params.parentRid = node.rid;
       }
       selectRolePageAPI(params).then(res => {

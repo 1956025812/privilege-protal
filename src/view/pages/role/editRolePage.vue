@@ -11,7 +11,7 @@
       v-model="roleEditModal"
       title="修改角色详情"
       ok-text="保存"
-      @on-ok="editRole(rid)"
+      @on-ok="editRole(row)"
       :mask-closable="false"
       :closable="false"
     >
@@ -38,20 +38,20 @@ export default {
   data() {
     return {
       roleEditModal: false,
-      rid: "",
+      row: "",
       roleName: "",
       description: ""
     };
   },
 
   methods: {
-    openRoleEditModal(rid) {
+    openRoleEditModal(row) {
       this.roleEditModal = true;
-      this.rid = rid;
+      this.row = row;
 
       let params = new Object();
       params.loginUid = getToken();
-      params.rid = rid;
+      params.rid = row.rid;
 
       selectRoleDetailAPI(params).then(res => {
         if (res.data.code == 1) {
@@ -65,10 +65,10 @@ export default {
       });
     },
 
-    editRole(rid) {
+    editRole(row) {
       let params = new Object();
       params.loginUid = getToken();
-      params.rid = this.rid;
+      params.rid = row.rid;
       params.roleName = this.roleName;
       params.description = this.description;
 
@@ -77,7 +77,13 @@ export default {
           this.$Notice.success({
             desc: res.data.msg
           });
-          // 回显列表和详情 TODO
+
+          // 回显子角色列表的角色名称
+          row.roleName = this.roleName;
+          
+          // 刷新左侧角色树列表
+          
+
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

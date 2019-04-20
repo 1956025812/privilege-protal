@@ -3,7 +3,7 @@
     <div v-if="show">
       <Card>
         <p slot="title">子角色列表</p>
-        <Button slot="extra" type="primary">新增</Button>
+        <Button slot="extra" type="primary" @click="openAddRoleModal()">新增</Button>
 
         <!-- 子角色列表 -->
         <div>
@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       show: false,
+      node: Object,
       columns: [
         {
           type: "index",
@@ -157,6 +158,7 @@ export default {
      */
     selectChildrenRoleList(node) {
       this.show = true;
+      this.node = node;
 
       let params = new Object();
       params.loginUid = getToken();
@@ -207,6 +209,14 @@ export default {
           });
         }
       });
+    },
+
+
+    /**
+     * 打开新增子角色Modal弹窗
+     */
+    openAddRoleModal() {
+      alert("新增角色TODO" + JSON.stringify(this.node)); 
     }
   },
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="showDetail == 'system'">
+    <div v-if="showDetailType == 'system'">
       <Card :bordered="false" title="系统详情">
         <Form :label-width="80">
           <Row>
@@ -53,7 +53,7 @@
         </Form>
       </Card>
     </div>
-    <div v-if="showDetail == 'role'">
+    <div v-if="showDetailType == 'role'">
       <Card :bordered="false" title="角色详情">
         <Form :label-width="80">
           <Row>
@@ -114,11 +114,7 @@
             <FormItem>
               <Button type="primary">菜单权限</Button>
               <Button type="primary" style="margin-left: 8px" @click="openRoleEditModal(roleRid)">修改</Button>
-              <Button
-                type="primary"
-                style="margin-left: 8px"
-                @click="openDelRoleSingleModal(roleRid, roleRoleName)"
-              >删除</Button>
+              <Button type="primary" style="margin-left: 8px" @click="openDelRoleSingleModal()">删除</Button>
             </FormItem>
           </Row>
         </Form>
@@ -145,7 +141,8 @@ export default {
   },
   data() {
     return {
-      showDetail: "",
+      showDetailType: "",
+      node: Object,
       systemSystemKey: "",
       systemSystemName: "",
       systemCreateName: "",
@@ -170,7 +167,8 @@ export default {
      * 查询系统或角色详情
      */
     selectSystemOrRoleDetail(node) {
-      this.showDetail = node.type;
+      this.node = node;
+      this.showDetailType = node.type;
 
       if (node.type == "system") {
         let params = new Object();
@@ -219,14 +217,14 @@ export default {
     /**
      * 删除角色
      */
-    openDelRoleSingleModal(rid, roleName) {
+    openDelRoleSingleModal() {
       this.$Modal.confirm({
         title: "删除角色",
-        content: "确认要批量删除菜单[" + roleName + "]么？",
+        content: "确认要批量删除菜单[" + this.node.roleName + "]么？",
         onOk: () => {
           let params = new Object();
           params.loginUid = getToken();
-          params.rid = rid;
+          params.rid = this.node.rid;
           delRoleAPI(params).then(res => {
             if (res.data.code == 1) {
               this.$Notice.success({
@@ -249,12 +247,10 @@ export default {
     /**
      * 打开修改角色弹窗组件
      */
-    openRoleEditModal(rid) {
+    openRoleEditModal() {
       // 在父组件中通过ref调用子组件的方法
-      let row = new Object();
-      row.rid = rid;
-      row.source = "detailSystemOrRolePage";
-      this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(row);
+      this.node.source = "detailSystemOrRolePage";
+      this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(this.node);
     }
   },
 

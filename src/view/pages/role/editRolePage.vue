@@ -11,7 +11,7 @@
       v-model="roleEditModal"
       title="修改角色详情"
       ok-text="保存"
-      @on-ok="editRole(row)"
+      @on-ok="editRole()"
       :mask-closable="false"
       :closable="false"
     >
@@ -38,20 +38,28 @@ export default {
   data() {
     return {
       roleEditModal: false,
-      row: "",
+      node: Object,
       roleName: "",
       description: ""
     };
   },
 
   methods: {
-    openRoleEditModal(row) {
+    /**
+     * 打开修改角色弹窗
+     */
+    openRoleEditModal(node) {
       this.roleEditModal = true;
-      this.row = row;
+      this.node = node;
 
       let params = new Object();
       params.loginUid = getToken();
-      params.rid = row.rid;
+
+      if (this.node.source == "detailSystemOrRolePage") {
+        params.rid = this.node.rid;
+      } else if (this.node.source == "childrenRoleListTablePage") {
+        params.rid = this.node.row.rid;
+      }
 
       selectRoleDetailAPI(params).then(res => {
         if (res.data.code == 1) {
@@ -65,10 +73,19 @@ export default {
       });
     },
 
-    editRole(row) {
+    /**
+     * 修改角色
+     */
+    editRole() {
       let params = new Object();
       params.loginUid = getToken();
-      params.rid = row.rid;
+
+      if (this.node.source == "detailSystemOrRolePage") {
+        params.rid = this.node.rid;
+      } else if (this.node.source == "childrenRoleListTablePage") {
+        params.rid = this.node.row.rid;
+      }
+
       params.roleName = this.roleName;
       params.description = this.description;
 
@@ -78,16 +95,17 @@ export default {
             desc: res.data.msg
           });
 
-          // 回显子角色列表的角色名称
-          if (row.source == "detailSystemOrRolePage") {
-            this.$parent.roleRoleName = this.roleName;
-            this.$parent.roleDescription = this.description;
-          } else if (row.source == "childrenRoleListTablePage") {
-            row.roleName = this.roleName;
+          if (this.node.source == "detailSystemOrRolePage") {
+            // 刷新左侧树列表角色节点名称
+            this.node.title = this.roleName;
+            // 刷新角色详情
+            this.$parent.selectSystemOrRoleDetail(this.node);
+          } else if (this.node.source == "childrenRoleListTablePage") {
+            // 刷新子角色列表
+            this.$parent.selectChildrenRoleList(this.node);
+            // 刷新左侧书列表角色节点子节点名称
+            alert("刷新左侧书列表角色节点子节点名称TODO");
           }
-
-          // 刷新左侧角色树列表
-          alert("刷新左侧树列表TODO");
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

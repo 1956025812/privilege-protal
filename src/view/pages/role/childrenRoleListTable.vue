@@ -104,9 +104,10 @@ export default {
                   on: {
                     click: () => {
                       // 在父组件中通过ref调用子组件的方法
-                      params.row.source = "childrenRoleListTablePage";
+                      this.node.source = "childrenRoleListTablePage";
+                      this.node.row = params.row;
                       this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(
-                        params.row
+                        this.node
                       );
                     }
                   }

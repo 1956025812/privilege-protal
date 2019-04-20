@@ -46,14 +46,30 @@ export default {
   },
 
   methods: {
-    // 角色树列表子组件点击传递过来的选中节点
+    /**
+     * 角色树列表子组件点击传递过来的选中节点
+     */
     transmitClickedTreeNode(node) {
       // 查询右上侧系统或角色详情
+      this.$options.methods.selectSystemOrRoleDetail.bind(this)(node);
+
+      // 查询右下侧子角色列表
+      this.$options.methods.selectChildrenRoleList.bind(this)(node);
+    },
+
+    /**
+     * 查询右上侧系统或角色详情
+     */
+    selectSystemOrRoleDetail(node) {
       this.$refs.DetailSystemOrRolePageComponentRef.selectSystemOrRoleDetail(
         node
       );
+    },
 
-      // 查询右下侧子角色列表
+    /**
+     * 查询右下侧子角色列表
+     */
+    selectChildrenRoleList(node) {
       this.$refs.ChildrenRoleListTableComponentRef.selectChildrenRoleList(node);
     }
   }

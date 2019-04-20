@@ -79,7 +79,12 @@ export default {
           });
 
           // 回显子角色列表的角色名称
-          row.roleName = this.roleName;
+          if (row.source == "detailSystemOrRolePage") {
+            this.$parent.roleRoleName = this.roleName;
+            this.$parent.roleDescription = this.description;
+          } else if (row.source == "childrenRoleListTablePage") {
+            row.roleName = this.roleName;
+          }
 
           // 刷新左侧角色树列表
           alert("刷新左侧树列表TODO");

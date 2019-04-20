@@ -103,6 +103,7 @@ export default {
                   on: {
                     click: () => {
                       // 在父组件中通过ref调用子组件的方法
+                      params.row.source = "childrenRoleListTablePage";
                       this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(
                         params.row
                       );

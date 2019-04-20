@@ -113,7 +113,7 @@
           <Row>
             <FormItem>
               <Button type="primary">菜单权限</Button>
-              <Button type="primary" style="margin-left: 8px">修改</Button>
+              <Button type="primary" style="margin-left: 8px" @click="openRoleEditModal(roleRid)">修改</Button>
               <Button
                 type="primary"
                 style="margin-left: 8px"
@@ -124,6 +124,9 @@
         </Form>
       </Card>
     </div>
+
+    <!-- 修改角色详情弹窗组件 -->
+    <RoleEditModalPageComponent ref="RoleEditModalPageComponentRef" style="display: none"></RoleEditModalPageComponent>
   </div>
 </template>
 
@@ -133,9 +136,13 @@
 import { getToken } from "@/libs/util";
 import { selectSystemDetailAPI } from "@/api/system/system";
 import { selectRoleDetailAPI, delRoleAPI } from "@/api/role/role";
+import RoleEditModalPageComponent from "_p/role/editRolePage";
 
 export default {
   name: "DetailSystemOrRolePageComponent",
+  components: {
+    RoleEditModalPageComponent
+  },
   data() {
     return {
       showDetail: "",
@@ -237,6 +244,17 @@ export default {
           });
         }
       });
+    },
+
+    /**
+     * 打开修改角色弹窗组件
+     */
+    openRoleEditModal(rid) {
+      // 在父组件中通过ref调用子组件的方法
+      let row = new Object();
+      row.rid = rid;
+      row.source = "detailSystemOrRolePage";
+      this.$refs.RoleEditModalPageComponentRef.openRoleEditModal(row);
     }
   },
 

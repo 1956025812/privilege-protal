@@ -212,14 +212,14 @@ export default {
     /**
      * 删除角色
      */
-    openDelRoleSingleModal(roleRid, roleRoleName) {
+    openDelRoleSingleModal(rid, roleName) {
       this.$Modal.confirm({
         title: "删除角色",
-        content: "确认要批量删除菜单[" + roleRoleName + "]么？",
+        content: "确认要批量删除菜单[" + roleName + "]么？",
         onOk: () => {
           let params = new Object();
           params.loginUid = getToken();
-          params.rid = roleRid;
+          params.rid = rid;
           delRoleAPI(params).then(res => {
             if (res.data.code == 1) {
               this.$Notice.success({

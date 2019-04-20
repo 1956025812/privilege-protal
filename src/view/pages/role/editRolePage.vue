@@ -99,7 +99,7 @@ export default {
           } else if (this.node.source == "childrenRoleListTablePage") {
             // 刷新子角色列表
             this.$parent.selectChildrenRoleList(this.node);
-            // 刷新左侧数列表角色节点子节点名称(清空并收起展开即可，下次再次发请求加载, 直接改改不了)
+            // 刷新左侧树列表角色节点子节点名称(清空并收起展开即可，下次再次发请求加载, 直接改改不了)
             this.node.expand = false;
             this.node.children = [];
           }

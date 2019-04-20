@@ -185,10 +185,10 @@ export default {
     /**
      * 删除单条角色
      */
-    openDelRoleSingleModal(row) {
+    openDelRoleSingleModal() {
       this.$Modal.confirm({
         title: "删除角色",
-        content: "确认要批量删除菜单[" + row.roleName + "]么？",
+        content: "确认要删除角色[" + row.roleName + "]么？",
         onOk: () => {
           let params = new Object();
           params.loginUid = getToken();

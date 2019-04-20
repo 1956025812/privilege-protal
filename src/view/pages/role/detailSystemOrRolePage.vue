@@ -220,7 +220,7 @@ export default {
     openDelRoleSingleModal() {
       this.$Modal.confirm({
         title: "删除角色",
-        content: "确认要批量删除菜单[" + this.node.roleName + "]么？",
+        content: "确认要删除角色[" + this.node.title + "]么？",
         onOk: () => {
           let params = new Object();
           params.loginUid = getToken();
@@ -230,13 +230,19 @@ export default {
               this.$Notice.success({
                 desc: res.data.msg
               });
-              // TODO 刷新列表
-              alert("刷新左侧树列表TODO");
-              
 
+              // 关闭右上侧详情展示  
+              this.showDetailType = "";
+
+              // 关闭右下侧子角色列表展示 TODO
+              alert("关闭右下侧子角色列表展示 TODO");
+
+
+              // 刷新左侧树列表(清空并收起展开即可，下次再次发请求加载)
+
+
+              // TODO 刷新子角色列表
               alert("刷新子角色列表TODO");
-              // this.$parent.selectChildrenRoleList(this.node);
-
             } else if (res.data.code == 0) {
               this.$Notice.error({
                 desc: res.data.msg

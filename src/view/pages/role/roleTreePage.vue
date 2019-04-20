@@ -19,6 +19,8 @@ export default {
      * 初始化系统树数据
      */
     initSysSystemTreeData() {
+      this.systemTreeData = [];
+
       let systemParams = new Object();
       systemParams.loginUid = getToken();
       selectSystemListAPI(systemParams).then(res => {

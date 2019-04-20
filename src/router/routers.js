@@ -58,7 +58,8 @@ export default [
     meta: {
       icon: 'logo-buffer',
       title: '系统管理',
-      showAlways: true
+      showAlways: true,
+      notCache: true
     },
     component: Main,
     children: [
@@ -67,7 +68,8 @@ export default [
         path: '/systempage',
         meta: {
           icon: 'md-apps',
-          title: '系统列表'
+          title: '系统列表',
+          notCache: true
         },
         component: () => import('_p/system/systemPage.vue')
       }
@@ -81,7 +83,8 @@ export default [
     meta: {
       icon: 'logo-buffer',
       title: '菜单管理',
-      showAlways: true
+      showAlways: true,
+      notCache: true
     },
     component: Main,
     children: [
@@ -90,7 +93,8 @@ export default [
         path: '/menupage',
         meta: {
           icon: 'md-apps',
-          title: '菜单列表'
+          title: '菜单列表',
+          notCache: true
         },
         component: () => import('_p/menu/menuPage.vue')
       }
@@ -104,7 +108,8 @@ export default [
     meta: {
       icon: 'logo-buffer',
       title: '角色管理',
-      showAlways: true
+      showAlways: true,
+      notCache: true
     },
     component: Main,
     children: [
@@ -113,7 +118,8 @@ export default [
         path: '/rolepage',
         meta: {
           icon: 'md-apps',
-          title: '角色列表'
+          title: '角色列表',
+          notCache: true
         },
         component: () => import('_p/role/rolePage.vue')
       }

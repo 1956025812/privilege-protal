@@ -113,7 +113,7 @@
           <Row>
             <FormItem>
               <Button type="primary">菜单权限</Button>
-              <Button type="primary" style="margin-left: 8px" @click="openRoleEditModal(roleRid)">修改</Button>
+              <Button type="primary" style="margin-left: 8px" @click="openRoleEditModal()">修改</Button>
               <Button type="primary" style="margin-left: 8px" @click="openDelRoleSingleModal()">删除</Button>
             </FormItem>
           </Row>

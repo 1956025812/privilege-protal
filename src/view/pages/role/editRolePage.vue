@@ -90,11 +90,7 @@ export default {
       params.description = this.description;
 
       editRoleAPI(params).then(res => {
-        if (res.data.code == 1) {
-          this.$Notice.success({
-            desc: res.data.msg
-          });
-
+        if (res.data.code == 1) { 
           if (this.node.source == "detailSystemOrRolePage") {
             // 刷新左侧树列表角色节点名称
             this.node.title = this.roleName;
@@ -106,6 +102,10 @@ export default {
             // 刷新左侧书列表角色节点子节点名称
             alert("刷新左侧书列表角色节点子节点名称TODO");
           }
+
+          this.$Notice.success({
+            desc: res.data.msg
+          });
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg

@@ -23,7 +23,7 @@
 
 <script>
 import { getToken } from "@/libs/util";
-import { selectRolePageAPI } from "@/api/role/role";
+import { selectRolePageAPI, delRoleAPI } from "@/api/role/role";
 import RoleDetailModalPageComponent from "_p/role/detailRolePage";
 import RoleEditModalPageComponent from "_p/role/editRolePage";
 
@@ -135,7 +135,9 @@ export default {
                     size: "small"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.openDelRoleSingleModal(params.row);
+                    }
                   }
                 },
                 "删除"
@@ -171,6 +173,36 @@ export default {
         } else if (res.data.code == 0) {
           this.$Notice.error({
             desc: res.data.msg
+          });
+        }
+      });
+    },
+
+    /**
+     * 删除单条角色
+     */
+    openDelRoleSingleModal(row) {
+      this.$Modal.confirm({
+        title: "删除角色",
+        content: "确认要批量删除菜单[" + row.roleName + "]么？",
+        onOk: () => {
+          let params = new Object();
+          params.loginUid = getToken();
+          params.rid = row.rid;
+          delRoleAPI(params).then(res => {
+            if (res.data.code == 1) {
+              this.$Notice.success({
+                desc: res.data.msg
+              });
+              // TODO 刷新列表
+              alert("刷新子角色列表TODO");
+
+              alert("刷新左侧树列表TODO");
+            } else if (res.data.code == 0) {
+              this.$Notice.error({
+                desc: res.data.msg
+              });
+            }
           });
         }
       });

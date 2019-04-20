@@ -49,3 +49,16 @@ export const editRoleAPI = (params) => {
     });
 }
 
+
+
+/**
+ * @description 删除角色
+ */
+export const delRoleAPI = (params) => {
+    return axios.request({
+        url: '/role/del',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}

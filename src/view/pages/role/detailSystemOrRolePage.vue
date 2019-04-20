@@ -114,7 +114,11 @@
             <FormItem>
               <Button type="primary">菜单权限</Button>
               <Button type="primary" style="margin-left: 8px">修改</Button>
-              <Button type="primary" style="margin-left: 8px">删除</Button>
+              <Button
+                type="primary"
+                style="margin-left: 8px"
+                @click="openDelRoleSingleModal(roleRid, roleRoleName)"
+              >删除</Button>
             </FormItem>
           </Row>
         </Form>
@@ -128,7 +132,7 @@
 <script>
 import { getToken } from "@/libs/util";
 import { selectSystemDetailAPI } from "@/api/system/system";
-import { selectRoleDetailAPI } from "@/api/role/role";
+import { selectRoleDetailAPI, delRoleAPI } from "@/api/role/role";
 
 export default {
   name: "DetailSystemOrRolePageComponent",
@@ -142,6 +146,7 @@ export default {
       systemUpdateName: "",
       systemUpdateTime: "",
       systemDescription: "",
+      roleRid: "",
       roleRoleName: "",
       roleSystemName: "",
       parentRoleName: "",
@@ -180,6 +185,8 @@ export default {
           }
         });
       } else if (node.type == "role") {
+        this.roleRid = node.rid;
+
         let params = new Object();
         params.loginUid = getToken();
         params.rid = node.rid;
@@ -200,6 +207,36 @@ export default {
           }
         });
       }
+    },
+
+    /**
+     * 删除角色
+     */
+    openDelRoleSingleModal(roleRid, roleRoleName) {
+      this.$Modal.confirm({
+        title: "删除角色",
+        content: "确认要批量删除菜单[" + roleRoleName + "]么？",
+        onOk: () => {
+          let params = new Object();
+          params.loginUid = getToken();
+          params.rid = roleRid;
+          delRoleAPI(params).then(res => {
+            if (res.data.code == 1) {
+              this.$Notice.success({
+                desc: res.data.msg
+              });
+              // TODO 刷新列表
+              alert("刷新子角色列表TODO");
+
+              alert("刷新左侧树列表TODO");
+            } else if (res.data.code == 0) {
+              this.$Notice.error({
+                desc: res.data.msg
+              });
+            }
+          });
+        }
+      });
     }
   },
 

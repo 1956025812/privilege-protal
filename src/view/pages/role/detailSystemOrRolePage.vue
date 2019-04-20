@@ -231,9 +231,12 @@ export default {
                 desc: res.data.msg
               });
               // TODO 刷新列表
-              alert("刷新子角色列表TODO");
-
               alert("刷新左侧树列表TODO");
+              
+
+              alert("刷新子角色列表TODO");
+              // this.$parent.selectChildrenRoleList(this.node);
+
             } else if (res.data.code == 0) {
               this.$Notice.error({
                 desc: res.data.msg

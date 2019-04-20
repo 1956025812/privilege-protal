@@ -212,12 +212,11 @@ export default {
       });
     },
 
-
     /**
      * 打开新增子角色Modal弹窗
      */
     openAddRoleModal() {
-      alert("新增角色TODO" + JSON.stringify(this.node)); 
+      alert("新增角色TODO" + JSON.stringify(this.node));
     }
   },
 

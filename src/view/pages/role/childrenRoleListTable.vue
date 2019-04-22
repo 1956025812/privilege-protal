@@ -32,10 +32,10 @@ export default {
   components: {
     RoleDetailModalPageComponent,
     RoleEditModalPageComponent
-  },
+  }, 
   data() {
     return {
-      show: false,
+      show: false,  
       node: Object,
       columns: [
         {

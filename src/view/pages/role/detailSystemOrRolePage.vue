@@ -231,17 +231,17 @@ export default {
                 desc: res.data.msg
               });
 
-              // 关闭右上侧详情展示
-              this.showDetailType = "";
-
-              // 关闭右下侧子角色列表展示 TODO
-              alert("关闭右下侧子角色列表展示 TODO");
-
               // 刷新左侧树列表(清空并收起展开即可，下次再次发请求加载)
               alert("刷新左侧树列表 TODO");
 
-              // TODO 刷新子角色列表
-              alert("刷新子角色列表TODO");
+              // 关闭右上侧详情展示
+              this.showDetailType = "";
+
+              // 关闭右下侧子角色列表展示 TODO  方法不好 上面的为啥不管用
+              // this.$parent.$refs.ChildrenRoleListTableComponentRef.show = false;
+              for (let i = 0; i < this.$parent.$children.length; i++) {
+                this.$parent.$children[i].show = false;
+              }
             } else if (res.data.code == 0) {
               this.$Notice.error({
                 desc: res.data.msg

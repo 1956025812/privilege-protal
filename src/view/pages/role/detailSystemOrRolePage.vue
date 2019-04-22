@@ -231,12 +231,11 @@ export default {
                 desc: res.data.msg
               });
 
-              // 关闭右上侧详情展示  
+              // 关闭右上侧详情展示
               this.showDetailType = "";
 
               // 关闭右下侧子角色列表展示 TODO
               alert("关闭右下侧子角色列表展示 TODO");
-
 
               // 刷新左侧树列表(清空并收起展开即可，下次再次发请求加载)
               alert("刷新左侧树列表 TODO");

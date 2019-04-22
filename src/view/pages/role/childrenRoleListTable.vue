@@ -139,7 +139,10 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.openDelRoleSingleModal(params.row);
+                      // 在父组件中通过ref调用子组件的方法
+                      this.node.source = "childrenRoleListTablePage";
+                      this.node.row = params.row;
+                      this.openDelRoleSingleModal(this.node);
                     }
                   }
                 },
@@ -188,20 +191,25 @@ export default {
     openDelRoleSingleModal() {
       this.$Modal.confirm({
         title: "删除角色",
-        content: "确认要删除角色[" + row.roleName + "]么？",
+        content: "确认要删除角色[" + this.node.row.roleName + "]么？",
         onOk: () => {
           let params = new Object();
           params.loginUid = getToken();
-          params.rid = row.rid;
+          params.rid = this.node.row.rid;
           delRoleAPI(params).then(res => {
             if (res.data.code == 1) {
               this.$Notice.success({
                 desc: res.data.msg
               });
-              // TODO 刷新列表
-              alert("刷新子角色列表TODO");
 
-              alert("刷新左侧树列表TODO");
+              // 刷新左侧树列表角色节点子节点名称(清空并收起展开即可，下次再次发请求加载, 直接改改不了)
+              this.node.expand = false;
+              this.node.children = [];
+
+              // 刷新右下侧子角色列表
+              this.$options.methods.selectChildrenRoleList.bind(this)(
+                this.node
+              );
             } else if (res.data.code == 0) {
               this.$Notice.error({
                 desc: res.data.msg

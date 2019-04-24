@@ -231,13 +231,13 @@ export default {
                 desc: res.data.msg
               });
 
-              // 刷新左侧树列表(清空并收起展开即可，下次再次发请求加载)
-              alert("刷新左侧树列表 TODO");
+              // 调用全局事件来刷新左侧角色树列表
+              this.bus.$emit("initSysSystemTreeDataEvent");
 
               // 关闭右上侧详情展示
               this.showDetailType = "";
 
-              // 通过全局事件定义事件来将右下侧子角色列表展示关闭
+              // 调用全局事件来将右下侧子角色列表组件展示关闭
               this.bus.$emit("hideChildrenRoleListTableComponentEvent");
             } else if (res.data.code == 0) {
               this.$Notice.error({

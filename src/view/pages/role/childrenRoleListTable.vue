@@ -229,7 +229,7 @@ export default {
   },
 
   created() {
-    // 监听全局组件事件hideChildrenRoleListTableComponentEvent  隐藏右下侧子角色列表组件
+    // 监听全局事件hideChildrenRoleListTableComponentEvent  隐藏右下侧子角色列表组件
     let _this = this;
     this.bus.$on("hideChildrenRoleListTableComponentEvent", function(data) {
       _this.show = false;

@@ -104,6 +104,12 @@ export default {
   created() {
     // 初始化左侧系统树数据
     this.$options.methods.initSysSystemTreeData.bind(this)();
+
+    // 监听全局事件initSysSystemTreeDataEvent  刷新左侧角色树列表
+    let _this = this;
+    this.bus.$on("initSysSystemTreeDataEvent", function(data) {
+      _this.$options.methods.initSysSystemTreeData.bind(_this)();
+    });
   }
 };
 </script>

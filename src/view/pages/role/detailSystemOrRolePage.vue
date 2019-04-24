@@ -237,11 +237,8 @@ export default {
               // 关闭右上侧详情展示
               this.showDetailType = "";
 
-              // 关闭右下侧子角色列表展示 TODO  方法不好 上面的为啥不管用
-              // this.$parent.$refs.ChildrenRoleListTableComponentRef.show = false;
-              for (let i = 0; i < this.$parent.$children.length; i++) {
-                this.$parent.$children[i].show = false;
-              }
+              // 通过全局事件定义事件来将右下侧子角色列表展示关闭
+              this.bus.$emit("hideChildrenRoleListTableComponentEvent");
             } else if (res.data.code == 0) {
               this.$Notice.error({
                 desc: res.data.msg

@@ -50,3 +50,11 @@ new Vue({
   store,
   render: h => h(App)
 })
+
+
+// 实现全局事件总线BUG对象
+Vue.prototype.bus = new Vue()
+
+
+
+

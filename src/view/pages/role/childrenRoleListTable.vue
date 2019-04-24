@@ -32,10 +32,10 @@ export default {
   components: {
     RoleDetailModalPageComponent,
     RoleEditModalPageComponent
-  }, 
+  },
   data() {
     return {
-      show: false,  
+      show: false,
       node: Object,
       columns: [
         {
@@ -228,7 +228,13 @@ export default {
     }
   },
 
-  created() {}
+  created() {
+    // 监听全局组件事件hideChildrenRoleListTableComponentEvent  隐藏右下侧子角色列表组件
+    let _this = this;
+    this.bus.$on("hideChildrenRoleListTableComponentEvent", function(data) {
+      _this.show = false;
+    });
+  }
 };
 </script>
 

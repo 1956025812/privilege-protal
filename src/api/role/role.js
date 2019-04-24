@@ -36,6 +36,19 @@ export const selectRoleDetailAPI = (params) => {
 }
 
 
+/**
+ * @description 新增角色
+ */
+export const saveRoleAPI = (params) => {
+    return axios.request({
+        url: '/role/save',
+        method: 'post',
+        data: JSON.stringify(params),
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+
 
 /**
  * @description 修改角色

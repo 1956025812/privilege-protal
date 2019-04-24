@@ -14,7 +14,9 @@
 
     <!-- 角色详情弹窗组件 -->
     <RoleDetailModalPageComponent ref="RoleDetailModalPageComponentRef" style="display: none"></RoleDetailModalPageComponent>
-    <!-- 修改角色详情弹窗组件 -->
+    <!-- 新增角色弹窗组件-->
+    <RoleAddModalPageComponent ref="RoleAddModalPageComponentRef" style="display: none"></RoleAddModalPageComponent>
+    <!-- 修改角色弹窗组件 -->
     <RoleEditModalPageComponent ref="RoleEditModalPageComponentRef" style="display: none"></RoleEditModalPageComponent>
   </div>
 </template>
@@ -25,12 +27,14 @@
 import { getToken } from "@/libs/util";
 import { selectRolePageAPI, delRoleAPI } from "@/api/role/role";
 import RoleDetailModalPageComponent from "_p/role/detailRolePage";
+import RoleAddModalPageComponent from "_p/role/addRolePage";
 import RoleEditModalPageComponent from "_p/role/editRolePage";
 
 export default {
   name: "ChildrenRoleListTableComponent",
   components: {
     RoleDetailModalPageComponent,
+    RoleAddModalPageComponent,
     RoleEditModalPageComponent
   },
   data() {
@@ -224,7 +228,9 @@ export default {
      * 打开新增子角色Modal弹窗
      */
     openAddRoleModal() {
-      alert("新增角色TODO" + JSON.stringify(this.node));
+      this.$refs.RoleAddModalPageComponentRef.openRoleAddModal.bind(this)(
+        this.node
+      );
     }
   },
 

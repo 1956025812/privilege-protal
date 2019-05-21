@@ -14,7 +14,7 @@
         <div>
           <DetailSystemOrMenuPageComponent ref="DetailSystemOrMenuPageComponentRef"></DetailSystemOrMenuPageComponent>
         </div>
-          
+
         <br>
 
         <!-- 右下: 子菜单列表组件  -->

@@ -62,6 +62,11 @@
                 <Input readonly v-model="menuMenuName"/>
               </FormItem>
             </Col>
+             <Col span="10" style="float: right">
+              <FormItem label="类型">
+                <Input readonly v-model="menuTypeName"/>
+              </FormItem>
+            </Col>
           </Row>
           <Row>
             <Col span="10" style="float: left">
@@ -145,6 +150,7 @@ export default {
       systemDescription: "",
       menuMid: "",
       menuMenuName: "",
+      menuTypeName: "",
       menuSystemName: "",
       parentMenuName: "",
       menuCreateName: "",
@@ -191,6 +197,7 @@ export default {
         selectSysMenuDetailAPI(params).then(res => {
           if (res.data.code == 1) {
             this.menuMenuName = res.data.data.menuName;
+            this.menuTypeName = res.data.data.menuTypeName; 
             this.menuSystemName = res.data.data.systemName;
             this.parentMenuName = res.data.data.parentMenuName;
             this.menuCreateName = res.data.data.createName;

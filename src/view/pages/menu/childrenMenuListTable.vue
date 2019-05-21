@@ -2,7 +2,7 @@
   <div>
     <div v-if="show">
       <Card>
-        <p slot="title">子菜单列表</p>
+        <p slot="title">子菜单或按钮列表</p>
         <Button slot="extra" type="primary" @click="openAddMenuModal()">新增</Button>
 
         <!-- 子菜单列表 -->
@@ -11,6 +11,9 @@
         </div>
       </Card>
     </div>
+
+    <!-- 菜单详情弹窗组件 -->
+    <MenuDetailModalPageComponent ref="MenuDetailModalPageComponentRef" style="display: none"></MenuDetailModalPageComponent>
   </div>
 </template>
 
@@ -19,10 +22,13 @@
 <script>
 import { getToken } from "@/libs/util";
 import { selectSysMenuPageAPI, delMenuAPI } from "@/api/menu/menu";
+import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
 
 export default {
   name: "ChildrenMenuListTableComponent",
-  components: {},
+  components: {
+    MenuDetailModalPageComponent
+  },
   data() {
     return {
       show: false,
@@ -71,7 +77,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.$refs.MenuDetailModalPageComponentRef.openMenuDetailModal(
+                        params.row.mid
+                      );
+                    }
                   }
                 },
                 "详情"

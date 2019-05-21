@@ -1,5 +1,18 @@
 import axios from '@/libs/api.request'
 
+
+/**
+ * @description 查询菜单分页列表
+ */
+export const selectSysMenuPageAPI = (params) => {
+    return axios.request({
+        url: '/menu/page',
+        method: 'get',
+        params: params
+    });
+}
+
+
 /**
  * @description 查询菜单列表
  */

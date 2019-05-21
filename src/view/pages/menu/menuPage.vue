@@ -14,11 +14,13 @@
         <div>
           <DetailSystemOrMenuPageComponent ref="DetailSystemOrMenuPageComponentRef"></DetailSystemOrMenuPageComponent>
         </div>
-
+          
         <br>
 
         <!-- 右下: 子菜单列表组件  -->
-        <div>右下: 子菜单列表组件</div>
+        <div>
+          <ChildrenMenuListTableComponent ref="ChildrenMenuListTableComponentRef"></ChildrenMenuListTableComponent>
+        </div>
       </div>
     </Split>
   </div>
@@ -29,9 +31,14 @@
 <script>
 import MenuTreePageComponent from "_p/menu/menuTreePage";
 import DetailSystemOrMenuPageComponent from "_p/menu/detailSystemOrMenuPage";
+import ChildrenMenuListTableComponent from "_p/menu/childrenMenuListTable";
 
 export default {
-  components: { MenuTreePageComponent, DetailSystemOrMenuPageComponent },
+  components: {
+    MenuTreePageComponent,
+    DetailSystemOrMenuPageComponent,
+    ChildrenMenuListTableComponent
+  },
   data() {
     return {
       leftRightSplit: 0.2
@@ -63,8 +70,7 @@ export default {
      * 查询右下侧子菜单列表
      */
     selectChildrenMenuList(node) {
-      // alert("查询右下侧子菜单列表");  
-      // this.$refs.ChildrenRoleListTableComponentRef.selectChildrenMenuList(node);
+      this.$refs.ChildrenMenuListTableComponentRef.selectChildrenMenuList(node);
     }
   }
 };

@@ -62,7 +62,7 @@
                 <Input readonly v-model="menuMenuName"/>
               </FormItem>
             </Col>
-             <Col span="10" style="float: right">
+            <Col span="10" style="float: right">
               <FormItem label="类型">
                 <Input readonly v-model="menuTypeName"/>
               </FormItem>
@@ -197,7 +197,7 @@ export default {
         selectSysMenuDetailAPI(params).then(res => {
           if (res.data.code == 1) {
             this.menuMenuName = res.data.data.menuName;
-            this.menuTypeName = res.data.data.menuTypeName; 
+            this.menuTypeName = res.data.data.menuTypeName;
             this.menuSystemName = res.data.data.systemName;
             this.parentMenuName = res.data.data.parentMenuName;
             this.menuCreateName = res.data.data.createName;
@@ -236,6 +236,9 @@ export default {
 
               // 关闭右上侧详情展示
               this.showDetailType = "";
+
+              // 调用全局事件来将右下侧子菜单列表组件展示关闭
+              this.bus.$emit("hideChildrenMenuListTableComponentEvent");
             } else if (res.data.code == 0) {
               this.$Notice.error({
                 desc: res.data.msg

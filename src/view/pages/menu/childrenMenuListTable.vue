@@ -111,7 +111,12 @@ export default {
                     size: "small"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.node.source = "childrenMenuListTablePage";
+                      this.node.row = params.row;
+                      this.openDelMenuSingleModal(this.node);
+                    }
                   }
                 },
                 "删除"
@@ -159,11 +164,11 @@ export default {
     openDelMenuSingleModal() {
       this.$Modal.confirm({
         title: "删除菜单",
-        content: "确认要删除菜单[" + this.node.row.MenuName + "]么？",
+        content: "确认要删除菜单[" + this.node.row.menuName + "]么？",
         onOk: () => {
           let params = new Object();
           params.loginUid = getToken();
-          params.rid = this.node.row.rid;
+          params.mid = this.node.row.mid;
           delMenuAPI(params).then(res => {
             if (res.data.code == 1) {
               this.$Notice.success({
@@ -196,7 +201,13 @@ export default {
     }
   },
 
-  created() {}
+  created() {
+    // 监听全局事件hideChildrenMenuListTableComponentEvent  隐藏右下侧子菜单列表组件
+    let _this = this;
+    this.bus.$on("hideChildrenMenuListTableComponentEvent", function(data) {
+      _this.show = false;
+    });
+  }
 };
 </script>
 

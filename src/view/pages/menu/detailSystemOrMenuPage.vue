@@ -124,6 +124,9 @@
         </Form>
       </Card>
     </div>
+
+    <!-- 修改菜单详情弹窗组件 -->
+    <MenuEditModalPageComponent ref="MenuEditModalPageComponentRef" style="display: none"></MenuEditModalPageComponent>
   </div>
 </template>
 
@@ -133,10 +136,13 @@
 import { getToken } from "@/libs/util";
 import { selectSystemDetailAPI } from "@/api/system/system";
 import { selectSysMenuDetailAPI, delMenuAPI } from "@/api/menu/menu";
+import MenuEditModalPageComponent from "_p/menu/editMenuPage";
 
 export default {
   name: "DetailSystemOrMenuPageComponent",
-  components: {},
+  components: {
+    MenuEditModalPageComponent
+  },
   data() {
     return {
       showDetailType: "",
@@ -252,7 +258,11 @@ export default {
     /**
      * 打开修改菜单弹窗组件
      */
-    openMenuEditModal() {}
+    openMenuEditModal() {
+      // 在父组件中通过ref调用子组件的方法
+      this.node.source = "detailSystemOrMenuPage";
+      this.$refs.MenuEditModalPageComponentRef.openMenuEditModal(this.node);
+    }
   },
 
   created() {}

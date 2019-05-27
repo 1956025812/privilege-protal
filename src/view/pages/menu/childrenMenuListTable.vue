@@ -14,6 +14,8 @@
 
     <!-- 菜单详情弹窗组件 -->
     <MenuDetailModalPageComponent ref="MenuDetailModalPageComponentRef" style="display: none"></MenuDetailModalPageComponent>
+    <!-- 修改菜单弹窗组件 -->
+    <MenuEditModalPageComponent ref="MenuEditModalPageComponentRef" style="display: none"></MenuEditModalPageComponent>
   </div>
 </template>
 
@@ -23,11 +25,13 @@
 import { getToken } from "@/libs/util";
 import { selectSysMenuPageAPI, delMenuAPI } from "@/api/menu/menu";
 import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
+import MenuEditModalPageComponent from "_p/menu/editMenuPage";
 
 export default {
   name: "ChildrenMenuListTableComponent",
   components: {
-    MenuDetailModalPageComponent
+    MenuDetailModalPageComponent,
+    MenuEditModalPageComponent
   },
   data() {
     return {
@@ -98,7 +102,14 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      // 在父组件中通过ref调用子组件的方法
+                      this.node.source = "childrenMenuListTablePage";
+                      this.node.row = params.row;
+                      this.$refs.MenuEditModalPageComponentRef.openMenuEditModal(
+                        this.node
+                      );
+                    }
                   }
                 },
                 "修改"

@@ -53,8 +53,8 @@ export default {
     openMenuAddModal(node) {
       this.menuAddModal = true;
       this.node = node;
-      this.menuName = "",
-      this.description = ""
+      this.menuName = "";
+      this.description = "";
     },
 
     /**

@@ -14,6 +14,8 @@
 
     <!-- 菜单详情弹窗组件 -->
     <MenuDetailModalPageComponent ref="MenuDetailModalPageComponentRef" style="display: none"></MenuDetailModalPageComponent>
+    <!-- 新增菜单弹窗组件-->
+    <MenuAddModalPageComponent ref="MenuAddModalPageComponentRef" style="display: none"></MenuAddModalPageComponent>
     <!-- 修改菜单弹窗组件 -->
     <MenuEditModalPageComponent ref="MenuEditModalPageComponentRef" style="display: none"></MenuEditModalPageComponent>
   </div>
@@ -25,12 +27,14 @@
 import { getToken } from "@/libs/util";
 import { selectSysMenuPageAPI, delMenuAPI } from "@/api/menu/menu";
 import MenuDetailModalPageComponent from "_p/menu/detailMenuPage";
+import MenuAddModalPageComponent from "_p/menu/addMenuPage";
 import MenuEditModalPageComponent from "_p/menu/editMenuPage";
 
 export default {
   name: "ChildrenMenuListTableComponent",
   components: {
     MenuDetailModalPageComponent,
+    MenuAddModalPageComponent,
     MenuEditModalPageComponent
   },
   data() {
@@ -208,7 +212,9 @@ export default {
      * 打开新增子菜单Modal弹窗
      */
     openAddMenuModal() {
-      alert("新增子菜单");
+      this.$refs.MenuAddModalPageComponentRef.openMenuAddModal.bind(this)(
+        this.node
+      );
     }
   },
 

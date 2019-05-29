@@ -18,6 +18,11 @@
     <RoleAddModalPageComponent ref="RoleAddModalPageComponentRef" style="display: none"></RoleAddModalPageComponent>
     <!-- 修改角色弹窗组件 -->
     <RoleEditModalPageComponent ref="RoleEditModalPageComponentRef" style="display: none"></RoleEditModalPageComponent>
+    <!-- 分配权限弹窗组件 -->
+    <DistributePrivilegePageComponent
+      ref="DistributePrivilegePageComponentRef"
+      style="display: none"
+    ></DistributePrivilegePageComponent>
   </div>
 </template>
 
@@ -29,13 +34,15 @@ import { selectRolePageAPI, delRoleAPI } from "@/api/role/role";
 import RoleDetailModalPageComponent from "_p/role/detailRolePage";
 import RoleAddModalPageComponent from "_p/role/addRolePage";
 import RoleEditModalPageComponent from "_p/role/editRolePage";
+import DistributePrivilegePageComponent from "_p/role/distributePrivilegePage";
 
 export default {
   name: "ChildrenRoleListTableComponent",
   components: {
     RoleDetailModalPageComponent,
     RoleAddModalPageComponent,
-    RoleEditModalPageComponent
+    RoleEditModalPageComponent,
+    DistributePrivilegePageComponent
   },
   data() {
     return {
@@ -129,7 +136,12 @@ export default {
                     marginRight: "5px"
                   },
                   on: {
-                    click: () => {}
+                    click: () => {
+                      this.node.row = params.row;
+                      this.$refs.DistributePrivilegePageComponentRef.openDistributePrivilegeModal(
+                        this.node
+                      );
+                    }
                   }
                 },
                 "分配权限"
